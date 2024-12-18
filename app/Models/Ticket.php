@@ -23,6 +23,10 @@ class Ticket extends \Coderflex\LaravelTicket\Models\Ticket implements HasMedia
         'assigned_to'
     ];
 
+    protected $casts = [
+        'is_resolved' => 'boolean',
+    ];
+
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Services\Actions\Ticket\GetList;
 use Coderflex\LaravelTicket\Enums\Priority;
 use Coderflex\LaravelTicket\Models\Category;
 use Coderflex\LaravelTicket\Models\Label;
@@ -13,11 +14,11 @@ class TicketController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::with(['user', 'categories', 'labels'])
-            ->latest()
-            ->paginate(10);
+        $tickets = GetList::handle();
+        $categories = Category::all();
+        $labels = Label::all();
 
-        return view('tickets.index', compact('tickets'));
+        return view('tickets.index', compact('tickets', 'categories', 'labels'));
     }
 
     public function create()
