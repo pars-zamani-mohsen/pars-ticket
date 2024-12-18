@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="add git ignore">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TicketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TicketController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Ticket.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Ticket.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tickets/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tickets/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/debugbar/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/debugbar/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,12 +158,16 @@
       <path value="$PROJECT_DIR$/vendor/spatie/temporary-directory" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-query-builder" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2qFQjmnLkcpQzIf0unElIUezrwd" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -165,8 +176,8 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.laravel-idea.search-composer-json": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/var/www/html/pars-ticket"
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "/var/www/html/pars-ticket/app/Services/Actions/Ticket"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -213,7 +224,7 @@
       <workItem from="1734416306088" duration="199000" />
       <workItem from="1734431058409" duration="11097000" />
       <workItem from="1734497580892" duration="10873000" />
-      <workItem from="1734512327926" duration="53000" />
+      <workItem from="1734512327926" duration="1927000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -223,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734511690898</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add git ignore">
+      <option name="closed" value="true" />
+      <created>1734512524321</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1734512524321</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
