@@ -34,10 +34,9 @@ class GetList
                 'title'
             ])
             ->with(['user', 'categories', 'labels'])
-            ->latest()
-            ->paginate()
-            ->withQueryString();
+            ->latest();
 
-        return $query;
+        return $query->paginate()
+            ->withQueryString();
     }
 }
