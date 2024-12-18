@@ -1,0 +1,65 @@
+name:
+    ptlocal
+services:
+    app_pars_ticket:
+        build:
+            context: ../
+            dockerfile: docker/Dockerfile
+        container_name: app_pars_ticket
+        restart: unless-stopped
+        working_dir: /var/www/html
+        expose:
+            - "9000"
+        volumes:
+            - ../:/var/www/html
+        networks:
+            - network_pars_ticket
+
+    webserver_pars_ticket:
+        image: nginx:alpine
+        container_name: webserver_pars_ticket
+        restart: unless-stopped
+        ports:
+            - "8088:80"
+        volumes:
+            - ../:/var/www/html
+            - ./nginx/conf.d:/etc/nginx/conf.d
+        depends_on:
+            - app_pars_ticket
+        networks:
+            - network_pars_ticket
+
+    mysql_pars_ticket:
+        image: mysql:8.0
+        container_name: mysql_pars_ticket
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "3308:3306"
+        volumes:
+            - dbdata_pars_ticket:/var/lib/mysql
+        networks:
+            - network_pars_ticket
+
+    redis_pars_ticket:
+        image: redis:alpine
+        container_name: redis_pars_ticket
+        restart: unless-stopped
+        ports:
+            - "6388:6379"
+        volumes:
+            - redis_data_pars_ticket:/data
+        networks:
+            - network_pars_ticket
+
+networks:
+    network_pars_ticket:
+        driver: bridge
+
+volumes:
+    dbdata_pars_ticket:
+    redis_data_pars_ticket:
