@@ -15,6 +15,7 @@ class User extends Authenticatable implements CanUseTickets
     protected $fillable = [
         'name',
         'email',
+        'mobile',
         'password',
     ];
 
@@ -27,4 +28,23 @@ class User extends Authenticatable implements CanUseTickets
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function loginType($input)
+    {
+        if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
+            return 'email';
+        }
+
+        $input = preg_replace('/[^0-9]/', '', $input);
+
+        if (substr($input, 0, 1) === '0') {
+            $input = substr($input, 1);
+        }
+
+        if (substr($input, 0, 2) === '98') {
+            $input = substr($input, 2);
+        }
+
+        return 'mobile';
+    }
 }
