@@ -15,6 +15,8 @@ class User extends Authenticatable implements CanUseTickets
 {
     use HasApiTokens, HasFactory, Notifiable, HasTickets, HasRoles, LogsActivity;
 
+    /** add log to user with spatie */
+
     protected $fillable = [
         'name',
         'email',

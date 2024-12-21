@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 //            TicketTablesSeeder::class,
 //            RolesAndPermissionsSeeder::class,
             OperatorRoleSeeder::class,
+            /** TODO: create system user by super admin role */
         ]);
     }
 }

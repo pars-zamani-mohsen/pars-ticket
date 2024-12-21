@@ -83,6 +83,7 @@
                                     </div>
 
                                     <!-- نمایش فایل‌های پیوست هر پیام -->
+                                    {{-- TODO: remove file by operator with permission --}}
                                     @if($message->getMedia('message-attachments')->count() > 0)
                                         <div class="mt-4">
                                             <div class="text-sm font-medium text-gray-900 mb-2">فایل‌های پیوست:</div>
