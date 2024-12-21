@@ -15,162 +15,163 @@
 
     <div x-data="usersIndex" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <!-- فیلترها -->
-                    <div class="mb-6 bg-white rounded-lg shadow p-4">
-                        <form @submit.prevent="applyFilters" class="space-y-4">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <!-- جستجو -->
-                                <div class="md:col-span-1">
-                                    <label for="search" class="block text-sm font-medium text-gray-700">جستجو</label>
-                                    <input type="text"
-                                           id="search"
-                                           x-model="filters.search"
-                                           class="mt-1 block w-full rounded-md border-gray-300"
-                                           placeholder="جستجو در نام، ایمیل یا موبایل...">
-                                </div>
-
-                                <!-- تاریخ از -->
-                                <div>
-                                    <label for="from_date" class="block text-sm font-medium text-gray-700">از تاریخ</label>
-                                    <input type="text"
-                                           id="from_date"
-                                           x-model="filters.from_date"
-                                           class="pdate mt-1 block w-full rounded-md border-gray-300"
-                                           readonly>
-                                </div>
-
-                                <!-- تاریخ تا -->
-                                <div>
-                                    <label for="to_date" class="block text-sm font-medium text-gray-700">تا تاریخ</label>
-                                    <input type="text"
-                                           id="to_date"
-                                           x-model="filters.to_date"
-                                           class="pdate mt-1 block w-full rounded-md border-gray-300"
-                                           readonly>
-                                </div>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <form @submit.prevent="applyFilters" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- جستجو -->
+                            <div class="md:col-span-1">
+                                <label for="search" class="block text-sm font-medium text-gray-700">جستجو</label>
+                                <input type="text"
+                                       id="search"
+                                       x-model="filters.search"
+                                       class="mt-1 block w-full rounded-md border-gray-300"
+                                       placeholder="جستجو در نام، ایمیل یا موبایل...">
                             </div>
 
-                            <!-- دکمه‌های اکشن -->
-                            <div class="flex justify-between items-center">
-                                <div class="flex space-x-2 space-x-reverse">
-                                    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-                                        اعمال فیلتر
-                                    </button>
-                                    <button type="button" @click="resetFilters" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
-                                        پاک کردن
-                                    </button>
-                                </div>
+                            <!-- تاریخ از -->
+                            <div>
+                                <label for="from_date" class="block text-sm font-medium text-gray-700">از تاریخ</label>
+                                <input type="text"
+                                       id="from_date"
+                                       x-model="filters.from_date"
+                                       class="pdate mt-1 block w-full rounded-md border-gray-300"
+                                       readonly>
+                            </div>
 
+                            <!-- تاریخ تا -->
+                            <div>
+                                <label for="to_date" class="block text-sm font-medium text-gray-700">تا تاریخ</label>
+                                <input type="text"
+                                       id="to_date"
+                                       x-model="filters.to_date"
+                                       class="pdate mt-1 block w-full rounded-md border-gray-300"
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <!-- دکمه‌های اکشن -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-2 space-x-reverse">
+                                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+                                    اعمال فیلتر
+                                </button>
+                                <button type="button" @click="resetFilters" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
+                                    پاک کردن
+                                </button>
+                            </div>
+
+                            @can('create users')
                                 <a href="{{ route('admin.users.create') }}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
                                     کاربر جدید
                                 </a>
-                            </div>
-                        </form>
-                    </div>
+                            @endcan
+                        </div>
+                    </form>
+                </div>
+            </div>
 
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
                     <!-- جدول -->
-                    <div class="overflow-x-auto bg-white rounded-lg shadow">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'name' ? '-name' : 'name']) }}"
+                                   class="flex items-center justify-start hover:text-gray-900">
+                                    <span>نام</span>
+                                    @if(request()->get('sort') === 'name')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    @elseif(request()->get('sort') === '-name')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                        </svg>
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'email' ? '-email' : 'email']) }}"
+                                   class="flex items-center justify-start hover:text-gray-900">
+                                    <span>ایمیل</span>
+                                    @if(request()->get('sort') === 'email')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    @elseif(request()->get('sort') === '-email')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                        </svg>
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                موبایل
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'created_at' ? '-created_at' : 'created_at']) }}"
+                                   class="flex items-center justify-start hover:text-gray-900">
+                                    <span>تاریخ ثبت‌نام</span>
+                                    @if(request()->get('sort') === 'created_at')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    @elseif(request()->get('sort') === '-created_at')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                        </svg>
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                عملیات
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                        @forelse($users as $user)
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'name' ? '-name' : 'name']) }}"
-                                       class="flex items-center justify-start hover:text-gray-900">
-                                        <span>نام</span>
-                                        @if(request()->get('sort') === 'name')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                            </svg>
-                                        @elseif(request()->get('sort') === '-name')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                            </svg>
-                                        @endif
-                                    </a>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'email' ? '-email' : 'email']) }}"
-                                       class="flex items-center justify-start hover:text-gray-900">
-                                        <span>ایمیل</span>
-                                        @if(request()->get('sort') === 'email')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                            </svg>
-                                        @elseif(request()->get('sort') === '-email')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                            </svg>
-                                        @endif
-                                    </a>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    موبایل
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'created_at' ? '-created_at' : 'created_at']) }}"
-                                       class="flex items-center justify-start hover:text-gray-900">
-                                        <span>تاریخ ثبت‌نام</span>
-                                        @if(request()->get('sort') === 'created_at')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                            </svg>
-                                        @elseif(request()->get('sort') === '-created_at')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                            </svg>
-                                        @endif
-                                    </a>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    عملیات
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse($users as $user)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $user->name }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $user->email }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $user->mobile }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">
-                                            {{ verta($user->created_at)->format('Y/m/d') }}
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        @can('edit users')
-                                            <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ویرایش</a>
-                                        @endcan
-                                        @can('delete users')
-                                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')">
-                                                    حذف
-                                                </button>
-                                            </form>
-                                        @endcan
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $user->name }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $user->email }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $user->mobile }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        {{ verta($user->created_at)->format('Y/m/d') }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    @can('edit users')
+                                        <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ویرایش</a>
+                                    @endcan
+                                    @can('delete users')
+                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')">
+                                                حذف
+                                            </button>
+                                        </form>
+                                    @endcan
 
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                                        هیچ کاربری یافت نشد!
-                                    </td>
-                                </tr>
-                            @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                                    هیچ کاربری یافت نشد!
+                                </td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
 
                     <!-- پاگینیشن -->
                     <div class="mt-4">
