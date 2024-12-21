@@ -33,6 +33,6 @@ return [
         'timeout-15min' => 15, // 15m
     ],
     'config' => [
-        'per_page' => 50,
+        'per_page' => 20,
     ],
 ];

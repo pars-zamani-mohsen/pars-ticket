@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\Actions\Role\GetList;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -12,7 +13,7 @@ class RoleController extends Controller
     public function index()
     {
         $this->authorizeRoleOrPermission('view roles');
-        $roles = Role::with('permissions')->get();
+        $roles = GetList::handle();
         return view('admin.roles.index', compact('roles'));
     }
 

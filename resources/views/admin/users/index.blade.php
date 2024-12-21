@@ -56,9 +56,9 @@
                                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
                                     اعمال فیلتر
                                 </button>
-                                <button type="button" @click="resetFilters" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
+                                <a href="{{ route('admin.users.index') }}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
                                     پاک کردن
-                                </button>
+                                </a>
                             </div>
 
                             @can('create users')
@@ -230,18 +230,6 @@
                 // ریدایرکت با پارامترهای جدید
                 window.location.search = params.toString();
             },
-
-            resetFilters() {
-                this.filters = {
-                    search: '',
-                    from_date: '',
-                    to_date: ''
-                };
-
-                $('.pdate').val('');
-
-                this.applyFilters();
-            }
         }));
     });
         </script>

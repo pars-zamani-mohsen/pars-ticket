@@ -40,7 +40,7 @@ class GetList
             $query->where('user_id', auth()->id());
         }
 
-        return $query->paginate()
+        return $query->paginate(config('pars-ticket.config.paginate.per_page'))
             ->withQueryString();
     }
 }

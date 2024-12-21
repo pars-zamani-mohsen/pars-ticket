@@ -68,6 +68,9 @@
                                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
                                     اعمال فیلتر
                                 </button>
+                                <a href="{{ route('tickets.index') }}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
+                                    پاک کردن
+                                </a>
                             </div>
 
                             <a href="{{ route('tickets.create') }}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
@@ -81,7 +84,7 @@
 
             <!-- جدول -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="overflow-x-auto">
+                <div class="p-6">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>

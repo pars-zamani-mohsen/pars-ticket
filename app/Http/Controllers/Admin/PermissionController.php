@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\Actions\Permission\GetList;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
     public function index()
     {
         $this->authorizeRoleOrPermission('view permissions');
-        $permissions = Permission::all();
-        return view('admin.permissions.index', compact('permissions'));
+
+        $permissions = GetList::handle();
+
+        $roles = Role::all();
+
+        return view('admin.permissions.index', compact('permissions', 'roles'));
     }
 
     public function create()

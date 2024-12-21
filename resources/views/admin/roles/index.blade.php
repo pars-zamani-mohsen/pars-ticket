@@ -11,15 +11,36 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <form method="GET" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <!-- جستجو -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">جستجو</label>
+                                <input type="text"
+                                       name="filter[name]"
+                                       value="{{ request('filter.name') }}"
+                                       placeholder="جستجو در نام دسترسی..."
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            </div>
 
+                            <!-- توضیحات -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">توضیحات</label>
+                                <input type="text"
+                                       name="filter[description]"
+                                       value="{{ request('filter.description') }}"
+                                       placeholder="جستجو در توضیحات..."
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            </div>
                         </div>
 
                         <div class="flex justify-between items-center">
-{{--                            <div class="flex space-x-2 space-x-reverse">
+                            <div class="flex space-x-2 space-x-reverse">
                                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
                                     اعمال فیلتر
                                 </button>
-                            </div>--}}
+                                <a href="{{ route('admin.roles.index') }}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
+                                    پاک کردن
+                                </a>
+                            </div>
 
                             @can('create roles')
                             <a href="{{ route('admin.roles.create') }}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
@@ -37,7 +58,19 @@
                         <thead>
                         <tr>
                             <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                نام نقش
+                                <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'name' ? '-name' : 'name']) }}"
+                                   class="flex items-center justify-start hover:text-gray-900">
+                                    <span>نام</span>
+                                    @if(request()->get('sort') === 'name')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    @elseif(request()->get('sort') === '-name')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                        </svg>
+                                    @endif
+                                </a>
                             </th>
                             <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 دسترسی‌ها
