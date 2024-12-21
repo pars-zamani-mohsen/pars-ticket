@@ -8,24 +8,22 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'role:super-admin']);
-    }
-
     public function index()
     {
+        $this->authorizeRoleOrPermission('view permissions');
         $permissions = Permission::all();
         return view('admin.permissions.index', compact('permissions'));
     }
 
     public function create()
     {
+        $this->authorizeRoleOrPermission('create permissions');
         return view('admin.permissions.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorizeRoleOrPermission('create permissions');
         $validated = $request->validate([
             'name' => 'required|unique:permissions,name',
             'description' => 'nullable|string'
@@ -39,11 +37,13 @@ class PermissionController extends Controller
 
     public function edit(Permission $permission)
     {
+        $this->authorizeRoleOrPermission('edit permissions');
         return view('admin.permissions.create', compact('permission'));
     }
 
     public function update(Request $request, Permission $permission)
     {
+        $this->authorizeRoleOrPermission('edit permissions');
         $validated = $request->validate([
             'name' => 'required|unique:permissions,name,' . $permission->id,
             'description' => 'nullable|string'
@@ -57,6 +57,7 @@ class PermissionController extends Controller
 
     public function destroy(Permission $permission)
     {
+        $this->authorizeRoleOrPermission('delete permissions');
         $permission->delete();
 
         return redirect()->route('admin.permissions.index')

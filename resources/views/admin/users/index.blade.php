@@ -146,14 +146,19 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ویرایش</a>
-                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')">
-                                                حذف
-                                            </button>
-                                        </form>
+                                        @can('edit users')
+                                            <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ویرایش</a>
+                                        @endcan
+                                        @can('delete users')
+                                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')">
+                                                    حذف
+                                                </button>
+                                            </form>
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @empty

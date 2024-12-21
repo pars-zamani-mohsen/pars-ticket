@@ -14,18 +14,21 @@ class UserController extends Controller
 {
     public function index()
     {
+        $this->authorizeRoleOrPermission('view users');
         $users = GetList::handle();
         return view('admin.users.index', compact('users'));
     }
 
     public function create()
     {
+        $this->authorizeRoleOrPermission('create users');
         $roles = Role::all();
         return view('admin.users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
+        $this->authorizeRoleOrPermission('create users');
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -46,12 +49,14 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorizeRoleOrPermission('edit users');
         $roles = Role::all();
         return view('admin.users.create', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)
     {
+        $this->authorizeRoleOrPermission('edit users');
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
@@ -75,6 +80,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorizeRoleOrPermission('delete users');
         $user->delete();
 
         return redirect()->route('admin.users.index')
