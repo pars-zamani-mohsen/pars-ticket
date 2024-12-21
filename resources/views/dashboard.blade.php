@@ -42,7 +42,7 @@
                             <div class="flex items-center">
                                 <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
                                     <span class="text-xl font-bold text-gray-600">
-                                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                                        <img src="{{ asset('images/user.png') }}" alt="{{ auth()->user()->name }}">
                                     </span>
                                 </div>
                                 <div class="mr-4">

@@ -23,9 +23,9 @@ class TicketTablesSeeder extends Seeder
 
         // برچست ها
         $labels = [
-            '',
-            '',
-            '',
+            'مهاجرت',
+            'خدمات',
+            'بیزینس',
         ];
 
         foreach ($labels as $label) {

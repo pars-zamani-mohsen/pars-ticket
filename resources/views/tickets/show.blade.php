@@ -24,7 +24,7 @@
                         <span class="ml-2">ایجاد شده توسط:</span>
                         <span class="font-medium text-gray-900">{{ $ticket->user->name }}</span>
                         <span class="mx-2">•</span>
-                        <span>{{ $ticket->created_at->diffForHumans() }}</span>
+                        <span title="{{ verta($ticket->created_at)->format('Y/m/d H:i:s') }}">{{ $ticket->created_at->diffForHumans() }}</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -61,7 +61,7 @@
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
                                 <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                                    <span class="text-indigo-800 font-medium">{{ substr($message->user->name, 0, 1) }}</span>
+                                    <span class="text-indigo-800 font-medium"><img src="{{ asset('images/user.png') }}" alt="{{ auth()->user()->name }}"></span>
                                 </div>
                             </div>
                             <div class="mr-4">
@@ -95,7 +95,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="text-xs text-gray-500">
+                        <div class="text-xs text-gray-500" title="{{ verta($message->created_at)->format('Y/m/d H:i:s') }}">
                             {{ $message->created_at->diffForHumans() }}
                         </div>
                     </div>

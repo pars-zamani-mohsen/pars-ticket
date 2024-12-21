@@ -36,6 +36,10 @@ class GetList
             ->with(['user', 'categories', 'labels'])
             ->latest();
 
+        if (! auth()->user()->hasAnyRole('super-admin', 'admin')) {
+            $query->where('user_id', auth()->id());
+        }
+
         return $query->paginate()
             ->withQueryString();
     }

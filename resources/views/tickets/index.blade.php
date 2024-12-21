@@ -151,7 +151,7 @@
                                             {{ $ticket->is_resolved ? 'حل شده' : 'باز' }}
                                         </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ verta($ticket->created_at)->format('Y/m/d H:i:s') }}">
                                     {{ $ticket->created_at->diffForHumans() }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">

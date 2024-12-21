@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="feat: add landing style and logo">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="feat: add dashboard style and quick access">
+      <change beforePath="$PROJECT_DIR$/app/Services/Actions/Ticket/GetList.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Actions/Ticket/GetList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/TicketTablesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/TicketTablesSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tickets/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tickets/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tickets/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tickets/show.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +29,7 @@
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/TicketController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/database/migrations/2024_12_18_093612_add_mobile_to_users_table.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/database/migrations/2024_12_21_094653_create_activities_table.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
     <include_path>
@@ -187,16 +192,16 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.laravel-idea.search-composer-json": "true",
     "git-widget-placeholder": "dev",
-    "last_opened_file_path": "/var/www/html/pars-ticket/resources/views/admin"
+    "last_opened_file_path": "/var/www/html/pars-ticket/public/images"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/images" />
+      <recent name="$PROJECT_DIR$/app/Traits" />
+      <recent name="$PROJECT_DIR$/app/Enums" />
       <recent name="$PROJECT_DIR$/resources/views/admin" />
       <recent name="$PROJECT_DIR$/app/Services/Actions" />
-      <recent name="$PROJECT_DIR$/app/Services/Actions/Ticket" />
-      <recent name="$PROJECT_DIR$/resources/views/tickets" />
-      <recent name="$PROJECT_DIR$/docker/nginx" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
@@ -249,7 +254,7 @@
       <workItem from="1734431058409" duration="11097000" />
       <workItem from="1734497580892" duration="10873000" />
       <workItem from="1734512327926" duration="11879000" />
-      <workItem from="1734757195265" duration="12368000" />
+      <workItem from="1734757195265" duration="17692000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -331,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734772331613</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: add dashboard style and quick access">
+      <option name="closed" value="true" />
+      <created>1734779964348</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1734779964348</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -355,6 +368,7 @@
     <MESSAGE value="feat: add role module (spatie)" />
     <MESSAGE value="feat: add permission view and add to role." />
     <MESSAGE value="feat: add landing style and logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add landing style and logo" />
+    <MESSAGE value="feat: add dashboard style and quick access" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add dashboard style and quick access" />
   </component>
 </project>
