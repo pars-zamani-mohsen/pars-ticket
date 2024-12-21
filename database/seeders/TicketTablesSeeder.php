@@ -20,15 +20,16 @@ class TicketTablesSeeder extends Seeder
         foreach ($categories as $category) {
             Category::create(['name' => $category, 'slug' => '']);
         }
-        // دسته‌بندی‌ها
-        $categories = [
-            'نام ۱',
-            'نام ۲',
-            'نام ۳',
+
+        // برچست ها
+        $labels = [
+            '',
+            '',
+            '',
         ];
 
-        foreach ($categories as $category) {
-            Label::create(['name' => $category, 'slug' => '']);
+        foreach ($labels as $label) {
+            Label::create(['name' => $label, 'slug' => '']);
         }
     }
 }

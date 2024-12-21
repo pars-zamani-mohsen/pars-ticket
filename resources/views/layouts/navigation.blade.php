@@ -11,19 +11,38 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+
+                <div class="py-3 space-x-8 sm:ms-10">
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('داشبورد') }}
+                    </x-responsive-nav-link>
                 </div>
 
-                <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.*')">
-                    {{ __('تیکت‌ها') }}
-                </x-nav-link>
+                <div class="py-3">
+                    <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.*')">
+                        {{ __('تیکت ‌ها') }}
+                    </x-responsive-nav-link>
+                </div>
 
-                <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
-                    {{ __('کاربر ها') }}
-                </x-nav-link>
+                @role('super-admin')
+                <div class="py-3">
+                    <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                        {{ __('مدیریت کاربر ها') }}
+                    </x-responsive-nav-link>
+                </div>
+
+                <div class="py-3">
+                    <x-responsive-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
+                        {{ __('مدیریت نقش ها') }}
+                    </x-responsive-nav-link>
+                </div>
+
+                <div class="py-3">
+                    <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
+                        {{ __('مدیریت دسترسی‌ها') }}
+                    </x-responsive-nav-link>
+                </div>
+                @endrole
             </div>
 
             <!-- Settings Dropdown -->

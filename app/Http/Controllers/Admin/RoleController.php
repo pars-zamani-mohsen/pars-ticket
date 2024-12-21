@@ -38,7 +38,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $permissions = Permission::all();
-        return view('admin.roles.edit', compact('role', 'permissions'));
+        return view('admin.roles.create', compact('role', 'permissions'));
     }
 
     public function update(Request $request, Role $role)

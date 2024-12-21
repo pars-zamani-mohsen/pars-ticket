@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MessageController;
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'role:super-admin|admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('permissions', PermissionController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 });
