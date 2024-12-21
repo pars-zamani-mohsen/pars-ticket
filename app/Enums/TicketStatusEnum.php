@@ -12,6 +12,7 @@ enum TicketStatusEnum: string
 
     case OPEN = 'open';
     case CLOSE = 'closed';
+    case ARCHIVED = 'archived';
 
 
     public function getLabel(): string
@@ -19,6 +20,7 @@ enum TicketStatusEnum: string
         return match ($this) {
             self::OPEN => 'باز',
             self::CLOSE => 'بسته',
+            self::ARCHIVED => 'آرشیو شده',
         };
     }
 
@@ -27,6 +29,7 @@ enum TicketStatusEnum: string
         return [
             self::OPEN->value,
             self::CLOSE->value,
+            self::ARCHIVED->value,
         ];
     }
 }

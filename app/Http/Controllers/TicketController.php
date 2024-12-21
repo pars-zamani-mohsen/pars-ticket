@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TicketPriorityEnum;
 use App\Models\Ticket;
 use App\Services\Actions\Ticket\GetList;
-use Coderflex\LaravelTicket\Enums\Priority;
-use Coderflex\LaravelTicket\Models\Category;
-use Coderflex\LaravelTicket\Models\Label;
+use App\Services\Cache\CategoryCache;
+use App\Services\Cache\LabelCache;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -15,17 +15,17 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = GetList::handle();
-        $categories = Category::all();
-        $labels = Label::all();
+        $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
+        $labels = LabelCache::allActive(config('pars-ticket.cache.timeout-long'));
 
         return view('tickets.index', compact('tickets', 'categories', 'labels'));
     }
 
     public function create()
     {
-        $categories = Category::where('is_visible', true)->get();
-        $labels = Label::where('is_visible', true)->get();
-        $priorities = ['low' => 'کم', 'normal' => 'متوسط', 'high' => 'زیاد'];
+        $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
+        $labels = LabelCache::allActive(config('pars-ticket.cache.timeout-long'));
+        $priorities = TicketPriorityEnum::getSelectBoxTransformItems()->toArray();
 
         return view('tickets.create', compact('categories', 'labels', 'priorities'));
     }
@@ -35,7 +35,7 @@ class TicketController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'message' => 'required|string',
-            'priority' => ['required', Rule::in(collect(Priority::cases())->pluck('value'))],
+            'priority' => ['required', Rule::in(TicketPriorityEnum::getArray())],
             'categories' => 'nullable|array',
             'categories.*' => 'exists:categories,id',
             'labels' => 'nullable|array',
