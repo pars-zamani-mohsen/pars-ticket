@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
@@ -34,8 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::post('tickets/{ticket}/messages', [MessageController::class, 'store'])->name('ticket.messages.store');
 });
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:super-admin|admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 });
+
 
 require __DIR__.'/auth.php';

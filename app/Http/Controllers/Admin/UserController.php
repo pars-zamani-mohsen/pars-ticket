@@ -8,6 +8,7 @@ use App\Services\Actions\User\GetList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -19,7 +20,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
     public function store(Request $request)
@@ -29,11 +31,14 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'mobile' => ['required', 'string', 'max:11', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'roles' => 'required|array'
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
-        User::create($validated);
+        $user = User::create($validated);
+        $user->assignRole($request->roles);
+
 
         return redirect()->route('admin.users.index')
             ->with('success', 'کاربر با موفقیت ایجاد شد.');
@@ -41,7 +46,8 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.users.create', compact('user'));
+        $roles = Role::all();
+        return view('admin.users.create', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)
@@ -51,6 +57,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'mobile' => ['required', 'string', 'max:11', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'roles' => 'required|array'
         ]);
 
         if ($validated['password'] ?? false) {
@@ -60,6 +67,7 @@ class UserController extends Controller
         }
 
         $user->update($validated);
+        $user->syncRoles($request->roles);
 
         return redirect()->route('admin.users.index')
             ->with('success', 'کاربر با موفقیت بروزرسانی شد.');
