@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="feat: add permission view and add to role.">
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/application-logo.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/application-logo.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="feat: add landing style and logo">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +249,7 @@
       <workItem from="1734431058409" duration="11097000" />
       <workItem from="1734497580892" duration="10873000" />
       <workItem from="1734512327926" duration="11879000" />
-      <workItem from="1734757195265" duration="11667000" />
+      <workItem from="1734757195265" duration="12368000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -325,7 +323,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734765839278</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: add landing style and logo">
+      <option name="closed" value="true" />
+      <created>1734772331613</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1734772331613</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -348,6 +354,7 @@
     <MESSAGE value="style: remove dark class" />
     <MESSAGE value="feat: add role module (spatie)" />
     <MESSAGE value="feat: add permission view and add to role." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add permission view and add to role." />
+    <MESSAGE value="feat: add landing style and logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add landing style and logo" />
   </component>
 </project>

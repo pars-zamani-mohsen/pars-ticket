@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Coderflex\LaravelTicket\Concerns\HasTickets;
 use Coderflex\LaravelTicket\Contracts\CanUseTickets;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements CanUseTickets
 {
-    use HasApiTokens, HasFactory, Notifiable, HasTickets, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasTickets, HasRoles, LogsActivity;
 
     protected $fillable = [
         'name',

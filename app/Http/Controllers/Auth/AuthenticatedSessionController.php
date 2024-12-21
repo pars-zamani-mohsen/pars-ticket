@@ -35,11 +35,13 @@ class AuthenticatedSessionController extends Controller
         ];
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            auth()->user()->logActivity('login', 'ورود به سیستم');
             $request->session()->regenerate();
 
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 
+        auth()->user()->logActivity('login', 'ورود ناموفق به سیستم');
         throw ValidationException::withMessages([
             'login' => __('auth.failed'),
         ]);
@@ -50,6 +52,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        auth()->user()->logActivity('logout', 'خروج از سیستم');
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
