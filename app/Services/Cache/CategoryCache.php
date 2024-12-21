@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services\Cache;
 
 use Coderflex\LaravelTicket\Models\Category;
-use Coderflex\LaravelTicket\Models\Label;
 
 class CategoryCache
 {

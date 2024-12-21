@@ -122,8 +122,9 @@
                                         @endforeach
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">{{ $permission->created_at->format('Y-m-d') }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    {{ verta($permission->created_at)->format('Y/m/d H:i') }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     @can('edit permissions')
                                         <a href="{{ route('admin.permissions.edit', $permission) }}" class="text-indigo-600 hover:text-indigo-900 ml-4">ویرایش</a>
                                     @endcan

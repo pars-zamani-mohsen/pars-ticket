@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Actions\User;
 
-use App\Models\Ticket;
 use App\Models\User;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;

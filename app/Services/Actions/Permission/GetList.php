@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Actions\Permission;
 
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class GetList

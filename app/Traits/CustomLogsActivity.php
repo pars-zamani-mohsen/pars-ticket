@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Models\Activity;
 
-trait LogsActivity
+trait CustomLogsActivity
 {
     public function logActivity($type, $description, $properties = [])
     {

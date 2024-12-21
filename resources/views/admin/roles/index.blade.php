@@ -76,6 +76,21 @@
                                 دسترسی‌ها
                             </th>
                             <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'created_at' ? '-created_at' : 'created_at']) }}"
+                                   class="flex items-center justify-start hover:text-gray-900">
+                                    <span>تاریخ ایجاد</span>
+                                    @if(request()->get('sort') === 'created_at')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    @elseif(request()->get('sort') === '-created_at')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                        </svg>
+                                    @endif
+                                </a>
+                            </th>
+                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 عملیات
                             </th>
                         </tr>
@@ -95,6 +110,8 @@
                                         @endforeach
                                     </div>
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    {{ verta($role->created_at)->format('Y/m/d H:i') }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium">
                                     @can('edit roles')
                                         <a href="{{ route('admin.roles.edit', $role) }}" class="text-indigo-600 hover:text-indigo-900 ml-4">ویرایش</a>

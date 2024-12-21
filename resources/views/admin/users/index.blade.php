@@ -144,7 +144,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{ verta($user->created_at)->format('Y/m/d') }}
+                                        {{ verta($user->created_at)->format('Y/m/d H:i') }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

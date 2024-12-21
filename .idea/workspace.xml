@@ -4,10 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="chore: update module lists">
+    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="chore: optimize filters in modules list">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PermissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/RoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/Actions/Permission/GetList.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Actions/Permission/GetList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/Actions/Role/GetList.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Actions/Role/GetList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/Actions/User/GetList.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Actions/User/GetList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/Cache/CategoryCache.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Cache/CategoryCache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/Cache/LabelCache.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Cache/LabelCache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/LogsActivity.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/CustomLogsActivity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/permissions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/permissions/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/roles/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/roles/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,6 +186,7 @@
       <path value="$PROJECT_DIR$/vendor/hekmatinasser/verta" />
       <path value="$PROJECT_DIR$/vendor/hekmatinasser/notowo" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-activitylog" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -190,7 +205,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.laravel-idea.search-composer-json": "true",
     "git-widget-placeholder": "dev",
-    "last_opened_file_path": "/var/www/html/pars-ticket/app/Services/Actions"
+    "last_opened_file_path": "/var/www/html/pars-ticket/app/Services/Actions",
+    "php.override.implement.member.chooser.php.doc": "NONE"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -252,7 +268,7 @@
       <workItem from="1734431058409" duration="11097000" />
       <workItem from="1734497580892" duration="10873000" />
       <workItem from="1734512327926" duration="11879000" />
-      <workItem from="1734757195265" duration="22954000" />
+      <workItem from="1734757195265" duration="25255000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -406,7 +422,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734786458536</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="chore: optimize filters in modules list">
+      <option name="closed" value="true" />
+      <created>1734788350131</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1734788350131</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -439,6 +463,7 @@
     <MESSAGE value="feat-ticket: add cache for label and categories" />
     <MESSAGE value="chore: update check permissions" />
     <MESSAGE value="chore: update module lists" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: update module lists" />
+    <MESSAGE value="chore: optimize filters in modules list" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: optimize filters in modules list" />
   </component>
 </project>

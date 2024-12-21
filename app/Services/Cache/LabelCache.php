@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Cache;
 
-
 use Coderflex\LaravelTicket\Models\Label;
 
 class LabelCache

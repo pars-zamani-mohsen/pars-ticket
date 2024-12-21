@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Actions\Role;
 
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class GetList
