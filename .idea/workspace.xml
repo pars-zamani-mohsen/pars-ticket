@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="feat: add dashboard style and quick access">
-      <change beforePath="$PROJECT_DIR$/app/Services/Actions/Ticket/GetList.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Actions/Ticket/GetList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/TicketTablesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/TicketTablesSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/tickets/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tickets/index.blade.php" afterDir="false" />
+    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="chore: update datetime style, profile pic and update label seeder">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/RolesAndPermissionsSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/RolesAndPermissionsSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/tickets/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tickets/show.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -254,7 +253,7 @@
       <workItem from="1734431058409" duration="11097000" />
       <workItem from="1734497580892" duration="10873000" />
       <workItem from="1734512327926" duration="11879000" />
-      <workItem from="1734757195265" duration="17692000" />
+      <workItem from="1734757195265" duration="18457000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -344,7 +343,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734779964348</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="chore: update datetime style, profile pic and update label seeder">
+      <option name="closed" value="true" />
+      <created>1734781961495</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1734781961495</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -369,6 +376,7 @@
     <MESSAGE value="feat: add permission view and add to role." />
     <MESSAGE value="feat: add landing style and logo" />
     <MESSAGE value="feat: add dashboard style and quick access" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add dashboard style and quick access" />
+    <MESSAGE value="chore: update datetime style, profile pic and update label seeder" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update datetime style, profile pic and update label seeder" />
   </component>
 </project>

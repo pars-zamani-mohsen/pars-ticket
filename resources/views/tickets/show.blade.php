@@ -56,49 +56,72 @@
         <!-- پیام‌ها -->
         <div class="space-y-6">
             @foreach($ticket->messages as $message)
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                                    <span class="text-indigo-800 font-medium"><img src="{{ asset('images/user.png') }}" alt="{{ auth()->user()->name }}"></span>
-                                </div>
-                            </div>
-                            <div class="mr-4">
-                                <div class="text-sm font-medium text-gray-900">
-                                    {{ $message->user->name }}
-                                </div>
-                                <div class="mt-1 text-sm text-gray-700">
-                                    {{ $message->message }}
-                                </div>
-
-                                <!-- نمایش فایل‌های پیوست هر پیام -->
-                                @if($message->getMedia('message-attachments')->count() > 0)
-                                    <div class="mt-4">
-                                        <div class="text-sm font-medium text-gray-900 mb-2">فایل‌های پیوست:</div>
-                                        <div class="grid grid-cols-2 gap-4">
-                                            @foreach($message->getMedia('message-attachments') as $media)
-                                                <a href="{{ $media->getUrl() }}"
-                                                   target="_blank"
-                                                   class="flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition">
-                                                    <svg class="h-5 w-5 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
-                                                    </svg>
-                                                    <div>
-                                                        <div class="text-sm font-medium text-gray-900">{{ $media->file_name }}</div>
-                                                        <div class="text-xs text-gray-500">{{ round($media->size / 1024) }} KB</div>
-                                                    </div>
-                                                </a>
-                                            @endforeach
-                                        </div>
+                <div class="relative {{ $message->user_id === $ticket->user_id ? 'ml-12' : 'mr-12' }}">
+                    <div class="bg-white rounded-lg shadow-sm p-6 {{ $message->user_id === $ticket->user_id ? 'border-r-4 border-blue-500' : 'border-r-4 border-green-500' }}">
+                        <div class="flex justify-between items-start {{ $message->user_id === $ticket->user_id ? 'flex-row' : 'flex-row' }}">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-blue-100' : 'bg-green-100' }} flex items-center justify-center">
+                                <span class="{{ $message->user_id === $ticket->user_id ? 'text-blue-800' : 'text-green-800' }} font-medium">
+                                    <img src="{{ asset('images/user.png') }}" alt="{{ $message->user->name }}" class="rounded-full">
+                                </span>
                                     </div>
-                                @endif
+                                </div>
+                                <div class="mr-4 flex-grow">
+                                    <div class="flex items-center">
+                                <span class="text-sm font-medium {{ $message->user_id === $ticket->user_id ? 'text-blue-600' : 'text-green-600' }}">
+                                    {{ $message->user->name }}
+                                </span>
+                                        @if($message->user->hasRole('operator'))
+                                            <span class="mr-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        اپراتور
+                                    </span>
+                                        @endif
+                                    </div>
+                                    <div class="mt-1 text-sm text-gray-700">
+                                        {{ $message->message }}
+                                    </div>
+
+                                    <!-- نمایش فایل‌های پیوست هر پیام -->
+                                    @if($message->getMedia('message-attachments')->count() > 0)
+                                        <div class="mt-4">
+                                            <div class="text-sm font-medium text-gray-900 mb-2">فایل‌های پیوست:</div>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                @foreach($message->getMedia('message-attachments') as $media)
+                                                    <a href="{{ url($media->getUrl()) }}"
+                                                       target="_blank"
+                                                       class="flex items-center p-3 {{ $message->user_id === $ticket->user_id ? 'bg-blue-50 hover:bg-blue-100' : 'bg-green-50 hover:bg-green-100' }} rounded-md transition">
+                                                        <svg class="h-5 w-5 {{ $message->user_id === $ticket->user_id ? 'text-blue-400' : 'text-green-400' }} ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                                                        </svg>
+                                                        <div>
+                                                            <div class="text-sm font-medium text-gray-900">{{ $media->file_name }}</div>
+                                                            <div class="text-xs text-gray-500">{{ round($media->size / 1024) }} KB</div>
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-xs text-gray-500" title="{{ verta($message->created_at)->format('Y/m/d H:i:s') }}">
-                            {{ $message->created_at->diffForHumans() }}
+                            <div class="text-xs text-gray-500 whitespace-nowrap mr-4" title="{{ verta($message->created_at)->format('Y/m/d H:i:s') }}">
+                                {{ $message->created_at->diffForHumans() }}
+                            </div>
                         </div>
                     </div>
+
+                    <!-- نشانگر خوانده شدن -->
+                    @if($message->user_id === $ticket->user_id)
+                        <div class="absolute left-2 bottom-2 flex items-center text-xs text-gray-500">
+                            @if($message->read_at)
+                                <svg class="w-4 h-4 text-blue-500 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                خوانده شده
+                            @endif
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>

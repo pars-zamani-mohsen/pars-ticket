@@ -62,15 +62,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'create tickets',
         ]);
 
-        $role = Role::create(['name' => 'user']);
-        $role->givePermissionTo([
-            'view tickets',
-            'create tickets',
-            'edit tickets',
-        ]);
-
         $user = User::find(1);
-
         $user->assignRole('super-admin');
     }
 }
