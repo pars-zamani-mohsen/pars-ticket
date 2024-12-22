@@ -62,6 +62,11 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
+        if (! $this->canAuthorizeRoleOrPermission(['super-admin', 'admin', 'operator'])) {
+            if ($ticket->user_id !== auth()->id()) {
+                abort(404);
+            }
+        }
         $ticket->load(['user', 'categories', 'labels', 'messages.user']);
         return view('tickets.show', compact('ticket'));
     }

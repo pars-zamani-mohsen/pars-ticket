@@ -54,77 +54,144 @@
         </div>
 
         <!-- پیام‌ها -->
-        <div class="space-y-6">
-            @foreach($ticket->messages as $message)
-                <div class="relative {{ $message->user_id === $ticket->user_id ? 'ml-12' : 'mr-12' }}">
-                    <div class="bg-white rounded-lg shadow-sm p-6 {{ $message->user_id === $ticket->user_id ? 'border-r-4 border-blue-500' : 'border-r-4 border-green-500' }}">
-                        <div class="flex justify-between items-start {{ $message->user_id === $ticket->user_id ? 'flex-row' : 'flex-row' }}">
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0">
-                                    <div class="h-10 w-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-blue-100' : 'bg-green-100' }} flex items-center justify-center">
-                                <span class="{{ $message->user_id === $ticket->user_id ? 'text-blue-800' : 'text-green-800' }} font-medium">
-                                    <img src="{{ asset('images/user.png') }}" alt="{{ $message->user->name }}" class="rounded-full">
-                                </span>
+            <div x-data="{
+                showDeleteModal: false,
+                fileToDelete: null,
+                deleteFile() {
+                    fetch(`/tickets/file/${this.fileToDelete}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.showDeleteModal = false;
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('خطا در حذف فایل');
+                    });
+                }
+            }" class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" dir="rtl">
+
+            <div class="space-y-6">
+                @foreach($ticket->messages as $message)
+                    <div class="relative {{ $message->user_id === $ticket->user_id ? 'ml-12' : 'mr-12' }}">
+                        <div class="bg-white rounded-lg shadow-sm p-6 {{ $message->user_id === $ticket->user_id ? 'border-r-4 border-blue-500' : 'border-r-4 border-green-500' }}">
+                            <div class="flex justify-between items-start {{ $message->user_id === $ticket->user_id ? 'flex-row' : 'flex-row' }}">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <div class="h-10 w-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-blue-100' : 'bg-green-100' }} flex items-center justify-center">
+                                            <img src="{{ asset('images/user.png') }}" alt="{{ $message->user->name }}" class="rounded-full">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mr-4 flex-grow">
-                                    <div class="flex items-center">
-                                <span class="text-sm font-medium {{ $message->user_id === $ticket->user_id ? 'text-blue-600' : 'text-green-600' }}">
-                                    {{ $message->user->name }}
-                                </span>
-                                        @if($message->user->hasRole('operator'))
-                                            <span class="mr-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        اپراتور
-                                    </span>
+                                    <div class="mr-4 flex-grow">
+                                        <div class="flex items-center">
+                                        <span class="text-sm font-medium {{ $message->user_id === $ticket->user_id ? 'text-blue-600' : 'text-green-600' }}">
+                                            {{ $message->user->name }}
+                                        </span>
+                                            @if($message->user->hasRole('operator'))
+                                                <span class="mr-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                اپراتور
+                                            </span>
+                                            @endif
+                                        </div>
+                                        <div class="mt-1 text-sm text-gray-700">
+                                            {{ $message->message }}
+                                        </div>
+
+                                        <!-- نمایش فایل‌های پیوست هر پیام -->
+                                        @if($message->getMedia('message-attachments')->count() > 0)
+                                            <div class="mt-4">
+                                                <div class="text-sm font-medium text-gray-900 mb-2">فایل‌های پیوست:</div>
+                                                <div class="grid grid-cols-2 gap-4">
+                                                    @foreach($message->getMedia('message-attachments') as $media)
+                                                        <div class="relative flex items-center p-3 {{ $message->user_id === $ticket->user_id ? 'bg-blue-50 hover:bg-blue-100' : 'bg-green-50 hover:bg-green-100' }} rounded-md transition">
+                                                            <a href="{{ url($media->getUrl()) }}"
+                                                               target="_blank"
+                                                               class="flex items-center flex-grow">
+                                                                <svg class="h-5 w-5 {{ $message->user_id === $ticket->user_id ? 'text-blue-400' : 'text-green-400' }} ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                                                                </svg>
+                                                                <div>
+                                                                    <div class="text-sm font-medium text-gray-900">{{ $media->file_name }}</div>
+                                                                    <div class="text-xs text-gray-500">{{ round($media->size / 1024) }} KB</div>
+                                                                </div>
+                                                            </a>
+
+                                                            @can('delete ticket file')
+                                                                <button type="button"
+                                                                        @click="showDeleteModal = true; fileToDelete = {{ $media->id }}"
+                                                                        class="p-1 hover:bg-red-100 rounded-full transition-colors duration-200">
+                                                                    <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                                    </svg>
+                                                                </button>
+                                                            @endcan
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         @endif
                                     </div>
-                                    <div class="mt-1 text-sm text-gray-700">
-                                        {{ $message->message }}
-                                    </div>
-
-                                    <!-- نمایش فایل‌های پیوست هر پیام -->
-                                    {{-- TODO: remove file by operator with permission --}}
-                                    @if($message->getMedia('message-attachments')->count() > 0)
-                                        <div class="mt-4">
-                                            <div class="text-sm font-medium text-gray-900 mb-2">فایل‌های پیوست:</div>
-                                            <div class="grid grid-cols-2 gap-4">
-                                                @foreach($message->getMedia('message-attachments') as $media)
-                                                    <a href="{{ url($media->getUrl()) }}"
-                                                       target="_blank"
-                                                       class="flex items-center p-3 {{ $message->user_id === $ticket->user_id ? 'bg-blue-50 hover:bg-blue-100' : 'bg-green-50 hover:bg-green-100' }} rounded-md transition">
-                                                        <svg class="h-5 w-5 {{ $message->user_id === $ticket->user_id ? 'text-blue-400' : 'text-green-400' }} ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
-                                                        </svg>
-                                                        <div>
-                                                            <div class="text-sm font-medium text-gray-900">{{ $media->file_name }}</div>
-                                                            <div class="text-xs text-gray-500">{{ round($media->size / 1024) }} KB</div>
-                                                        </div>
-                                                    </a>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endif
                                 </div>
-                            </div>
-                            <div class="text-xs text-gray-500 whitespace-nowrap mr-4" title="{{ verta($message->created_at)->format('Y/m/d H:i:s') }}">
-                                {{ $message->created_at->diffForHumans() }}
+                                <div class="text-xs text-gray-500 whitespace-nowrap mr-4" title="{{ verta($message->created_at)->format('Y/m/d H:i:s') }}">
+                                    {{ $message->created_at->diffForHumans() }}
+                                </div>
                             </div>
                         </div>
                     </div>
+                @endforeach
+            </div>
 
-                    <!-- نشانگر خوانده شدن -->
-                    @if($message->user_id === $ticket->user_id)
-                        <div class="absolute left-2 bottom-2 flex items-center text-xs text-gray-500">
-                            @if($message->read_at)
-                                <svg class="w-4 h-4 text-blue-500 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                خوانده شده
-                            @endif
+            <!-- Modal تایید حذف -->
+            <div x-show="showDeleteModal"
+                 class="fixed inset-0 overflow-y-auto z-50"
+                 x-cloak
+                 style="display: none;">
+                <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                    </div>
+
+                    <div class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                    <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                    </svg>
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:mr-4 sm:text-right">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                        تایید حذف فایل
+                                    </h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500">
+                                            آیا از حذف این فایل اطمینان دارید؟ این عملیات قابل بازگشت نیست.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    @endif
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="button"
+                                    @click="deleteFile()"
+                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                حذف
+                            </button>
+                            <button type="button"
+                                    @click="showDeleteModal = false"
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                انصراف
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            @endforeach
+            </div>
         </div>
 
         <!-- فرم ارسال پیام -->

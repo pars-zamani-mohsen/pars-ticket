@@ -6,6 +6,7 @@ use App\Http\Requests\MessageRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MessageController extends Controller
 {
@@ -27,5 +28,16 @@ class MessageController extends Controller
         }
 
         return back()->with('success', 'پیام با موفقیت ارسال شد.');
+    }
+
+    public function destroy(Request $request, Media $media)
+    {
+        $this->authorizeRoleOrPermission('delete ticket file');
+
+        $media->delete();
+
+        return response()->json([
+            'message' => 'فایل با موفقیت حذف شد'
+        ]);
     }
 }

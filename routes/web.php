@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('tickets', TicketController::class);
     Route::post('tickets/{ticket}/messages', [MessageController::class, 'store'])->name('ticket.messages.store');
+    Route::delete('tickets/file/{media}', [MessageController::class, 'destroy'])->name('ticket.files.destroy');
 });
 
 Route::middleware(['auth', 'role:super-admin|admin'])->prefix('admin')->name('admin.')->group(function () {
