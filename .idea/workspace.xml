@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="fix: debug activity log for role and permission module">
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="chore: add TODO Tasks to files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MessageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TicketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TicketController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/ProfileUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/ProfileUpdateRequest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,18 +194,18 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.laravel-idea.search-composer-json": "true",
     "git-widget-placeholder": "dev",
-    "last_opened_file_path": "/var/www/html/pars-ticket/public/css",
+    "last_opened_file_path": "/var/www/html/pars-ticket/app/Http/Requests",
     "php.override.implement.member.chooser.php.doc": "NONE",
     "settings.editor.selected.configurable": "preferences.toDoOptions"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Http/Requests" />
       <recent name="$PROJECT_DIR$/public/css" />
       <recent name="$PROJECT_DIR$/app/Services/Actions" />
       <recent name="$PROJECT_DIR$/app/Traits" />
       <recent name="$PROJECT_DIR$/app/Enums" />
-      <recent name="$PROJECT_DIR$/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
@@ -257,7 +259,7 @@
       <workItem from="1734497580892" duration="10873000" />
       <workItem from="1734512327926" duration="11879000" />
       <workItem from="1734757195265" duration="25648000" />
-      <workItem from="1734843841613" duration="5232000" />
+      <workItem from="1734843841613" duration="8121000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -459,7 +461,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734850487935</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="chore: add TODO Tasks to files">
+      <option name="closed" value="true" />
+      <created>1734850923821</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1734850923821</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -508,6 +518,7 @@
     <MESSAGE value="chore: update seeders" />
     <MESSAGE value="chore-user: update validator and from style" />
     <MESSAGE value="fix: debug activity log for role and permission module" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: debug activity log for role and permission module" />
+    <MESSAGE value="chore: add TODO Tasks to files" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: add TODO Tasks to files" />
   </component>
 </project>

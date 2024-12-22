@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MessageController extends Controller
 {
-    public function store(Request $request, Ticket $ticket)
+    public function store(MessageRequest $request, Ticket $ticket)
     {
-        /** TODO: add validation to request file */
-        $request->validate([
-            'message' => 'required|string',
-            'attachments.*' => 'nullable|file|max:10240', // 10MB max
-        ]);
-
         $message = $ticket->messages()->create([
             'message' => $request->message,
             'user_id' => auth()->id(),
@@ -22,7 +18,10 @@ class MessageController extends Controller
 
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
+                $randStr = Str::uuid();
+
                 $message->addMedia($file)
+                    ->usingFileName("{$randStr}.{$file->getClientOriginalExtension()}")
                     ->toMediaCollection('message-attachments');
             }
         }

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TicketPriorityEnum;
+use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
 use App\Services\Actions\Ticket\GetList;
 use App\Services\Cache\CategoryCache;
 use App\Services\Cache\LabelCache;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
@@ -30,18 +30,9 @@ class TicketController extends Controller
         return view('tickets.create', compact('categories', 'labels', 'priorities'));
     }
 
-    public function store(Request $request)
+    public function store(TicketRequest $request)
     {
-        /** TODO: add validation to request file */
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'message' => 'required|string',
-            'priority' => ['required', Rule::in(TicketPriorityEnum::getArray())],
-            'categories' => 'nullable|array',
-            'categories.*' => 'exists:categories,id',
-            'labels' => 'nullable|array',
-            'labels.*' => 'exists:labels,id'
-        ]);
+        $validated = $request->validationData();
 
         try {
             $ticket = Ticket::create([
@@ -75,15 +66,9 @@ class TicketController extends Controller
         return view('tickets.show', compact('ticket'));
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(TicketRequest $request, Ticket $ticket)
     {
-        /** TODO: add validation to request file */
-        $validated = $request->validate([
-            'is_resolved' => 'sometimes|boolean',
-            'is_locked' => 'sometimes|boolean',
-            'assigned_to' => 'sometimes|nullable|exists:users,id',
-            'status' => 'sometimes|in:open,closed',
-        ]);
+        $validated = $request->validationData();
 
         $ticket->update($validated);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Actions\User\GetList;
@@ -26,19 +27,11 @@ class UserController extends Controller
         return view('admin.users.create', compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $this->authorizeRoleOrPermission('create users');
 
-        /** TODO: add validation to request file */
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required_without:mobile', 'nullable', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required_without:email', 'nullable', 'string', 'max:11', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'roles' => ['nullable', 'array']
-        ]);
-
+        $validated = $request->validationData();
         $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create($validated);
@@ -56,18 +49,11 @@ class UserController extends Controller
         return view('admin.users.create', compact('user', 'roles'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $this->authorizeRoleOrPermission('edit users');
 
-        /** TODO: add validation to request file */
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required_without:mobile', 'nullable', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'mobile' => ['required_without:email', 'nullable', 'string', 'max:11', Rule::unique('users')->ignore($user->id)],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'roles' => ['nullable', 'array']
-        ]);
+        $validated = $request->validationData();
 
         if ($validated['password'] ?? false) {
             $validated['password'] = Hash::make($validated['password']);

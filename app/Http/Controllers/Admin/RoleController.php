@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\Actions\Role\GetList;
@@ -24,15 +25,9 @@ class RoleController extends Controller
         return view('admin.roles.create', compact('permissions'));
     }
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         $this->authorizeRoleOrPermission('create roles');
-
-        /** TODO: add validation to request file */
-        $request->validate([
-            'name' => 'required|unique:roles,name',
-            'permissions' => 'required|array'
-        ]);
 
         $role = Role::create(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
@@ -48,15 +43,9 @@ class RoleController extends Controller
         return view('admin.roles.create', compact('role', 'permissions'));
     }
 
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
         $this->authorizeRoleOrPermission('edit roles');
-
-        /** TODO: add validation to request file */
-        $request->validate([
-            'name' => 'required|unique:roles,name,' . $role->id,
-            'permissions' => 'required|array'
-        ]);
 
         $role->update(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
@@ -68,7 +57,9 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $this->authorizeRoleOrPermission('delete roles');
+
         $role->delete();
+
         return redirect()->route('admin.roles.index')
             ->with('success', 'نقش با موفقیت حذف شد.');
     }

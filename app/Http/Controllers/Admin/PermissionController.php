@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PermissionRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\Actions\Permission\GetList;
@@ -27,16 +28,11 @@ class PermissionController extends Controller
         return view('admin.permissions.create');
     }
 
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
         $this->authorizeRoleOrPermission('create permissions');
 
-        /** TODO: add validation to request file */
-        $validated = $request->validate([
-            'name' => 'required|unique:permissions,name',
-            'description' => 'nullable|string'
-        ]);
-
+        $validated = $request->validationData();
         Permission::create($validated);
 
         return redirect()->route('admin.permissions.index')
@@ -49,16 +45,11 @@ class PermissionController extends Controller
         return view('admin.permissions.create', compact('permission'));
     }
 
-    public function update(Request $request, Permission $permission)
+    public function update(PermissionRequest $request, Permission $permission)
     {
         $this->authorizeRoleOrPermission('edit permissions');
 
-        /** TODO: add validation to request file */
-        $validated = $request->validate([
-            'name' => 'required|unique:permissions,name,' . $permission->id,
-            'description' => 'nullable|string'
-        ]);
-
+        $validated = $request->validationData();
         $permission->update($validated);
 
         return redirect()->route('admin.permissions.index')
