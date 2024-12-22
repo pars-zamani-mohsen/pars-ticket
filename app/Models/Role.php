@@ -10,6 +10,11 @@ class Role extends \Spatie\Permission\Models\Role
 {
     use LogsActivity;
 
+    protected $fillable = [
+        'name',
+        'guard_name',
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

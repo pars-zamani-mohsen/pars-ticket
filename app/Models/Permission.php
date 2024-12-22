@@ -5,10 +5,15 @@ namespace App\Models;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-/** @property string $label */
 class Permission extends \Spatie\Permission\Models\Permission
 {
     use LogsActivity;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'guard_name',
+    ];
 
     public function getActivitylogOptions(): LogOptions
     {
