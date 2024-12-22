@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="feat: add spatie activity log">
+    <list default="true" id="0c2f5105-f4ab-4108-9ebe-e05ee37d75c7" name="Changes" comment="chore: update seeders">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/OperatorRoleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/OperatorRoleSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/RolesAndPermissionsSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/RolesAndPermissionsSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/TicketTablesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/TicketTablesSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,7 +256,7 @@
       <workItem from="1734497580892" duration="10873000" />
       <workItem from="1734512327926" duration="11879000" />
       <workItem from="1734757195265" duration="25648000" />
-      <workItem from="1734843841613" duration="2471000" />
+      <workItem from="1734843841613" duration="3244000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -437,7 +434,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734789493580</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="chore: update seeders">
+      <option name="closed" value="true" />
+      <created>1734848413861</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1734848413861</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -483,6 +488,7 @@
     <MESSAGE value="chore: update module lists" />
     <MESSAGE value="chore: optimize filters in modules list" />
     <MESSAGE value="feat: add spatie activity log" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add spatie activity log" />
+    <MESSAGE value="chore: update seeders" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update seeders" />
   </component>
 </project>
