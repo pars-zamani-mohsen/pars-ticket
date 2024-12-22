@@ -30,6 +30,8 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->authorizeRoleOrPermission('create permissions');
+
+        /** TODO: add validation to request file */
         $validated = $request->validate([
             'name' => 'required|unique:permissions,name',
             'description' => 'nullable|string'
@@ -50,6 +52,8 @@ class PermissionController extends Controller
     public function update(Request $request, Permission $permission)
     {
         $this->authorizeRoleOrPermission('edit permissions');
+
+        /** TODO: add validation to request file */
         $validated = $request->validate([
             'name' => 'required|unique:permissions,name,' . $permission->id,
             'description' => 'nullable|string'

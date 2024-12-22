@@ -27,6 +27,8 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->authorizeRoleOrPermission('create roles');
+
+        /** TODO: add validation to request file */
         $request->validate([
             'name' => 'required|unique:roles,name',
             'permissions' => 'required|array'
@@ -49,6 +51,8 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $this->authorizeRoleOrPermission('edit roles');
+
+        /** TODO: add validation to request file */
         $request->validate([
             'name' => 'required|unique:roles,name,' . $role->id,
             'permissions' => 'required|array'

@@ -32,6 +32,7 @@ class TicketController extends Controller
 
     public function store(Request $request)
     {
+        /** TODO: add validation to request file */
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'message' => 'required|string',
@@ -76,6 +77,7 @@ class TicketController extends Controller
 
     public function update(Request $request, Ticket $ticket)
     {
+        /** TODO: add validation to request file */
         $validated = $request->validate([
             'is_resolved' => 'sometimes|boolean',
             'is_locked' => 'sometimes|boolean',

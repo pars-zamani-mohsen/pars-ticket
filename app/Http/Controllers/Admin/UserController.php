@@ -29,6 +29,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->authorizeRoleOrPermission('create users');
+
+        /** TODO: add validation to request file */
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required_without:mobile', 'nullable', 'string', 'email', 'max:255', 'unique:users'],
@@ -57,6 +59,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->authorizeRoleOrPermission('edit users');
+
+        /** TODO: add validation to request file */
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required_without:mobile', 'nullable', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],

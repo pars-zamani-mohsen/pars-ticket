@@ -9,6 +9,7 @@ class MessageController extends Controller
 {
     public function store(Request $request, Ticket $ticket)
     {
+        /** TODO: add validation to request file */
         $request->validate([
             'message' => 'required|string',
             'attachments.*' => 'nullable|file|max:10240', // 10MB max
