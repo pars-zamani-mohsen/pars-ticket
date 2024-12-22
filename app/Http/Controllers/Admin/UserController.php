@@ -31,10 +31,10 @@ class UserController extends Controller
         $this->authorizeRoleOrPermission('create users');
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'string', 'max:11', 'unique:users'],
+            'email' => ['required_without:mobile', 'nullable', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required_without:email', 'nullable', 'string', 'max:11', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'roles' => 'required|array'
+            'roles' => ['nullable', 'array']
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -59,10 +59,10 @@ class UserController extends Controller
         $this->authorizeRoleOrPermission('edit users');
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'mobile' => ['required', 'string', 'max:11', Rule::unique('users')->ignore($user->id)],
+            'email' => ['required_without:mobile', 'nullable', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'mobile' => ['required_without:email', 'nullable', 'string', 'max:11', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'roles' => 'required|array'
+            'roles' => ['nullable', 'array']
         ]);
 
         if ($validated['password'] ?? false) {

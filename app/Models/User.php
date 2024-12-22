@@ -17,15 +17,6 @@ class User extends Authenticatable implements CanUseTickets
 {
     use HasApiTokens, HasFactory, Notifiable, HasTickets, HasRoles, CustomLogsActivity, LogsActivity;
 
-    /** add log to user with spatie */
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
-    }
-
     protected $fillable = [
         'name',
         'email',
@@ -42,6 +33,15 @@ class User extends Authenticatable implements CanUseTickets
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /** add log to user with spatie */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     public static function loginType($input)
     {
