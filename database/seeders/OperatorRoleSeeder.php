@@ -15,7 +15,7 @@ class OperatorRoleSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
         // ایجاد نقش‌های پایه
-        $role = Role::create(['name' => 'operator']);
+        $role = Role::updateOrCreate(['name' => 'operator']);
         $role->givePermissionTo([
             'view users',
             'view tickets',

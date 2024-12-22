@@ -48,10 +48,10 @@ class RolesAndPermissionsSeeder extends Seeder
         }
 
         // ایجاد نقش‌های پایه
-        $role = Role::create(['name' => 'super-admin']);
+        $role = Role::updateOrCreate(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
 
-        $role = Role::create(['name' => 'admin']);
+        $role = Role::updateOrCreate(['name' => 'admin']);
         $role->givePermissionTo([
             'view users',
             'create users',
@@ -62,7 +62,16 @@ class RolesAndPermissionsSeeder extends Seeder
             'create tickets',
         ]);
 
-        $user = User::find(1);
+        $user = User::firstOrCreate(
+            ['email' => 'superadmin@pars.com'],
+            [
+                'name' => 'مدیر سیستم',
+                'email' => 'superadmin@pars.com',
+                'mobile' => '09011292890',
+                'password' => bcrypt('85gZ#X5&CE<W/j%UX)$C*p£')
+            ]
+        );
+
         $user->assignRole('super-admin');
     }
 }

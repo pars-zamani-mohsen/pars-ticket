@@ -13,10 +13,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-//            TicketTablesSeeder::class,
-//            RolesAndPermissionsSeeder::class,
+            TicketTablesSeeder::class,
+            RolesAndPermissionsSeeder::class,
             OperatorRoleSeeder::class,
-            /** TODO: create system user by super admin role */
         ]);
     }
 }

@@ -18,7 +18,7 @@ class TicketTablesSeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Category::create(['name' => $category, 'slug' => '']);
+            Category::updateOrCreate(['name' => $category], ['name' => $category, 'slug' => '']);
         }
 
         // برچست ها
@@ -29,7 +29,7 @@ class TicketTablesSeeder extends Seeder
         ];
 
         foreach ($labels as $label) {
-            Label::create(['name' => $label, 'slug' => '']);
+            Label::updateOrCreate(['name' => $label], ['name' => $label, 'slug' => '']);
         }
     }
 }
