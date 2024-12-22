@@ -2,44 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TicketPriorityEnum;
+use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
-use Coderflex\LaravelTicket\Enums\Priority;
-use Coderflex\LaravelTicket\Models\Category;
-use Coderflex\LaravelTicket\Models\Label;
+use App\Services\Actions\Ticket\GetList;
+use App\Services\Cache\CategoryCache;
+use App\Services\Cache\LabelCache;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::with(['user', 'categories', 'labels'])
-            ->latest()
-            ->paginate(10);
+        $tickets = GetList::handle();
+        $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
+        $labels = LabelCache::allActive(config('pars-ticket.cache.timeout-long'));
 
-        return view('tickets.index', compact('tickets'));
+        return view('tickets.index', compact('tickets', 'categories', 'labels'));
     }
 
     public function create()
     {
-        $categories = Category::where('is_visible', true)->get();
-        $labels = Label::where('is_visible', true)->get();
-        $priorities = ['low' => 'کم', 'normal' => 'متوسط', 'high' => 'زیاد'];
+        $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
+        $labels = LabelCache::allActive(config('pars-ticket.cache.timeout-long'));
+        $priorities = TicketPriorityEnum::getSelectBoxTransformItems()->toArray();
 
         return view('tickets.create', compact('categories', 'labels', 'priorities'));
     }
 
-    public function store(Request $request)
+    public function store(TicketRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'message' => 'required|string',
-            'priority' => ['required', Rule::in(collect(Priority::cases())->pluck('value'))],
-            'categories' => 'nullable|array',
-            'categories.*' => 'exists:categories,id',
-            'labels' => 'nullable|array',
-            'labels.*' => 'exists:labels,id'
-        ]);
+        $validated = $request->validationData();
 
         try {
             $ticket = Ticket::create([
@@ -69,18 +62,18 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
+        if (! $this->canAuthorizeRoleOrPermission(['super-admin', 'admin', 'operator'])) {
+            if ($ticket->user_id !== auth()->id()) {
+                abort(404);
+            }
+        }
         $ticket->load(['user', 'categories', 'labels', 'messages.user']);
         return view('tickets.show', compact('ticket'));
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(TicketRequest $request, Ticket $ticket)
     {
-        $validated = $request->validate([
-            'is_resolved' => 'sometimes|boolean',
-            'is_locked' => 'sometimes|boolean',
-            'assigned_to' => 'sometimes|nullable|exists:users,id',
-            'status' => 'sometimes|in:open,closed',
-        ]);
+        $validated = $request->validationData();
 
         $ticket->update($validated);
 

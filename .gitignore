@@ -1,5 +1,8 @@
 /vendor/
-/.idea/
+/.idea
+.idea/*
+/.vscode
+.vscode/*
 node_modules/
 npm-debug.log
 yarn-error.log
@@ -22,3 +25,5 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+_ide_helper_models.php
+.phpstorm.meta.php

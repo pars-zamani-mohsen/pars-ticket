@@ -71,11 +71,12 @@
                                 @foreach($categories as $category)
                                     <div class="flex items-center">
                                         <input type="checkbox"
+                                               id="categories{{ $category->id }}"
                                                name="categories[]"
                                                value="{{ $category->id }}"
                                                {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}
                                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                        <label class="mr-2 text-sm text-gray-700">{{ $category->name }}</label>
+                                        <label for="categories{{ $category->id }}" class="mr-2 text-sm text-gray-700">{{ $category->name }}</label>
                                     </div>
                                 @endforeach
                             </div>
@@ -91,11 +92,12 @@
                                 @foreach($labels as $label)
                                     <div class="flex items-center">
                                         <input type="checkbox"
+                                               id="labels{{ $label->id }}"
                                                name="labels[]"
                                                value="{{ $label->id }}"
                                                {{ in_array($label->id, old('labels', [])) ? 'checked' : '' }}
                                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                        <label class="mr-2 text-sm text-gray-700">{{ $label->name }}</label>
+                                        <label for="labels{{ $label->id }}" class="mr-2 text-sm text-gray-700">{{ $label->name }}</label>
                                     </div>
                                 @endforeach
                             </div>

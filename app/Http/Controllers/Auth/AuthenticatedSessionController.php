@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -23,13 +25,26 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->authenticate();
+        $loginType = User::loginType($request->login);
 
-        $request->session()->regenerate();
+        $credentials = [
+            $loginType => $request->login,
+            'password' => $request->password,
+        ];
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            auth()->user()->logActivity('login', 'ورود به سیستم');
+            $request->session()->regenerate();
+
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        auth()->user()->logActivity('login', 'ورود ناموفق به سیستم');
+        throw ValidationException::withMessages([
+            'login' => __('auth.failed'),
+        ]);
     }
 
     /**
@@ -37,6 +52,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        auth()->user()->logActivity('logout', 'خروج از سیستم');
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
