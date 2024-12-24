@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             OperatorRoleSeeder::class,
             DeleteFilePermissionSeeder::class,
             CreateTicketForUserSeeder::class,
+            ChangeTicketCategoryPermissionSeeder::class,
         ]);
     }
 }

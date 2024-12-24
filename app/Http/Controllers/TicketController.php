@@ -55,14 +55,14 @@ class TicketController extends Controller
 
             return redirect()
                 ->route('tickets.show', $ticket)
-                ->with('success', 'تیکت با موفقیت ایجاد شد.');
+                ->with('success', __('ticket.create_ticket_message_done'));
 
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
 
             return back()
                 ->withInput()
-                ->with('error', 'خطا در ایجاد تیکت. لطفا دوباره تلاش کنید.');
+                ->with('error', __('ticket.create_ticket_message_error'));
         }
     }
 
@@ -73,8 +73,11 @@ class TicketController extends Controller
                 abort(404);
             }
         }
+
+        $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
         $ticket->load(['user', 'categories', 'labels', 'messages.user']);
-        return view('tickets.show', compact('ticket'));
+
+        return view('tickets.show', compact('ticket', 'categories'));
     }
 
     public function update(TicketRequest $request, Ticket $ticket)
@@ -87,8 +90,12 @@ class TicketController extends Controller
             $ticket->update(['status' => 'closed']);
         }
 
+        if (!empty($validated['categories'])) {
+            $ticket->categories()->sync($validated['categories']);
+        }
+
         return redirect()
             ->route('tickets.show', $ticket)
-            ->with('success', 'تیکت با موفقیت بروزرسانی شد.');
+            ->with('success', __('ticket.update_ticket_message_done'));
     }
 }

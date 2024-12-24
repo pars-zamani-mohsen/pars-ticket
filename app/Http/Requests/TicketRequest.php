@@ -46,6 +46,8 @@ class TicketRequest extends FormRequest
                 'is_locked' => ['sometimes', 'boolean'],
                 'assigned_to' => ['sometimes', 'nullable', 'exists:users,id'],
                 'status' => ['sometimes', 'in:open,closed'],
+                'categories' => ['nullable', 'array'],
+                'categories.*' => ['exists:categories,id'],
             ];
         }
 

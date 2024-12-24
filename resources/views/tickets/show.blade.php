@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="mt-2 flex items-center text-sm text-gray-500">
-                        <span class="ml-2">ایجاد شده توسط:</span>
+                        <span class="ml-2">{{ __('ticket.ticket_created_by') }}:</span>
                         <span class="font-medium text-gray-900">{{ $ticket->user->name }}</span>
                         <span class="mx-2">•</span>
                         <span title="{{ verta($ticket->created_at)->format('Y/m/d H:i:s') }}">{{ $ticket->created_at->diffForHumans() }}</span>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="px-3 py-1 rounded-full text-sm {{ $ticket->priority === 'high' ? 'bg-red-100 text-red-800' : ($ticket->priority === 'normal' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800') }}">
-                        {{ $ticket->priority === 'high' ? 'فوری' : ($ticket->priority === 'normal' ? 'متوسط' : 'عادی') }}
+                        {{ $ticket->priority === 'high' ? __('ticket.high') : ($ticket->priority === 'normal' ? __('ticket.normal') : __('ticket.low')) }}
                     </span>
                     @if(!$ticket->is_resolved)
                         <form action="{{ route('tickets.update', $ticket) }}" method="POST">
@@ -40,10 +40,48 @@
                                 <svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                                 </svg>
-                                حل شده
+                                {{ __('ticket.close_ticket') }}
                             </button>
                         </form>
                     @endif
+                    @can('edit ticket category')
+                        <div class="max-w-lg mx-auto p-3 bg-white rounded-lg shadow-sm border-r-4">
+                            <form action="{{ route('tickets.update', $ticket) }}" method="POST" class="space-y-2">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="space-y-2">
+                                    <label for="categories" class="block text-sm font-semibold text-gray-700">
+                                        {{ __('ticket.change_ticket_category') }}
+                                    </label>
+
+                                    <div class="relative">
+                                        <select
+                                            name="categories[]"
+                                            id="categories"
+                                            class="block w-full rounded-lg border-gray-300 shadow-sm transition duration-150 ease-in-out
+                                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-30">
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                        @if(in_array($category->id, $ticket->categories->pluck('id')->toArray())) selected @endif>
+                                                    {{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-end pt-4">
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded-md transition">
+                                        <svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                        </svg>
+                                        {{ __('general.confirm') }}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -95,7 +133,7 @@
                                         </span>
                                             @if($message->user->hasRole('operator'))
                                                 <span class="mr-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                اپراتور
+                                                {{ __('general.operator') }}
                                             </span>
                                             @endif
                                         </div>
@@ -106,7 +144,7 @@
                                         <!-- نمایش فایل‌های پیوست هر پیام -->
                                         @if($message->getMedia('message-attachments')->count() > 0)
                                             <div class="mt-4">
-                                                <div class="text-sm font-medium text-gray-900 mb-2">فایل‌های پیوست:</div>
+                                                <div class="text-sm font-medium text-gray-900 mb-2">{{ __('general.attachment') }}:</div>
                                                 <div class="grid grid-cols-2 gap-4">
                                                     @foreach($message->getMedia('message-attachments') as $media)
                                                         <div class="relative flex items-center p-3 {{ $message->user_id === $ticket->user_id ? 'bg-blue-50 hover:bg-blue-100' : 'bg-green-50 hover:bg-green-100' }} rounded-md transition">
@@ -117,7 +155,7 @@
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                                                                 </svg>
                                                                 <div>
-                                                                    <div class="text-sm font-medium text-gray-900">{{ $media->file_name }}</div>
+                                                                    <div class="text-sm font-medium text-gray-900">{{ $media->name }}</div>
                                                                     <div class="text-xs text-gray-500">{{ round($media->size / 1024) }} KB</div>
                                                                 </div>
                                                             </a>
@@ -167,11 +205,11 @@
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:mr-4 sm:text-right">
                                     <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                        تایید حذف فایل
+                                        {{ __('ticket.confirm_delete_file') }}
                                     </h3>
                                     <div class="mt-2">
                                         <p class="text-sm text-gray-500">
-                                            آیا از حذف این فایل اطمینان دارید؟ این عملیات قابل بازگشت نیست.
+                                            {{ __('ticket.delete_ticket_message') }}
                                         </p>
                                     </div>
                                 </div>
@@ -181,12 +219,12 @@
                             <button type="button"
                                     @click="deleteFile()"
                                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                حذف
+                                {{ __('general.delete') }}
                             </button>
                             <button type="button"
                                     @click="showDeleteModal = false"
                                     class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                                انصراف
+                                {{ __('general.cancel') }}
                             </button>
                         </div>
                     </div>
@@ -202,14 +240,14 @@
                       enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">پیام شما</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('ticket.your_message') }}</label>
                         <textarea name="message" rows="4"
                                   class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                  placeholder="پیام خود را بنویسید..."></textarea>
+                                  placeholder="{{ __('ticket.write_your_message') }}..."></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">فایل‌های پیوست</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('general.attachment') }}</label>
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md transition-colors duration-200">
                                 <div class="space-y-1 text-center">
                                 <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -222,12 +260,12 @@
                                                multiple
                                                class="sr-only"
                                                onchange="updateFileList(this)">
-                                        <span>انتخاب فایل</span>
+                                        <span>{{ __('general.select_file') }}</span>
                                     </label>
-                                    <p class="pr-2">یا فایل را اینجا رها کنید</p>
+                                    <p class="pr-2">{{ __('general.release_file_here') }}</p>
                                 </div>
                                 <p class="text-xs text-gray-500">
-                                    حداکثر سایز هر فایل: ۱۰ مگابایت
+                                    {{ __('general.maximum_file_size_10_MB') }}
                                 </p>
                                 <div id="fileList" class="mt-2 text-sm text-gray-500"></div>
                             </div>
@@ -240,7 +278,7 @@
                             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                             </svg>
-                            ارسال پیام
+                            {{ __('ticket.send_message') }}
                         </button>
                     </div>
                 </form>

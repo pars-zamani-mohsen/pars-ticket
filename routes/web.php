@@ -51,9 +51,7 @@ Route::middleware(['auth', 'role:super-admin|admin'])->prefix('admin')->name('ad
 require __DIR__.'/auth.php';
 
 /** TODO:
- * create ticket for users (new ticket and user list)
  * create operator for special category
  * email and sms for user
- * change ticket category by operator
  * change text field to html text
  */
