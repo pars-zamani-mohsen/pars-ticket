@@ -108,7 +108,22 @@
                                 </a>
                             </th>
                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                موبایل
+                                <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'mobile' ? '-mobile' : 'mobile']) }}"
+                                   class="flex items-center justify-start hover:text-gray-900">
+                                    <span>موبایل</span>
+                                    @if(request()->get('sort') === 'mobile')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    @elseif(request()->get('sort') === '-mobile')
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                        </svg>
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                نقش ها
                             </th>
                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'created_at' ? '-created_at' : 'created_at']) }}"
@@ -143,11 +158,21 @@
                                     <div class="text-sm text-gray-900">{{ $user->mobile }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
+                                    @foreach($user->roles as $role)
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                {{ $role->name }}
+                                            </span>
+                                    @endforeach
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
                                         {{ verta($user->created_at)->format('Y/m/d H:i') }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    @can('create ticket for-user')
+                                        <a href="{{ route('tickets.create', ['user_id' => $user->id]) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ایجاد تیکت</a>
+                                    @endcan
                                     @can('edit users')
                                         <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ویرایش</a>
                                     @endcan
@@ -160,7 +185,6 @@
                                             </button>
                                         </form>
                                     @endcan
-
                                 </td>
                             </tr>
                         @empty

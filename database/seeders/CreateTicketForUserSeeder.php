@@ -8,12 +8,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
-class DeleteFilePermissionSeeder extends Seeder
+class CreateTicketForUserSeeder extends Seeder
 {
     public function run()
     {
         $permissionsArray = [
-            ['name' => 'delete ticket file', 'guard_name' => 'web', 'description' => 'امکان حذف فایل در تیکت ها']
+            ['name' => 'create ticket for-user', 'guard_name' => 'web', 'description' => 'ایجاد تیکت برای کاربر'],
         ];
 
         foreach ($permissionsArray as $permission) {

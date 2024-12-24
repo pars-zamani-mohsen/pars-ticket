@@ -49,6 +49,24 @@
                             @enderror
                         </div>
 
+                        @if(auth()->user()->can('create ticket for-user'))
+                            <div>
+                                <label for="user_id" class="block text-sm font-medium text-gray-700 mb-2">کاربر</label>
+                                <select name="user_id"
+                                        id="user_id"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('user_id') border-red-300 @enderror">
+                                    <option value="">انتخاب کنید</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}" @selected(old('user_id', Request::get('user_id')) == $user->id)>{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('user_id')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        @endif
+
+
                         <!-- اولویت -->
                         <div>
                             <label for="priority" class="block text-sm font-medium text-gray-700 mb-2">اولویت</label>

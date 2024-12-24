@@ -32,6 +32,7 @@ class GetList
                 }),
             ])
             ->allowedSorts(['name', 'email', 'mobile', 'created_at'])
+            ->with('roles:id,name')
             ->latest();
 
         return $query->paginate(config('pars-ticket.config.per_page'))

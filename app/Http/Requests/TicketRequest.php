@@ -31,6 +31,7 @@ class TicketRequest extends FormRequest
             $rule = [
                 'title' => ['required', 'string', 'max:255'],
                 'message' => ['required', 'string'],
+                'user_id' => ['nullable', 'int', 'exists:users,id'],
                 'priority' => ['required', Rule::in(TicketPriorityEnum::getArray())],
                 'categories' => ['nullable', 'array'],
                 'categories.*' => ['exists:categories,id'],

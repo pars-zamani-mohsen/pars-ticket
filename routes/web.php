@@ -50,7 +50,7 @@ Route::middleware(['auth', 'role:super-admin|admin'])->prefix('admin')->name('ad
 
 require __DIR__.'/auth.php';
 
-/** TODO: add log for delete file
+/** TODO:
  * create ticket for users (new ticket and user list)
  * create operator for special category
  * email and sms for user

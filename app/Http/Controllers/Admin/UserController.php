@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Services\Actions\User\GetList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -17,6 +16,7 @@ class UserController extends Controller
     {
         $this->authorizeRoleOrPermission('view users');
         $users = GetList::handle();
+
         return view('admin.users.index', compact('users'));
     }
 

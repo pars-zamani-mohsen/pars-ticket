@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\TicketPriorityEnum;
 use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
+use App\Models\User;
 use App\Services\Actions\Ticket\GetList;
 use App\Services\Cache\CategoryCache;
 use App\Services\Cache\LabelCache;
@@ -27,8 +28,9 @@ class TicketController extends Controller
         $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
         $labels = LabelCache::allActive(config('pars-ticket.cache.timeout-long'));
         $priorities = TicketPriorityEnum::getSelectBoxTransformItems()->toArray();
+        $users = User::doesntHave('roles')->get();
 
-        return view('tickets.create', compact('categories', 'labels', 'priorities'));
+        return view('tickets.create', compact('categories', 'labels', 'priorities', 'users'));
     }
 
     public function store(TicketRequest $request)
@@ -40,7 +42,7 @@ class TicketController extends Controller
                 'title' => $validated['title'],
                 'message' => Purify::clean($validated['message']),
                 'priority' => $validated['priority'],
-                'user_id' => auth()->id(),
+                'user_id' => ($validated['user_id'] ?? auth()->id()),
             ]);
 
             if (!empty($validated['categories'])) {
