@@ -23,6 +23,6 @@ class Message extends \Coderflex\LaravelTicket\Models\Message implements HasMedi
 
     public function ticket(): BelongsTo
     {
-        return $this->belongsTo(config('laravel-ticket.models.ticket'));
+        return $this->belongsTo(config('laravel_ticket.models.ticket'));
     }
 }

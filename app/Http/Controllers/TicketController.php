@@ -53,7 +53,10 @@ class TicketController extends Controller
             return redirect()
                 ->route('tickets.show', $ticket)
                 ->with('success', 'تیکت با موفقیت ایجاد شد.');
+
         } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+
             return back()
                 ->withInput()
                 ->with('error', 'خطا در ایجاد تیکت. لطفا دوباره تلاش کنید.');

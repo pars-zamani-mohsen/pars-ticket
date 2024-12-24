@@ -49,7 +49,7 @@
         </div>
         <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
             <div class="prose max-w-none text-gray-700">
-                {{ $ticket->message }}
+                {!! $ticket->message !!}
             </div>
         </div>
 
@@ -100,7 +100,7 @@
                                             @endif
                                         </div>
                                         <div class="mt-1 text-sm text-gray-700">
-                                            {{ $message->message }}
+                                            {!! $message->message !!}
                                         </div>
 
                                         <!-- نمایش فایل‌های پیوست هر پیام -->

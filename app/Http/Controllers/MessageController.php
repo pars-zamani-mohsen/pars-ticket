@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageRequest;
 use App\Models\Ticket;
+use App\Services\Actions\ActivityLog\CreateActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -33,6 +34,8 @@ class MessageController extends Controller
     public function destroy(Request $request, Media $media)
     {
         $this->authorizeRoleOrPermission('delete ticket file');
+
+        CreateActivityLog::handleForDeleteMedia($media, auth()->user());
 
         $media->delete();
 
