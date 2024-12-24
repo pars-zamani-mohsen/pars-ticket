@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/test', [TestController::class, 'index'])->name('test.index');
     Route::get('/cc', [TestController::class, 'clearConfig'])->name('test.clear_config');
     Route::get('/oc', [TestController::class, 'optimizeConfig'])->name('test.optimize_config');

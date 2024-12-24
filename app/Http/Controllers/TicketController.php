@@ -9,6 +9,7 @@ use App\Services\Actions\Ticket\GetList;
 use App\Services\Cache\CategoryCache;
 use App\Services\Cache\LabelCache;
 use Illuminate\Http\Request;
+use Stevebauman\Purify\Facades\Purify;
 
 class TicketController extends Controller
 {
@@ -37,7 +38,7 @@ class TicketController extends Controller
         try {
             $ticket = Ticket::create([
                 'title' => $validated['title'],
-                'message' => $validated['message'],
+                'message' => Purify::clean($validated['message']),
                 'priority' => $validated['priority'],
                 'user_id' => auth()->id(),
             ]);

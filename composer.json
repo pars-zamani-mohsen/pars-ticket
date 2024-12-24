@@ -16,7 +16,8 @@
         "spatie/laravel-activitylog": "^4.9",
         "spatie/laravel-medialibrary": "^11.11",
         "spatie/laravel-permission": "^6.10",
-        "spatie/laravel-query-builder": "^6.2"
+        "spatie/laravel-query-builder": "^6.2",
+        "stevebauman/purify": "^6.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
