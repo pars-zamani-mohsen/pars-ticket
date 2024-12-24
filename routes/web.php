@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MessageController;
@@ -27,9 +28,13 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/test', [TestController::class, 'index'])->name('test.index');
+    Route::get('/cc', [TestController::class, 'clearConfig'])->name('test.clear_config');
+    Route::get('/oc', [TestController::class, 'optimizeConfig'])->name('test.optimize_config');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('tickets', TicketController::class);
     Route::post('tickets/{ticket}/messages', [MessageController::class, 'store'])->name('ticket.messages.store');
@@ -44,3 +49,11 @@ Route::middleware(['auth', 'role:super-admin|admin'])->prefix('admin')->name('ad
 
 
 require __DIR__.'/auth.php';
+
+/** TODO: add log for delete file
+ * create ticket for users (new ticket and user list)
+ * create operator for special category
+ * email and sms for user
+ * change ticket category by operator
+ * change text field to html text
+ */
