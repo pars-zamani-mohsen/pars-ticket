@@ -31,6 +31,12 @@ class GetList
                     $query->whereDate('created_at', '<=', $date);
                 }),
 
+                /*AllowedFilter::callback('category', function ($query, $value) {
+                    $query->whereHas('categories', function ($query) use ($value) {
+                        $query->where('categories.id', $value);
+                    });
+                }),*/
+
                 // اضافه کردن فیلتر برای soft deleted items
                 AllowedFilter::callback('deleted', function ($query, $value) {
                     if ($value === '1' || $value === true) {
@@ -41,7 +47,7 @@ class GetList
                 }),
             ])
             ->allowedSorts(['name', 'email', 'mobile', 'created_at'])
-            ->with('roles:id,name')
+            ->with('roles:id,name', 'categories:id,name')
             ->latest();
 
         return $query->paginate(config('pars-ticket.config.per_page'))

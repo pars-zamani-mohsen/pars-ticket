@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\Actions\User\GetList;
 use App\Services\Actions\User\RoleAndPermissionLevelAccess;
+use App\Services\Cache\CategoryCache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,8 +26,9 @@ class UserController extends Controller
         $this->authorizeRoleOrPermission('create users');
 
         $roles = (new RoleAndPermissionLevelAccess())->getRolesByAccessLevel(auth()->user());
+        $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.users.create', compact('roles', 'categories'));
     }
 
     public function store(UserRequest $request)
@@ -37,6 +39,9 @@ class UserController extends Controller
         $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create($validated);
+        if ($request->has('categories')) {
+            $user->categories()->sync($request->categories);
+        }
 
         if ($this->canAuthorizeRoleOrPermission('update users roles')) {
             $user->assignRole($request->roles);
@@ -51,9 +56,11 @@ class UserController extends Controller
     {
         $this->authorizeRoleOrPermission('update tickets');
 
+        $user->load('categories');
         $roles = (new RoleAndPermissionLevelAccess())->getRolesByAccessLevel(auth()->user());
+        $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
 
-        return view('admin.users.create', compact('user', 'roles'));
+        return view('admin.users.create', compact('user', 'roles', 'categories'));
     }
 
     public function update(UserRequest $request, User $user)
@@ -74,6 +81,9 @@ class UserController extends Controller
         }
 
         $user->update($validated);
+        if ($request->has('categories')) {
+            $user->categories()->sync($request->categories);
+        }
 
         if ($this->canAuthorizeRoleOrPermission('update users roles')) {
             $user->syncRoles($request->roles);

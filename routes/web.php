@@ -54,6 +54,5 @@ require __DIR__.'/auth.php';
  * create operator for special category
  * email and sms for user
  * change text field to html text
- * users soft delete
  * add document to system per module
  */

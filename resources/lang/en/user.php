@@ -20,4 +20,5 @@ return [
     'user_updated_success_message' => 'کاربر با موفقیت بروزرسانی شد.',
     'you_can_not_deleted_user_message' => 'شما اجازه حذف این کاربر را ندارید.',
     'user_deleted_success_message' => 'کاربر با موفقیت حذف شد.',
+    'categories' => 'دسته بندی ها',
 ];

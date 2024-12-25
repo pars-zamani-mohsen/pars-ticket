@@ -5,7 +5,9 @@ namespace App\Models;
 use App\Traits\CustomLogsActivity;
 use Coderflex\LaravelTicket\Concerns\HasTickets;
 use Coderflex\LaravelTicket\Contracts\CanUseTickets;
+use Coderflex\LaravelTicket\Models\Category;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,22 +46,8 @@ class User extends Authenticatable implements CanUseTickets
             ->dontSubmitEmptyLogs();
     }
 
-    public static function loginType($input)
+    public function categories(): BelongsToMany
     {
-        if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
-            return 'email';
-        }
-
-        $input = preg_replace('/[^0-9]/', '', $input);
-
-        if (substr($input, 0, 1) === '0') {
-            $input = substr($input, 1);
-        }
-
-        if (substr($input, 0, 2) === '98') {
-            $input = substr($input, 2);
-        }
-
-        return 'mobile';
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 }

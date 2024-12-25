@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\Actions\User\LoginType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request)
     {
-        $loginType = User::loginType($request->login);
+        $loginType = LoginType::handle($request->login);
 
         $credentials = [
             $loginType => $request->login,

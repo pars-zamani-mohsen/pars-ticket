@@ -116,6 +116,22 @@
                                 </div>
                             @endcan
 
+                            <div class="">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="categories">
+                                    {{ __('user.categories') }}
+                                </label>
+                                <select name="categories[]"
+                                        id="categories"
+                                        class="select2 mt-1 block w-full"
+                                        multiple>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                                @if(isset($user) && in_array($category->id, $user->categories->pluck('id')->toArray())) selected @endif>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <!-- دکمه‌ها -->
@@ -132,14 +148,14 @@
     </div>
 
     @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="{{ asset('js/jquery-3.6.0.min.js.js') }}"></script>
+        <script src="{{ asset('js/select2.min.js.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('.select2').select2({
                     dir: "rtl",
                     language: "fa",
-                    placeholder: "نقش‌ها را انتخاب کنید",
+                    placeholder: "انتخاب کنید",
                     allowClear: true,
                     closeOnSelect: false,
                 });

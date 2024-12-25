@@ -44,9 +44,19 @@ class UserRequest extends FormRequest
 
         $common = [
             'name' => ['required', 'string', 'max:255'],
-            'roles' => ['nullable', 'array']
+            'roles' => ['nullable', 'array'],
+            'categories' => ['nullable', 'array'],
+            'categories.*' => ['exists:categories,id'],
         ];
 
         return array_merge($common, $rule ?? []);
+    }
+
+    public function attributes()
+    {
+        return [
+            'categories' => 'دسته‌بندی‌ها',
+            'categories.*' => 'دسته‌بندی'
+        ];
     }
 }
