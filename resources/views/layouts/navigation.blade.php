@@ -47,6 +47,14 @@
                     </x-responsive-nav-link>
                 </div>
                 @endcan
+
+                @can('show logs')
+                <div class="py-3">
+                    <x-responsive-nav-link :href="route('admin.activity-logs.index')" :active="request()->routeIs('admin.activity-logs.*')">
+                        {{ __('لاگ ها') }}
+                    </x-responsive-nav-link>
+                </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->
