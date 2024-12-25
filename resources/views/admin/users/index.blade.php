@@ -48,6 +48,16 @@
                                        class="pdate mt-1 block w-full rounded-md border-gray-300"
                                        readonly>
                             </div>
+
+                            <div class="grid grid-cols-1 gap-4">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="deleted" value="1"
+                                           x-model="filters.deleted"
+                                           @checked(old('deleted', request()->has('filter.deleted')))
+                                           class="form-checkbox h-5 w-5 text-blue-600">
+                                    <span class="mr-2">کاربران حذف شده</span>
+                                </label>
+                            </div>
                         </div>
 
                         <!-- دکمه‌های اکشن -->
@@ -74,6 +84,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <!-- جدول -->
+                    @if(request()->has('filter.deleted'))
+                        <span class="text-red-600 px-4 py-2 rounded-md hover:bg-red-600 hover:text-white">کاربران حذف شده</span>
+                    @endif
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>

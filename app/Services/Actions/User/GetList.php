@@ -30,6 +30,15 @@ class GetList
                     $date = verta($value)->datetime();
                     $query->whereDate('created_at', '<=', $date);
                 }),
+
+                // اضافه کردن فیلتر برای soft deleted items
+                AllowedFilter::callback('deleted', function ($query, $value) {
+                    if ($value === '1' || $value === true) {
+                        $query->onlyTrashed(); // فقط حذف شده‌ها
+                    } else {
+                        $query->withoutTrashed(); // فقط حذف نشده‌ها
+                    }
+                }),
             ])
             ->allowedSorts(['name', 'email', 'mobile', 'created_at'])
             ->with('roles:id,name')
