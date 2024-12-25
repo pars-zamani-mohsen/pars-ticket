@@ -8,13 +8,14 @@ use App\Services\Actions\ActivityLog\CreateActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Stevebauman\Purify\Facades\Purify;
 
 class MessageController extends Controller
 {
     public function store(MessageRequest $request, Ticket $ticket)
     {
         $message = $ticket->messages()->create([
-            'message' => $request->message,
+            'message' => Purify::clean($request->message),
             'user_id' => auth()->id(),
         ]);
 

@@ -248,12 +248,12 @@
                       method="POST"
                       enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('ticket.your_message') }}</label>
-                        <textarea name="message" rows="4"
-                                  class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                  placeholder="{{ __('ticket.write_your_message') }}..."></textarea>
-                    </div>
+                    <x-forms.rich-text
+                        name="message"
+                        label="{{ __('ticket.message') }}"
+                        value=""
+                        required
+                    />
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('general.attachment') }}</label>

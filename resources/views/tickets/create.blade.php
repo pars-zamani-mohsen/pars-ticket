@@ -46,19 +46,14 @@
                         </div>
 
                         <!-- پیام -->
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{{ __('ticket.message') }}</label>
-                            <textarea name="message"
-                                      id="message"
-                                      rows="4"
-                                      class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('message') border-red-300 @enderror"
-                                      required>{{ old('message') }}</textarea>
-                            @error('message')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        <x-forms.rich-text
+                            name="message"
+                            label="{{ __('ticket.message') }}"
+                            :value="$ticket->message ?? null"
+                            required
+                        />
 
-                        @if(auth()->user()->can('create tickets for-user'))
+                    @if(auth()->user()->can('create tickets for-user'))
                             <div>
                                 <label for="user_id" class="block text-sm font-medium text-gray-700 mb-2">{{ __('general.user') }}</label>
                                 <select name="user_id"
