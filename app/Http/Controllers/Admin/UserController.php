@@ -44,7 +44,7 @@ class UserController extends Controller
 
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'کاربر با موفقیت ایجاد شد.');
+            ->with('success', __('user.created_user_success'));
     }
 
     public function edit(User $user)
@@ -62,7 +62,7 @@ class UserController extends Controller
 
         if (! (new RoleAndPermissionLevelAccess())->CheckRoleInUpdate(auth()->user(), $user)) {
             return redirect()->route('admin.users.index')
-                ->with('error', 'شما اجازه ویرایش این کاربر را ندارید.');
+                ->with('error', __('user.you_can_not_edit_this_user_message'));
         }
 
         $validated = $request->validationData();
@@ -80,7 +80,7 @@ class UserController extends Controller
         }
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'کاربر با موفقیت بروزرسانی شد.');
+            ->with('success', __('user.user_updated_success_message'));
     }
 
     public function destroy(User $user)
@@ -89,12 +89,12 @@ class UserController extends Controller
 
         if (! (new RoleAndPermissionLevelAccess())->CheckRoleInUpdate(auth()->user(), $user)) {
             return redirect()->route('admin.users.index')
-                ->with('error', 'شما اجازه حذف این کاربر را ندارید.');
+                ->with('error', __('user.you_can_not_deleted_user_message'));
         }
 
         $user->delete();
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'کاربر با موفقیت حذف شد.');
+            ->with('success', __('user.user_deleted_success_message'));
     }
 }

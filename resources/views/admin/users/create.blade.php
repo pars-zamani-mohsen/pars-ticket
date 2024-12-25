@@ -7,7 +7,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ isset($user) ? 'ویرایش کاربر' : 'ایجاد کاربر جدید' }}
+            {{ isset($user) ? __('user.edit_user') : __('user.create_new_user') }}
         </h2>
     </x-slot>
 
@@ -26,7 +26,7 @@
                             <!-- نام -->
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700">
-                                    نام
+                                    {{ __('user.name') }}
                                 </label>
                                 <input type="text"
                                        name="name"
@@ -42,7 +42,7 @@
                             <!-- ایمیل -->
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700">
-                                    ایمیل
+                                    {{ __('user.email') }}
                                 </label>
                                 <input type="email"
                                        name="email"
@@ -57,7 +57,7 @@
                             <!-- موبایل -->
                             <div>
                                 <label for="mobile" class="block text-sm font-medium text-gray-700">
-                                    موبایل
+                                    {{ __('user.mobile') }}
                                 </label>
                                 <input type="text"
                                        name="mobile"
@@ -72,7 +72,7 @@
                             <!-- رمز عبور -->
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700">
-                                    رمز عبور {{ isset($user) ? '(در صورت تغییر)' : '' }}
+                                    {{ __('user.password') }} {{ isset($user) ? __('user.if_change') : '' }}
                                 </label>
                                 <input type="password"
                                        name="password"
@@ -87,7 +87,7 @@
                             <!-- تکرار رمز عبور -->
                             <div>
                                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
-                                    تکرار رمز عبور
+                                    {{ __('user.confirm_password') }}
                                 </label>
                                 <input type="password"
                                        name="password_confirmation"
@@ -100,7 +100,7 @@
                             @can('update users roles')
                                 <div class="">
                                     <label class="block text-sm font-medium text-gray-700 mb-2" for="roles">
-                                        نقش‌ها
+                                        {{ __('role.roles') }}
                                     </label>
                                     <select name="roles[]"
                                             id="roles"
@@ -122,7 +122,7 @@
                         <div class="mt-6">
                             <button type="submit"
                                     class="w-full sm:w-auto inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                                ثبت
+                                {{ __('general.submit') }}
                             </button>
                         </div>
                     </form>
