@@ -83,10 +83,66 @@ public function getActivitylogOptions(): LogOptions
 ## API‌ها و توابع اصلی
 
 ### GetList::handle()
-[مطابق مستندات قبلی]
+لیست‌گیری از کاربران با قابلیت فیلتر و مرتب‌سازی
+
+**فیلترهای موجود:**
+```php
+?filter[search]=keyword        // جستجو در نام، ایمیل و موبایل
+?filter[from_date]=1402-01-01 // فیلتر از تاریخ (شمسی)
+?filter[to_date]=1402-12-29   // فیلتر تا تاریخ (شمسی)
+?filter[deleted]=1            // نمایش موارد حذف شده
+```
+
+**مرتب‌سازی:**
+```php
+?sort=name        // مرتب‌سازی بر اساس نام (صعودی)
+?sort=-name       // مرتب‌سازی بر اساس نام (نزولی)
+?sort=email       // مرتب‌سازی بر اساس ایمیل
+?sort=created_at  // مرتب‌سازی بر اساس تاریخ ایجاد
+```
 
 ### RoleAndPermissionLevelAccess
-[مطابق مستندات قبلی]
+کلاس مدیریت سطوح دسترسی و نقش‌ها
+
+#### CheckRoleInUpdate()
+بررسی مجوز ویرایش کاربر
+```php
+public function CheckRoleInUpdate(User $currentUser, User $targetUser): bool
+```
+**قوانین دسترسی:**
+- Super-admin: دسترسی به همه چیز
+- Admin: عدم دسترسی به super-admin
+- User: فقط دسترسی به سطح خود
+
+**دسترسی های ایجاد شده برای کاربران:**
+- show users: نمایش لیست کاربران
+- create users: ایجاد کاربر  
+- update users: ویرایش کاربر
+- delete users: حذف کاربر
+- update users roles: ویرایش نقش کاربران 
+
+#### getRolesByAccessLevel()
+دریافت لیست نقش‌های مجاز برای کاربر
+```php
+public function getRolesByAccessLevel(User $currentUser)
+```
+
+## نمونه استفاده
+
+### دریافت لیست کاربران با فیلتر
+```php
+// جستجوی کاربران با نام "علی" که در تاریخ خاصی ثبت نام کرده‌اند
+GET /api/users?filter[search]=علی&filter[from_date]=1402-01-01&sort=-created_at
+```
+
+### بررسی مجوز ویرایش
+```php
+$roleAccess = new RoleAndPermissionLevelAccess();
+if ($roleAccess->CheckRoleInUpdate($currentUser, $targetUser)) {
+    // اجازه ویرایش دارد
+}
+```
+
 
 ### ثبت فعالیت کاربر
 ```php

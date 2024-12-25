@@ -17,7 +17,7 @@ class UserRequest extends FormRequest
         }
 
         if (in_array($this->method(), ['PATCH', 'PUT'])) {
-            return $this->canAuthorizeRoleOrPermission('update tickets');
+            return $this->canAuthorizeRoleOrPermission('update users');
         }
 
         return false;

@@ -54,7 +54,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorizeRoleOrPermission('update tickets');
+        $this->authorizeRoleOrPermission('update users');
 
         $user->load('categories');
         $roles = (new RoleAndPermissionLevelAccess())->getRolesByAccessLevel(auth()->user());
@@ -65,7 +65,7 @@ class UserController extends Controller
 
     public function update(UserRequest $request, User $user)
     {
-        $this->authorizeRoleOrPermission('update tickets');
+        $this->authorizeRoleOrPermission('update users');
 
         if (! (new RoleAndPermissionLevelAccess())->CheckRoleInUpdate(auth()->user(), $user)) {
             return redirect()->route('admin.users.index')

@@ -20,7 +20,7 @@ class RolesAndPermissionsSeeder extends Seeder
             // مدیریت کاربران
             'show users',
             'create users',
-            'update tickets',
+            'update users',
             'delete users',
 
             // مدیریت نقش‌ها
