@@ -1,10 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ isset($role) ? 'ویرایش نقش' : 'ایجاد نقش جدید' }}
+            {{ isset($role) ? __('role.update_role') : __('role.create_role') }}
         </h2>
     </x-slot>
-
+    <x-slot name="title">
+        {{ isset($role) ? __('role.update_role') : __('role.create_role') }}
+    </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

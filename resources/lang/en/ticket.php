@@ -34,4 +34,6 @@ return [
     'create_ticket_message_error' => 'خطا در ایجاد تیکت. لطفا دوباره تلاش کنید.',
     'update_ticket_message_done' => 'تیکت با موفقیت بروزرسانی شد.',
     'change_ticket_category' => 'تغییر دسته بندی تیکت',
+    'ticket_' => 'تیکت :ticket_title',
+    'ticket_number_' => 'تیکت :ticket_id',
 ];

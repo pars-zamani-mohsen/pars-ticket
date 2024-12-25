@@ -1,4 +1,13 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('ticket.ticket_number_', ['ticket_id' => $ticket->id]) }}
+        </h2>
+    </x-slot>
+    <x-slot name="title">
+        {{ __('ticket.ticket_number_', ['ticket_id' => $ticket->id]) }}
+    </x-slot>
+
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" dir="rtl">
         <!-- هدر تیکت -->
         <div class="bg-white rounded-lg shadow-sm p-6 mb-6">

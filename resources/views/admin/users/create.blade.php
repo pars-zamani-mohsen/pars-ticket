@@ -10,6 +10,9 @@
             {{ isset($user) ? __('user.edit_user') : __('user.create_new_user') }}
         </h2>
     </x-slot>
+    <x-slot name="title">
+        {{ isset($user) ? __('user.edit_user') : __('user.create_new_user') }}
+    </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -1,10 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('مدیریت کاربران') }}
+            {{ __('user.user_management') }}
         </h2>
     </x-slot>
-
+    <x-slot name="title">
+        {{ __('user.user_management') }}
+    </x-slot>
     {{-- Include jQuery First --}}
     <script src="{{ asset('js/jquery-3.6.0.min.js.js') }}"></script>
 
@@ -220,7 +222,7 @@
                                                 <form action="{{ route('admin.users.destroy', $user) }}"
                                                       method="POST"
                                                       class="inline-block"
-                                                      onsubmit="return confirm('{{ __('user.delete_user_message') }}')">
+                                                      onsubmit="return confirm('{{ __('general.delete_item_message') }}')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"

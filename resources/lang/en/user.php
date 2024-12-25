@@ -8,7 +8,6 @@ return [
     'email' => 'ایمیل',
     'mobile' => 'موبایل',
     'register_date' => 'تاریخ ثبت‌نام',
-    'delete_user_message' => 'آیا از حذف این کاربر اطمینان دارید؟',
     'no_users_found' => 'هیچ کاربری یافت نشد!',
     'edit_user' => 'ویرایش کاربر',
     'create_new_user' => 'ایجاد کاربر جدید',
@@ -21,4 +20,5 @@ return [
     'you_can_not_deleted_user_message' => 'شما اجازه حذف این کاربر را ندارید.',
     'user_deleted_success_message' => 'کاربر با موفقیت حذف شد.',
     'categories' => 'دسته بندی ها',
+    'user_management' => 'مدیریت کاربران',
 ];
