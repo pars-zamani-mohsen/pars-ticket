@@ -99,7 +99,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($roles as $role)
-                            <tr>
+                            <tr title="{{ $roles->id }}">
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
                                     {{ $role->name }}
                                 </td>

@@ -113,7 +113,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($permissions as $permission)
-                            <tr>
+                            <tr title="{{ $permission->id }}">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $permission->name }}</td>
                                 <td class="px-6 py-4">{{ $permission->description ?? '-' }}</td>
                                 <td class="px-6 py-4">

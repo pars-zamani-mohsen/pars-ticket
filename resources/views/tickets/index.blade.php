@@ -131,7 +131,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($tickets as $ticket)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="hover:bg-gray-50" title="{{ $ticket->id }}">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="ml-4">
