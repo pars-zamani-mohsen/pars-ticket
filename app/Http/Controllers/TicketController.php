@@ -69,11 +69,7 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
-        if (! $this->canAuthorizeRoleOrPermission(['show tickets all'])) {
-            if ($ticket->user_id !== auth()->id()) {
-                abort(404);
-            }
-        }
+        $this->authorize('show', $ticket);
 
         $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
         $ticket->load(['user', 'categories', 'labels', 'messages.user']);
@@ -83,6 +79,8 @@ class TicketController extends Controller
 
     public function update(TicketRequest $request, Ticket $ticket)
     {
+        $this->authorize('update', $ticket);
+
         $validated = $request->validationData();
 
         $ticket->update($validated);

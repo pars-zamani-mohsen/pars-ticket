@@ -37,7 +37,13 @@ class GetList
             ->latest();
 
         if (! auth()->user()->can('show tickets all')) {
-            $query->where('user_id', auth()->id());
+            if (auth()->user()->can('show tickets all-in-category')) {
+                $query->whereHas('categories', function($q) {
+                    $q->whereIn('categories.id', auth()->user()->categories->pluck('id'));
+                });
+            } else {
+                $query->where('user_id', auth()->id());
+            }
         }
 
         return $query->paginate(config('pars-ticket.config.paginate.per_page'))

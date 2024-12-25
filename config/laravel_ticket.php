@@ -78,7 +78,7 @@ return [
      */
     'models' => [
         'ticket' => \App\Models\Ticket::class,
-        'category' => Coderflex\LaravelTicket\Models\Category::class,
+        'category' => \App\Models\Category::class,
         'label' => Coderflex\LaravelTicket\Models\Label::class,
         'message' => \App\Models\Message::class,
     ],

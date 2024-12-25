@@ -14,6 +14,7 @@ class CustomPermissionsSeeder extends Seeder
     {
         $permissionsArray = [
             ['name' => 'show tickets all', 'guard_name' => 'web', 'description' => 'نمایش همه تیکت ها'],
+            ['name' => 'show tickets all-in-category', 'guard_name' => 'web', 'description' => 'نمایش همه تیکت ها (بر اساس دسته بندی)'],
             ['name' => 'create tickets for-user', 'guard_name' => 'web', 'description' => 'ایجاد تیکت برای کاربر'],
             ['name' => 'update tickets category', 'guard_name' => 'web', 'description' => 'تغییر دسته بندی تیکت'],
             ['name' => 'delete tickets files', 'guard_name' => 'web', 'description' => 'امکان حذف فایل در تیکت ها'],

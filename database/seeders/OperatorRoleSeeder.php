@@ -19,7 +19,7 @@ class OperatorRoleSeeder extends Seeder
         $role->givePermissionTo([
             'show tickets',
             'create tickets',
-            'show tickets all',
+            'show tickets all-in-category',
             'create tickets for-user',
             'delete tickets file',
             'update tickets category',

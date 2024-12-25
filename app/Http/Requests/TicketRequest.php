@@ -16,10 +16,22 @@ class TicketRequest extends FormRequest
         if (in_array($this->method(), ['PATCH', 'PUT'])) {
             if (! $this->canAuthorizeRoleOrPermission(['show tickets all'])) {
                 $ticket = $this->route('ticket');
-                if ($ticket->user_id !== auth()->id()) {
-                    return false;
+
+                if ($ticket->user_id === auth()->id()) {
+                    return true;
                 }
+
+                if ($this->canAuthorizeRoleOrPermission(['show tickets all-in-category'])) {
+                    $userCategoryIds = auth()->user()->categories->pluck('id')->toArray();
+                    $ticketCategoryIds = $ticket->categories->pluck('id')->toArray();
+
+                    return ! empty(array_intersect($userCategoryIds, $ticketCategoryIds));
+                }
+
+                return false;
             }
+
+            return true;
         }
 
         return true;

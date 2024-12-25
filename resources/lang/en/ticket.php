@@ -36,4 +36,5 @@ return [
     'change_ticket_category' => 'تغییر دسته بندی تیکت',
     'ticket_' => 'تیکت :ticket_title',
     'ticket_number_' => 'تیکت :ticket_id',
+    'you_dont_have_access_to_this_ticket_message' => 'شما دسترسی به این تیکت ندارید',
 ];
