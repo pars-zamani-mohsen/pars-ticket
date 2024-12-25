@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $this->authorizeRoleOrPermission('view roles');
+        $this->authorizeRoleOrPermission('show roles');
         $roles = GetList::handle();
         return view('admin.roles.index', compact('roles'));
     }
@@ -38,14 +38,14 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        $this->authorizeRoleOrPermission('edit roles');
+        $this->authorizeRoleOrPermission('update roles');
         $permissions = Permission::all();
         return view('admin.roles.create', compact('role', 'permissions'));
     }
 
     public function update(RoleRequest $request, Role $role)
     {
-        $this->authorizeRoleOrPermission('edit roles');
+        $this->authorizeRoleOrPermission('update roles');
 
         $role->update(['name' => $request->name]);
         $role->syncPermissions($request->permissions);

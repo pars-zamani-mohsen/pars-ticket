@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('tickets/file/{media}', [MessageController::class, 'destroy'])->name('ticket.files.destroy');
 });
 
-Route::middleware(['auth', 'role:super-admin|admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('permissions', PermissionController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
@@ -54,4 +54,6 @@ require __DIR__.'/auth.php';
  * create operator for special category
  * email and sms for user
  * change text field to html text
+ * users soft delete
+ * add document to system per module
  */

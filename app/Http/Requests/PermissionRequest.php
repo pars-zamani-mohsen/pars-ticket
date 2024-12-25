@@ -16,7 +16,7 @@ class PermissionRequest extends FormRequest
         }
 
         if (in_array($this->method(), ['PATCH', 'PUT'])) {
-            return $this->canAuthorizeRoleOrPermission('edit permissions');
+            return $this->canAuthorizeRoleOrPermission('update permissions');
         }
 
         return false;

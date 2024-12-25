@@ -14,7 +14,7 @@ class TicketRequest extends FormRequest
     public function authorize(): bool
     {
         if (in_array($this->method(), ['PATCH', 'PUT'])) {
-            if (! $this->canAuthorizeRoleOrPermission(['super-admin', 'admin', 'operator'])) {
+            if (! $this->canAuthorizeRoleOrPermission(['show tickets all'])) {
                 $ticket = $this->route('ticket');
                 if ($ticket->user_id !== auth()->id()) {
                     return false;

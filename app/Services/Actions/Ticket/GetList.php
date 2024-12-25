@@ -36,7 +36,7 @@ class GetList
             ->with(['user', 'categories', 'labels'])
             ->latest();
 
-        if (! auth()->user()->hasAnyRole('super-admin', 'admin')) {
+        if (! auth()->user()->hasAnyRole('show tickets all')) {
             $query->where('user_id', auth()->id());
         }
 

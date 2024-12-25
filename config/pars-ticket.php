@@ -35,4 +35,8 @@ return [
     'config' => [
         'per_page' => 20,
     ],
+    'super_admin_user' => [
+        'username' => env('SUPERADMINUSER_USERNAME', 'admin@pars.com'),
+        'password' => env('SUPERADMINUSER_PASSWORD', '1234567890'),
+    ],
 ];

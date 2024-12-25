@@ -113,7 +113,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     {{ verta($role->created_at)->format('Y/m/d H:i') }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium">
-                                    @can('edit roles')
+                                    @can('update roles')
                                         <a href="{{ route('admin.roles.edit', $role) }}" class="text-indigo-600 hover:text-indigo-900 ml-4">ویرایش</a>
                                     @endcan
 

@@ -38,6 +38,7 @@
                                                class="form-checkbox h-5 w-5 text-blue-600"
                                                @if(isset($role) && $role->hasPermissionTo($permission->name)) checked @endif>
                                         <span class="mr-2">{{ $permission->name }}</span>
+                                        <small class="mr-2 text-gray-600">{{ $permission->description }}</small>
                                     </label>
                                 @endforeach
                             </div>

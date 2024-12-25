@@ -68,7 +68,7 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
-        if (! $this->canAuthorizeRoleOrPermission(['super-admin', 'admin', 'operator'])) {
+        if (! $this->canAuthorizeRoleOrPermission(['show tickets all'])) {
             if ($ticket->user_id !== auth()->id()) {
                 abort(404);
             }
@@ -90,8 +90,10 @@ class TicketController extends Controller
             $ticket->update(['status' => 'closed']);
         }
 
-        if (!empty($validated['categories'])) {
-            $ticket->categories()->sync($validated['categories']);
+        if ($this->canAuthorizeRoleOrPermission('edit tickets category')) {
+            if (!empty($validated['categories'])) {
+                $ticket->categories()->sync($validated['categories']);
+            }
         }
 
         return redirect()

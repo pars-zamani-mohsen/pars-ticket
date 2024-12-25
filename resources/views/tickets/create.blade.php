@@ -49,7 +49,7 @@
                             @enderror
                         </div>
 
-                        @if(auth()->user()->can('create ticket for-user'))
+                        @if(auth()->user()->can('create tickets for-user'))
                             <div>
                                 <label for="user_id" class="block text-sm font-medium text-gray-700 mb-2">{{ __('general.user') }}</label>
                                 <select name="user_id"

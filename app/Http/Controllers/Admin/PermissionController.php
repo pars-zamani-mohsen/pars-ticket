@@ -13,7 +13,7 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        $this->authorizeRoleOrPermission('view permissions');
+        $this->authorizeRoleOrPermission('show permissions');
 
         $permissions = GetList::handle();
 
@@ -41,13 +41,13 @@ class PermissionController extends Controller
 
     public function edit(Permission $permission)
     {
-        $this->authorizeRoleOrPermission('edit permissions');
+        $this->authorizeRoleOrPermission('update permissions');
         return view('admin.permissions.create', compact('permission'));
     }
 
     public function update(PermissionRequest $request, Permission $permission)
     {
-        $this->authorizeRoleOrPermission('edit permissions');
+        $this->authorizeRoleOrPermission('update permissions');
 
         $validated = $request->validationData();
         $permission->update($validated);

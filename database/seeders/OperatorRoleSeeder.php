@@ -17,9 +17,16 @@ class OperatorRoleSeeder extends Seeder
         // ایجاد نقش‌های پایه
         $role = Role::updateOrCreate(['name' => 'operator']);
         $role->givePermissionTo([
-            'view users',
-            'view tickets',
+            'show tickets',
             'create tickets',
+            'show tickets all',
+            'create tickets for-user',
+            'delete tickets file',
+            'edit tickets category',
+            'show dashboard admin',
+            'show users',
+            'create users',
+            '',
         ]);
     }
 }

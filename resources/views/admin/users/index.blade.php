@@ -170,10 +170,10 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    @can('create ticket for-user')
+                                    @can('create tickets for-user')
                                         <a href="{{ route('tickets.create', ['user_id' => $user->id]) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ایجاد تیکت</a>
                                     @endcan
-                                    @can('edit users')
+                                    @can('update tickets')
                                         <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900 ml-3">ویرایش</a>
                                     @endcan
                                     @can('delete users')

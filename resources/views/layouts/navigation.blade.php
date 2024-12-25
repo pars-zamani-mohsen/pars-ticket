@@ -24,25 +24,29 @@
                     </x-responsive-nav-link>
                 </div>
 
-                @role('super-admin')
+                @can('show users')
                 <div class="py-3">
                     <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                         {{ __('مدیریت کاربر ها') }}
                     </x-responsive-nav-link>
                 </div>
+                @endcan
 
+                @can('show roles')
                 <div class="py-3">
                     <x-responsive-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
                         {{ __('مدیریت نقش ها') }}
                     </x-responsive-nav-link>
                 </div>
+                @endcan
 
+                @can('show permissions')
                 <div class="py-3">
                     <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
                         {{ __('مدیریت دسترسی‌ها') }}
                     </x-responsive-nav-link>
                 </div>
-                @endrole
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->

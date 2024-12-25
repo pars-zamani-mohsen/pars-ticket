@@ -44,7 +44,7 @@
                             </button>
                         </form>
                     @endif
-                    @can('edit ticket category')
+                    @can('edit tickets category')
                         <div class="max-w-lg mx-auto p-3 bg-white rounded-lg shadow-sm border-r-4">
                             <form action="{{ route('tickets.update', $ticket) }}" method="POST" class="space-y-2">
                                 @csrf
@@ -160,7 +160,7 @@
                                                                 </div>
                                                             </a>
 
-                                                            @can('delete ticket file')
+                                                            @can('delete tickets files')
                                                                 <button type="button"
                                                                         @click="showDeleteModal = true; fileToDelete = {{ $media->id }}"
                                                                         class="p-1 hover:bg-red-100 rounded-full transition-colors duration-200">

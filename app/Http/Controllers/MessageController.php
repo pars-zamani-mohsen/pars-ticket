@@ -33,7 +33,7 @@ class MessageController extends Controller
 
     public function destroy(Request $request, Media $media)
     {
-        $this->authorizeRoleOrPermission('delete ticket file');
+        $this->authorizeRoleOrPermission('delete tickets files');
 
         CreateActivityLog::handleForDeleteMedia($media, auth()->user());
 

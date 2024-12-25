@@ -41,7 +41,6 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 
-        auth()->user()->logActivity('login', 'ورود ناموفق به سیستم');
         throw ValidationException::withMessages([
             'login' => __('auth.failed'),
         ]);

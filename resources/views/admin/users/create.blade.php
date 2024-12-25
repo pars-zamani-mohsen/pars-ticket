@@ -97,22 +97,25 @@
                             </div>
 
                             <!-- نقش‌ها -->
-                            <div class="">
-                                <label class="block text-sm font-medium text-gray-700 mb-2" for="roles">
-                                    نقش‌ها
-                                </label>
-                                <select name="roles[]"
-                                        id="roles"
-                                        class="select2 mt-1 block w-full"
-                                        multiple>
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role->name }}"
-                                                @if(isset($user) && $user->hasRole($role->name)) selected @endif>
-                                            {{ $role->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @can('update users roles')
+                                <div class="">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2" for="roles">
+                                        نقش‌ها
+                                    </label>
+                                    <select name="roles[]"
+                                            id="roles"
+                                            class="select2 mt-1 block w-full"
+                                            multiple>
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->name }}"
+                                                    @if(isset($user) && $user->hasRole($role->name)) selected @endif>
+                                                {{ $role->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endcan
+
                         </div>
 
                         <!-- دکمه‌ها -->

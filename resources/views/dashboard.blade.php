@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- آمار کلی -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                @can('view permissions')
+                @can('show permissions')
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6">
                             <div class="text-gray-500 text-sm">کل کاربران</div>
@@ -86,7 +86,7 @@
                     <div class="p-6">
                         <h3 class="text-lg font-semibold text-gray-800 mb-4">دسترسی سریع</h3>
                         <div class="grid grid-cols-2 gap-4">
-                            @can('view users')
+                            @can('show users')
                                 <a href="{{ route('admin.users.index') }}"
                                    class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
                                     <div class="text-lg font-semibold text-gray-800">مدیریت کاربران</div>
@@ -94,7 +94,7 @@
                                 </a>
                             @endcan
 
-                            @can('view roles')
+                            @can('show roles')
                                 <a href="{{ route('admin.roles.index') }}"
                                    class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
                                     <div class="text-lg font-semibold text-gray-800">مدیریت نقش‌ها</div>
@@ -102,7 +102,7 @@
                                 </a>
                             @endcan
 
-                            @can('view permissions')
+                            @can('show permissions')
                                 <a href="{{ route('admin.permissions.index') }}"
                                    class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
                                     <div class="text-lg font-semibold text-gray-800">مدیریت دسترسی‌ها</div>
