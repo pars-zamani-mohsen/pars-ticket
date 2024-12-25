@@ -21,7 +21,11 @@ class RoleController extends Controller
     public function create()
     {
         $this->authorizeRoleOrPermission('create roles');
-        $permissions = Permission::all();
+
+        $permissions = Permission::all()->groupBy(function ($permission) {
+            return explode(' ', $permission->name)[0];
+        });
+
         return view('admin.roles.create', compact('permissions'));
     }
 
@@ -39,7 +43,11 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $this->authorizeRoleOrPermission('update roles');
-        $permissions = Permission::all();
+
+        $permissions = Permission::all()->groupBy(function ($permission) {
+            return explode(' ', $permission->name)[0];
+        });
+
         return view('admin.roles.create', compact('role', 'permissions'));
     }
 
