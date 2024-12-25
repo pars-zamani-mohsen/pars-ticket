@@ -90,7 +90,7 @@ class TicketController extends Controller
             $ticket->update(['status' => 'closed']);
         }
 
-        if ($this->canAuthorizeRoleOrPermission('edit tickets category')) {
+        if ($this->canAuthorizeRoleOrPermission('update tickets category')) {
             if (!empty($validated['categories'])) {
                 $ticket->categories()->sync($validated['categories']);
             }

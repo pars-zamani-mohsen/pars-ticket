@@ -53,7 +53,7 @@
                             </button>
                         </form>
                     @endif
-                    @can('edit tickets category')
+                    @can('update tickets category')
                         <div class="max-w-lg mx-auto p-3 bg-white rounded-lg shadow-sm border-r-4">
                             <form action="{{ route('tickets.update', $ticket) }}" method="POST" class="space-y-2">
                                 @csrf
