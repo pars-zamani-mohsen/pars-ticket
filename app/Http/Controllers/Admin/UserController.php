@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Models\Role;
 use App\Models\User;
 use App\Services\Actions\User\GetList;
+use App\Services\Actions\User\RoleAndPermissionLevelAccess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $this->authorizeRoleOrPermission('view users');
+        $this->authorizeRoleOrPermission('show users');
         $users = GetList::handle();
 
         return view('admin.users.index', compact('users'));
@@ -23,7 +23,9 @@ class UserController extends Controller
     public function create()
     {
         $this->authorizeRoleOrPermission('create users');
-        $roles = Role::all();
+
+        $roles = (new RoleAndPermissionLevelAccess())->getRolesByAccessLevel(auth()->user());
+
         return view('admin.users.create', compact('roles'));
     }
 
@@ -35,7 +37,10 @@ class UserController extends Controller
         $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create($validated);
-        $user->assignRole($request->roles);
+
+        if ($this->canAuthorizeRoleOrPermission('update users roles')) {
+            $user->assignRole($request->roles);
+        }
 
 
         return redirect()->route('admin.users.index')
@@ -44,14 +49,21 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorizeRoleOrPermission('edit users');
-        $roles = Role::all();
+        $this->authorizeRoleOrPermission('update tickets');
+
+        $roles = (new RoleAndPermissionLevelAccess())->getRolesByAccessLevel(auth()->user());
+
         return view('admin.users.create', compact('user', 'roles'));
     }
 
     public function update(UserRequest $request, User $user)
     {
-        $this->authorizeRoleOrPermission('edit users');
+        $this->authorizeRoleOrPermission('update tickets');
+
+        if (! (new RoleAndPermissionLevelAccess())->CheckRoleInUpdate(auth()->user(), $user)) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'شما اجازه ویرایش این کاربر را ندارید.');
+        }
 
         $validated = $request->validationData();
 
@@ -62,7 +74,10 @@ class UserController extends Controller
         }
 
         $user->update($validated);
-        $user->syncRoles($request->roles);
+
+        if ($this->canAuthorizeRoleOrPermission('update users roles')) {
+            $user->syncRoles($request->roles);
+        }
 
         return redirect()->route('admin.users.index')
             ->with('success', 'کاربر با موفقیت بروزرسانی شد.');
@@ -71,6 +86,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorizeRoleOrPermission('delete users');
+
+        if (! (new RoleAndPermissionLevelAccess())->CheckRoleInUpdate(auth()->user(), $user)) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'شما اجازه حذف این کاربر را ندارید.');
+        }
+
         $user->delete();
 
         return redirect()->route('admin.users.index')
