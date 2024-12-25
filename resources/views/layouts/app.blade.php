@@ -31,6 +31,33 @@
                 </header>
             @endif
 
+            <div class="container mx-auto px-4 mt-4">
+                @if(session()->has('success'))
+                    <x-alert type="success" :message="session('success')" />
+                @endif
+
+                @if(session()->has('error'))
+                    <x-alert type="error" :message="session('error')" />
+                @endif
+
+                @if(session()->has('warning'))
+                    <x-alert type="warning" :message="session('warning')" />
+                @endif
+
+                @if(session()->has('info'))
+                    <x-alert type="info" :message="session('info')" />
+                @endif
+
+                <!-- نمایش خطاهای validation -->
+                @if($errors->any())
+                    <div class="space-y-2">
+                        @foreach($errors->all() as $error)
+                            <x-alert type="error" :message="$error" />
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
