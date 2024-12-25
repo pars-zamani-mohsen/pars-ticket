@@ -19,11 +19,11 @@ class DashboardController extends Controller
 
         $usersCount = User::count();
 
-        $ticketsCount = (auth()->user()->hasAnyRole(['show dashboard admin'])) ?
+        $ticketsCount = (auth()->user()->can(['show dashboard admin'])) ?
             Ticket::count() :
             Ticket::where('user_id', auth()->id())->count();
 
-        $openTicketsCount = (auth()->user()->hasAnyRole(['show dashboard admin'])) ?
+        $openTicketsCount = (auth()->user()->can(['show dashboard admin'])) ?
             Ticket::where('status', TicketStatusEnum::OPEN->value)->count() :
             Ticket::where('status', TicketStatusEnum::OPEN->value)->where('user_id', auth()->id())->count();
 

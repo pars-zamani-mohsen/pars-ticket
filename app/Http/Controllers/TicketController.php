@@ -17,6 +17,7 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = GetList::handle();
+
         $categories = CategoryCache::allActive(config('pars-ticket.cache.timeout-long'));
         $labels = LabelCache::allActive(config('pars-ticket.cache.timeout-long'));
 
