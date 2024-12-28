@@ -113,7 +113,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    {{ verta($role->created_at)->format('Y/m/d H:i') }}</td>
+                                    {{ \Morilog\Jalali\Jalalian::fromCarbon($role->created_at)->format('Y/m/d H:i') }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex items-center justify-end space-x-3 space-x-reverse">
                                         @can('update roles')

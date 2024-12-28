@@ -7,54 +7,40 @@
     <x-slot name="title">
         {{ __('user.user_management') }}
     </x-slot>
-    {{-- Include jQuery First --}}
-    <script src="{{ asset('js/jquery-3.6.0.min.js.js') }}"></script>
 
-    {{-- Persian Date Requirements --}}
-    <script src="{{ asset('js/persian-date.min.js') }}"></script>
-    <script src="{{ asset('js/persian-datepicker.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/persian-datepicker.min.css') }}">
-
-    <div x-data="usersIndex" class="py-12">
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form @submit.prevent="applyFilters" class="space-y-4">
+                    <form method="GET" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <!-- جستجو -->
-                            <div class="md:col-span-1">
-                                <label for="search" class="block text-sm font-medium text-gray-700">{{ __('ticket.search') }}</label>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('ticket.search') }}</label>
                                 <input type="text"
-                                       id="search"
-                                       x-model="filters.search"
-                                       class="mt-1 block w-full rounded-md border-gray-300"
-                                       placeholder="{{ __('user.search_in_email_mobile') }}...">
+                                       name="filter[search]"
+                                       value="{{ request('filter.search') }}"
+                                       placeholder="{{ __('user.search_in_email_mobile') }}..."
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
 
                             <!-- تاریخ از -->
-                            <div>
-                                <label for="from_date" class="block text-sm font-medium text-gray-700">{{ __('general.from_date') }}</label>
-                                <input type="text"
-                                       id="from_date"
-                                       x-model="filters.from_date"
-                                       class="pdate mt-1 block w-full rounded-md border-gray-300"
-                                       readonly>
-                            </div>
+                            <x-date-picker
+                                name="filter[from_date]"
+                                label="{{ __('general.from_date') }}"
+                                value="{{ request('filter.from_date') }}"
+                            />
 
                             <!-- تاریخ تا -->
-                            <div>
-                                <label for="to_date" class="block text-sm font-medium text-gray-700">{{ __('general.to_date') }}</label>
-                                <input type="text"
-                                       id="to_date"
-                                       x-model="filters.to_date"
-                                       class="pdate mt-1 block w-full rounded-md border-gray-300"
-                                       readonly>
-                            </div>
+                            <x-date-picker
+                                name="filter[to_date]"
+                                label="{{ __('general.to_date') }}"
+                                value="{{ request('filter.to_date') }}"
+                            />
 
                             <div class="grid grid-cols-1 gap-4">
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" name="deleted" value="1"
-                                           x-model="filters.deleted"
                                            @checked(old('deleted', request()->has('filter.deleted')))
                                            class="form-checkbox h-5 w-5 text-blue-600">
                                     <span class="mr-2">{{ __('user.deleted_user') }}</span>
@@ -191,7 +177,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{ verta($user->created_at)->format('Y/m/d H:i') }}
+                                        {{ \Morilog\Jalali\Jalalian::fromCarbon($user->created_at)->format('Y/m/d H:i') }}
                                     </div>
                                 </td>
 
@@ -258,54 +244,7 @@
 
     @push('scripts')
         <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('usersIndex', () => ({
-                    filters: {
-                        search: @json(request('filter.search', '')),
-                    from_date: @json(request('filter.from_date', '')),
-                    to_date: @json(request('filter.to_date', ''))
-            },
 
-            init() {
-                // اطمینان از لود شدن کامل صفحه
-                this.$nextTick(() => {
-                    // تنظیمات تقویم شمسی
-                    $('.pdate').persianDatepicker({
-                        format: 'YYYY/MM/DD',
-                        autoClose: true,
-                        initialValue: false,
-                        observer: true,
-                        onSelect: (unix) => {
-                            // به‌روزرسانی مقدار در Alpine
-                            const inputId = $(this).attr('id');
-                            this.filters[inputId] = unix;
-                        }
-                    });
-                });
-            },
-
-            applyFilters() {
-                let params = new URLSearchParams(window.location.search);
-
-                // اعمال فیلترها
-                Object.entries(this.filters).forEach(([key, value]) => {
-                    if (value) {
-                        params.set(`filter[${key}]`, value);
-                    } else {
-                        params.delete(`filter[${key}]`);
-                    }
-                });
-
-                // حفظ پارامتر مرتب‌سازی
-                if (params.has('sort')) {
-                    params.set('sort', params.get('sort'));
-                }
-
-                // ریدایرکت با پارامترهای جدید
-                window.location.search = params.toString();
-            },
-        }));
-    });
         </script>
     @endpush
 

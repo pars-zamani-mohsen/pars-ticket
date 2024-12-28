@@ -161,7 +161,7 @@
                                             {{ $ticket->is_resolved ? __('ticket.close') : __('ticket.open') }}
                                         </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ verta($ticket->created_at)->format('Y/m/d H:i:s') }}">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->format('Y/m/d H:i') }}">
                                     {{ $ticket->created_at->diffForHumans() }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
