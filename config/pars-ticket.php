@@ -35,6 +35,10 @@ return [
     'config' => [
         'per_page' => 20,
     ],
+    'sms_api_key' => [
+        'kavenegar-url' => env('KAVENEGAR_API_KEY', ''),
+        'kavenegar-number' => env('KAVENEGAR_SEND_NUMBER', ''),
+    ],
     'super_admin_user' => [
         'username' => env('SUPERADMINUSER_USERNAME', 'admin@pars.com'),
         'password' => env('SUPERADMINUSER_PASSWORD', '1234567890'),
