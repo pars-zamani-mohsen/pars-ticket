@@ -7,6 +7,7 @@ namespace App\Services\Actions\ActivityLog;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Morilog\Jalali\Jalalian;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CreateActivityLog
@@ -27,8 +28,9 @@ class CreateActivityLog
                     'message' => $message,
                 ];
 
+                $now = Jalalian::now()->format('l، d F Y، H:i');
                 $message->update([
-                    'message' => "{$message->message} \n <p class='text-red-600'>فایل {$media->name} توسط {$user->name} حذف شد</p>",
+                    'message' => "{$message->message} \n <p class='text-red-600'>فایل {$media->name} توسط {$user->name} در تاریخ {$now} حذف شد</p>",
                 ]);
             }
 
