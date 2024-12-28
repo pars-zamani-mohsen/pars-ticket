@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TicketPriorityEnum;
+use App\Events\TicketNotificationEvent;
 use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
 use App\Models\User;
@@ -54,6 +55,8 @@ class TicketController extends Controller
                 $ticket->labels()->attach($validated['labels']);
             }
 
+            event(new TicketNotificationEvent($ticket, 'created'));
+
             return redirect()
                 ->route('tickets.show', $ticket)
                 ->with('success', __('ticket.create_ticket_message_done'));
@@ -81,19 +84,26 @@ class TicketController extends Controller
     {
         $this->authorize('update', $ticket);
 
+        $changes = [];
+
         $validated = $request->validationData();
 
         $ticket->update($validated);
 
+
         if ($request->has('is_resolved') && $request->is_resolved) {
+            $changes[] = 'is_resolved';
             $ticket->update(['status' => 'closed']);
         }
 
         if ($this->canAuthorizeRoleOrPermission('update tickets category')) {
             if (!empty($validated['categories'])) {
+                $changes[] = 'categories';
                 $ticket->categories()->sync($validated['categories']);
             }
         }
+
+        event(new TicketNotificationEvent($ticket, 'updated', $changes));
 
         return redirect()
             ->route('tickets.show', $ticket)
