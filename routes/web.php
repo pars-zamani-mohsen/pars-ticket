@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
@@ -39,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('tickets', TicketController::class);
     Route::post('tickets/{ticket}/messages', [MessageController::class, 'store'])->name('ticket.messages.store');
-    Route::delete('tickets/file/{media}', [MessageController::class, 'destroy'])->name('ticket.files.destroy');
+    Route::delete('tickets/file/{media}', [MediaController::class, 'destroy'])->name('ticket.files.destroy');
 });
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\MessageNotificationEvent;
 use App\Events\TicketNotificationEvent;
+use App\Listeners\SendMessageNotificationListener;
 use App\Listeners\SendTicketNotificationListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         TicketNotificationEvent::class => [
             SendTicketNotificationListener::class,
+        ],
+        MessageNotificationEvent::class => [
+            SendMessageNotificationListener::class,
         ],
     ];
 

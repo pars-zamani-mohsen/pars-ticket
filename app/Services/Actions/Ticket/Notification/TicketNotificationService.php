@@ -41,12 +41,30 @@ class TicketNotificationService
         $user = $ticket->user;
 
         if (! empty($user->mobile)) {
-            $message = (new PerpareNotificationMessageService($ticket))->ticketCreatedPrepareSMSMessage();
+            $message = (new PerpareNotificationMessageService($ticket))->ticketUpdatedPrepareSMSMessage($changes);
             $this->sendSMSNotification($user->mobile, $message);
 
         } elseif (! empty($user->email)) {
             $subject = "تیکت شما ویرایش شد";
-            $content = (new PerpareNotificationMessageService($ticket))->ticketCreatedPrepareEmailContent();
+            $content = (new PerpareNotificationMessageService($ticket))->ticketUpdatedPrepareEmailContent($changes);
+
+            $this->sendEmailNotification($user->email, $subject, $content);
+        }
+    }
+
+    public function handleTicketReplied(Ticket $ticket): void
+    {
+        $ticket->loadMissing('user');
+
+        $user = $ticket->user;
+
+        if (! empty($user->mobile)) {
+            $message = (new PerpareNotificationMessageService($ticket))->ticketRepliedPrepareSMSMessage();
+            $this->sendSMSNotification($user->mobile, $message);
+
+        } elseif (! empty($user->email)) {
+            $subject = "تیکت شما پاسخ داده شد";
+            $content = (new PerpareNotificationMessageService($ticket))->ticketRepliedPrepareEmailContent();
 
             $this->sendEmailNotification($user->email, $subject, $content);
         }

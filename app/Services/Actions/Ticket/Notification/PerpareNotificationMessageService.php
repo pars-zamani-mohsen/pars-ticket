@@ -85,4 +85,30 @@ class PerpareNotificationMessageService
             $this->generateTrackingUrl()
         );
     }
+
+
+    public function ticketRepliedPrepareSMSMessage(): string
+    {
+        return sprintf(
+            "تیکت شما با شماره %s پاسخ داده شد.\nعنوان: %s\nلینک پیگیری: %s",
+            $this->ticket->id,
+            $this->ticket->title,
+            $this->generateTrackingUrl()
+        );
+    }
+
+    public function ticketRepliedPrepareEmailContent(): string
+    {
+        return sprintf(
+            "تیکت شما با مشخصات زیر پاسخ داده شد:\n\n" .
+            "شماره تیکت: %s\n" .
+            "عنوان: %s\n" .
+            "تاریخ ثبت: %s\n\n" .
+            "برای پیگیری تیکت خود می‌توانید به لینک زیر مراجعه کنید:\n%s",
+            $this->ticket->id,
+            $this->ticket->title,
+            Jalalian::fromCarbon($this->ticket->created_at)->format('Y/m/d H:i'),
+            $this->generateTrackingUrl()
+        );
+    }
 }

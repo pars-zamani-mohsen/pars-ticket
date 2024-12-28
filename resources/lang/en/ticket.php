@@ -37,4 +37,7 @@ return [
     'ticket_' => 'تیکت :ticket_title',
     'ticket_number_' => 'تیکت :ticket_id',
     'you_dont_have_access_to_this_ticket_message' => 'شما دسترسی به این تیکت ندارید',
+    'deleted_file_success' => 'فایل با موفقیت حذف شد',
+    'message_reply_success' => 'پاسخ با موفقیت ثبت شد.',
+    'error_on_send_notification_message' => 'خطا در ارسال نوتیفیکیشن تیکت:',
 ];

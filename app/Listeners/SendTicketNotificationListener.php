@@ -31,7 +31,7 @@ class SendTicketNotificationListener implements ShouldQueue
             }
 
         } catch (\Exception $e) {
-            logger()->error('خطا در ارسال نوتیفیکیشن تیکت:', [
+            logger()->error(__('ticket.error_on_send_notification_message'), [
                 'ticket_id' => $event->ticket->id,
                 'type' => $event->type,
                 'error' => $e->getMessage()
