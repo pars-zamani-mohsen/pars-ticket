@@ -38,21 +38,26 @@
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
 
-                            <!-- تاریخ -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">از تاریخ</label>
-                                <input type="date"
-                                       name="filter[created_at_between]"
-                                       value="{{ request('filter.created_at_between') }}"
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
+                            <!-- تاریخ از -->
+                            <x-date-picker
+                                name="filter[from_date]"
+                                label="{{ __('general.from_date') }}"
+                                value="{{ request('filter.from_date') }}"
+                            />
+
+                            <!-- تاریخ تا -->
+                            <x-date-picker
+                                name="filter[to_date]"
+                                label="{{ __('general.to_date') }}"
+                                value="{{ request('filter.to_date') }}"
+                            />
 
                             <!-- کاربر -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">کاربر</label>
                                 <input type="text"
-                                       name="filter[causer_id]"
-                                       value="{{ request('filter.causer_id') }}"
+                                       name="filter[causer_name]"
+                                       value="{{ request('filter.causer_name') }}"
                                        placeholder="نام کاربر..."
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>

@@ -54,5 +54,4 @@ require __DIR__.'/auth.php';
 
 /** TODO:
  * email and sms for user
- * add log list with advance filter
  */
