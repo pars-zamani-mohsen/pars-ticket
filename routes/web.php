@@ -57,5 +57,4 @@ require __DIR__.'/auth.php';
  * add log list with advance filter
  * check paginations
  * date filter
- * change name activity to custom activity
  */

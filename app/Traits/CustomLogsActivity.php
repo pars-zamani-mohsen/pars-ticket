@@ -2,13 +2,13 @@
 
 namespace App\Traits;
 
-use App\Models\Activity;
+use App\Models\CustomActivity;
 
 trait CustomLogsActivity
 {
     public function logActivity($type, $description, $properties = [])
     {
-        Activity::create([
+        CustomActivity::create([
             'user_id' => auth()->id(),
             'type' => $type,
             'description' => $description,

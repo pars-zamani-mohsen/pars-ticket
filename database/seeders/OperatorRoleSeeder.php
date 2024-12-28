@@ -21,7 +21,7 @@ class OperatorRoleSeeder extends Seeder
             'create tickets',
             'show tickets all-in-category',
             'create tickets for-user',
-            'delete tickets file',
+            'delete tickets files',
             'update tickets category',
             'show dashboard admin',
             'show users',

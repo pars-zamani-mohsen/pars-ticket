@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TicketStatusEnum;
-use App\Models\Activity;
+use App\Models\CustomActivity;
 use App\Models\Ticket;
 use App\Models\User;
 
@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $activities = Activity::with('user')
+        $activities = CustomActivity::with('user')
             ->where('user_id', auth()->id())
             ->latest()
             ->take(5)
