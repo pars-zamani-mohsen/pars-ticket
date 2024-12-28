@@ -27,7 +27,9 @@ class MessageController extends Controller
             }
         }
 
-        event(new MessageNotificationEvent($ticket));
+        if (auth()->id() != $ticket->user_id) {
+            event(new MessageNotificationEvent($ticket));
+        }
 
         return back()->with('success', __('ticket.message_reply_success'));
     }
