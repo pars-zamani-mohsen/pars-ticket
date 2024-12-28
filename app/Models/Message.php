@@ -16,6 +16,8 @@ class Message extends \Coderflex\LaravelTicket\Models\Message implements HasMedi
         'ticket_id',
     ];
 
+    protected $touches = ['ticket'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'));

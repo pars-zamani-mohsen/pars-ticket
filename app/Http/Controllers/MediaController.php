@@ -12,6 +12,8 @@ class MediaController extends Controller
     {
         $this->authorizeRoleOrPermission('delete tickets files');
 
+//        $this->authorize('create', [Media::class, $ticket]);
+
         CreateActivityLog::handleForDeleteMedia($media, auth()->user());
 
         $media->delete();

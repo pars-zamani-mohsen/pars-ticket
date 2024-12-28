@@ -34,7 +34,7 @@ class GetList
                 'title'
             ])
             ->with(['user', 'categories', 'labels'])
-            ->latest();
+            ->defaultSort('-updated_at');
 
         if (! auth()->user()->can('show tickets all')) {
             if (auth()->user()->can('show tickets all-in-category')) {

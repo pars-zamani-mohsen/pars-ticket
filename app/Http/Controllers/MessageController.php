@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageNotificationEvent;
 use App\Http\Requests\MessageRequest;
+use App\Models\Message;
 use App\Models\Ticket;
 use Illuminate\Support\Str;
 use Stevebauman\Purify\Facades\Purify;
@@ -12,6 +13,8 @@ class MessageController extends Controller
 {
     public function store(MessageRequest $request, Ticket $ticket)
     {
+        $this->authorize('create', [Message::class, $ticket]);
+
         $message = $ticket->messages()->create([
             'message' => Purify::clean($request->message),
             'user_id' => auth()->id(),

@@ -118,10 +118,21 @@
                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <a href="{{ request()->fullUrlWithQuery(['sort' => request()->input('sort') === 'created_at' ? '-created_at' : 'created_at']) }}"
                                    class="flex items-center hover:text-gray-900">
-                                    {{ __('general.date') }}
+                                    {{ __('general.created_at') }}
                                     @if(request()->input('sort') === 'created_at')
                                         <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                                     @elseif(request()->input('sort') === '-created_at')
+                                        <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <a href="{{ request()->fullUrlWithQuery(['sort' => request()->input('sort') === 'updated_at' ? '-updated_at' : 'updated_at']) }}"
+                                   class="flex items-center hover:text-gray-900">
+                                    {{ __('general.updated_at') }}
+                                    @if(request()->input('sort') === 'updated_at')
+                                        <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    @elseif(request()->input('sort') === '-updated_at')
                                         <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
                                     @endif
                                 </a>
@@ -163,6 +174,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->format('Y/m/d H:i') }}">
                                     {{ $ticket->created_at->diffForHumans() }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->updated_at)->format('Y/m/d H:i') }}">
+                                    {{ $ticket->updated_at->diffForHumans() }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex items-center space-x-3 space-x-reverse">

@@ -4,6 +4,8 @@ return [
     'submit_filter' => 'اعمال فیلتر',
     'clear' => 'پاک کردن',
     'date' => 'تاریخ',
+    'created_at' => 'تاریخ ایجاد',
+    'updated_at' => 'تاریخ بروزرسانی',
     'operation' => 'عملیات',
     'show' => 'مشاهده',
     'operator' => 'اپراتور',

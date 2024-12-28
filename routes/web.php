@@ -52,3 +52,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
 
 require __DIR__.'/auth.php';
+
+/**
+ * check deactive user in list filter
+ * delete media policy
+ * */
