@@ -24,7 +24,7 @@ class ActivityLogController extends Controller
             ->allowedSorts(['created_at', 'event', 'subject_type'])
             ->with(['causer', 'subject'])
             ->latest()
-            ->paginate(15);
+            ->paginate(config('pars-ticket.config.per_page'));
 
         return view('admin.activity-logs.index', compact('activities'));
     }

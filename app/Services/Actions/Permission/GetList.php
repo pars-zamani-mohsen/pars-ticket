@@ -22,7 +22,7 @@ class GetList
             ->defaultSort('name')
             ->latest();
 
-        return $query->paginate(config('pars-ticket.config.paginate.per_page'))
+        return $query->paginate(config('pars-ticket.config.per_page'))
             ->withQueryString();
     }
 }
