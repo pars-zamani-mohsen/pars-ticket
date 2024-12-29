@@ -40,7 +40,7 @@
 
                             <div class="grid grid-cols-1 gap-4">
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" name="deleted" value="1"
+                                    <input type="checkbox" name="filter[deleted]" value="1"
                                            @checked(old('deleted', request()->has('filter.deleted')))
                                            class="form-checkbox h-5 w-5 text-blue-600">
                                     <span class="mr-2">{{ __('user.deleted_user') }}</span>

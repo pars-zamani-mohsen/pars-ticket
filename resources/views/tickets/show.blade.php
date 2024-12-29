@@ -101,28 +101,34 @@
         </div>
 
         <!-- پیام‌ها -->
-            <div x-data="{
-                showDeleteModal: false,
-                fileToDelete: null,
-                deleteFile() {
-                    fetch(`/tickets/file/${this.fileToDelete}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        this.showDeleteModal = false;
-                        window.location.reload();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('خطا در حذف فایل');
-                    });
-                }
-            }" class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" dir="rtl">
+        <div x-data="{
+            showDeleteModal: false,
+            fileToDelete: null,
+            deleteFile() {
+                fetch(`/tickets/file/${this.fileToDelete}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+                    },
+                })
+                .then(async response => {
+                    const data = await response.json();
+                    if (!response.ok) {
+                        throw new Error(data.message);
+                    }
+                    return data;
+                })
+                .then(data => {
+                    this.showDeleteModal = false;
+                    window.location.reload();
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+            }
+        }" class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" dir="rtl">
 
             <div class="space-y-6">
                 @foreach($ticket->messages as $message)

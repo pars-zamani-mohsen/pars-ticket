@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Actions\ActivityLog\CreateActivityLog;
+use http\Message;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -12,7 +13,9 @@ class MediaController extends Controller
     {
         $this->authorizeRoleOrPermission('delete tickets files');
 
-//        $this->authorize('create', [Media::class, $ticket]);
+        $message = $media->model;
+
+        $this->authorize('delete', [Media::class, $message->ticket()->first()]);
 
         CreateActivityLog::handleForDeleteMedia($media, auth()->user());
 

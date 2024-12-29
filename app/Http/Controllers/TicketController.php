@@ -100,13 +100,14 @@ class TicketController extends Controller
             if (!empty($validated['categories'])) {
                 $changes[] = 'categories';
                 $ticket->categories()->sync($validated['categories']);
+                $ticket->touch();
             }
         }
 
         event(new TicketNotificationEvent($ticket, 'updated', $changes));
 
         return redirect()
-            ->route('tickets.show', $ticket)
+            ->route('tickets.index')
             ->with('success', __('ticket.update_ticket_message_done'));
     }
 }

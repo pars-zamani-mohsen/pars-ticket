@@ -23,4 +23,5 @@ return [
     'edit' => 'ویرایش',
     'submit' => 'ثبت',
     'delete_item_message' => 'آیا از حذف این مورد اطمینان دارید؟',
+    'you_dont_have_access_to_this_operation' => 'شما دسترسی به این عملیات را ندارید',
 ];
