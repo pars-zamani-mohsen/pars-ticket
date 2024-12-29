@@ -24,4 +24,10 @@ return [
     'submit' => 'ثبت',
     'delete_item_message' => 'آیا از حذف این مورد اطمینان دارید؟',
     'you_dont_have_access_to_this_operation' => 'شما دسترسی به این عملیات را ندارید',
+    'create' => 'ایجاد',
+    'description' => 'توضیحات',
+    'username' => 'نام کاربر',
+    'subject' => 'موضوع',
+    'details' => 'جزئیات',
+    'select_all' => 'انتخاب همه',
 ];

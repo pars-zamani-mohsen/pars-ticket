@@ -18,21 +18,21 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <!-- جستجو -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">جستجو</label>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('ticket.search') }}</label>
                                 <input type="text"
                                        name="filter[name]"
                                        value="{{ request('filter.name') }}"
-                                       placeholder="جستجو در نام دسترسی..."
+                                       placeholder="{{ __('permission.search_in_permission_name') }}..."
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
 
                             <!-- توضیحات -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">توضیحات</label>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('general.description') }}</label>
                                 <input type="text"
                                        name="filter[description]"
                                        value="{{ request('filter.description') }}"
-                                       placeholder="جستجو در توضیحات..."
+                                       placeholder="{{ __('activity.search_in_description') }}..."
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
                         </div>
@@ -40,16 +40,16 @@
                         <div class="flex justify-between items-center">
                             <div class="flex space-x-2 space-x-reverse">
                                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-                                    اعمال فیلتر
+                                    {{ __('general.submit_filter') }}
                                 </button>
                                 <a href="{{ route('admin.permissions.index') }}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
-                                    پاک کردن
+                                    {{ __('general.clear') }}
                                 </a>
                             </div>
 
                             @can('create permissions')
                                 <a href="{{ route('admin.permissions.create') }}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
-                                    ایجاد دسترسی جدید
+                                    {{ __('permission.create_new_permission') }}
                                 </a>
                             @endcan
                         </div>
@@ -65,7 +65,7 @@
                             <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'name' ? '-name' : 'name']) }}"
                                    class="flex items-center justify-start hover:text-gray-900">
-                                    <span>نام دسترسی</span>
+                                    <span>{{ __('permission.permission_name') }}</span>
                                     @if(request()->get('sort') === 'name')
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -80,7 +80,7 @@
                             <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'description' ? '-description' : 'description']) }}"
                                    class="flex items-center justify-start hover:text-gray-900">
-                                    <span>توضیحات</span>
+                                    <span>{{ __('general.description') }}</span>
                                     @if(request()->get('sort') === 'description')
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -92,11 +92,11 @@
                                     @endif
                                 </a>
                             </th>
-                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">نقش‌های مرتبط</th>
+                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('permission.relative_roles') }}</th>
                             <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 <a href="{{ request()->fullUrlWithQuery(['sort' => request()->get('sort') === 'created_at' ? '-created_at' : 'created_at']) }}"
                                    class="flex items-center justify-start hover:text-gray-900">
-                                    <span>تاریخ ایجاد</span>
+                                    <span>{{ __('general.created_at') }}</span>
                                     @if(request()->get('sort') === 'created_at')
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -108,7 +108,7 @@
                                     @endif
                                 </a>
                             </th>
-                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">عملیات</th>
+                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('general.operation') }}</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">

@@ -30,7 +30,7 @@ class CreateActivityLog
 
                 $now = Jalalian::now()->format('l، d F Y، H:i');
                 $message->update([
-                    'message' => "{$message->message} \n <p class='text-red-600'>فایل {$media->name} توسط {$user->name} در تاریخ {$now} حذف شد</p>",
+                    'message' => __('ticket.delete_file_message', ['message' => $message->message, 'media' => $media->name, 'user' => $user->name, 'now' => $now]),
                 ]);
             }
 

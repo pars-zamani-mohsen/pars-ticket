@@ -15,8 +15,8 @@ enum TicketVisibilityEnum: int
     public function getLabel(): string
     {
         return match ($this) {
-            self::VISIBLE => 'فعال',
-            self::HIDDEN => 'غیرفعال',
+            self::VISIBLE => __('ticket.visible'),
+            self::HIDDEN => __('ticket.hidden'),
         };
     }
 

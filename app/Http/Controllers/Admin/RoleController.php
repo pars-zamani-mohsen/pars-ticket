@@ -37,7 +37,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->permissions);
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'نقش با موفقیت ایجاد شد.');
+            ->with('success', __('role.role_created_success'));
     }
 
     public function edit(Role $role)
@@ -59,7 +59,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->permissions);
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'نقش با موفقیت ویرایش شد.');
+            ->with('success', __('role.role_updated_success'));
     }
 
     public function destroy(Role $role)
@@ -69,6 +69,6 @@ class RoleController extends Controller
         $role->delete();
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'نقش با موفقیت حذف شد.');
+            ->with('success', __('role.role_deleted_success'));
     }
 }

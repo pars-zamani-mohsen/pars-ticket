@@ -36,7 +36,7 @@ class PermissionController extends Controller
         Permission::create($validated);
 
         return redirect()->route('admin.permissions.index')
-            ->with('success', 'دسترسی با موفقیت ایجاد شد.');
+            ->with('success', __('permission.permission_created_success'));
     }
 
     public function edit(Permission $permission)
@@ -53,7 +53,7 @@ class PermissionController extends Controller
         $permission->update($validated);
 
         return redirect()->route('admin.permissions.index')
-            ->with('success', 'دسترسی با موفقیت ویرایش شد.');
+            ->with('success', __('permission.permission_updated_success'));
     }
 
     public function destroy(Permission $permission)
@@ -62,6 +62,6 @@ class PermissionController extends Controller
         $permission->delete();
 
         return redirect()->route('admin.permissions.index')
-            ->with('success', 'دسترسی با موفقیت حذف شد.');
+            ->with('success', __('permission.permission_is_deleted_success'));
     }
 }

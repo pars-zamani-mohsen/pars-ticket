@@ -2,12 +2,12 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('گزارش فعالیت‌ها') }}
+                {{ __('activity.activity_report') }}
             </h2>
         </div>
     </x-slot>
     <x-slot name="title">
-        {{ __('گزارش فعالیت‌ها') }}
+        {{ __('activity.activity_report') }}
     </x-slot>
 
     <div class="py-12">
@@ -18,23 +18,23 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <!-- نوع رویداد -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">نوع رویداد</label>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('activity.event_type') }}</label>
                                 <select name="filter[event]"
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    <option value="">همه رویدادها</option>
-                                    <option value="created" {{ request('filter.event') === 'created' ? 'selected' : '' }}>ایجاد</option>
-                                    <option value="updated" {{ request('filter.event') === 'updated' ? 'selected' : '' }}>ویرایش</option>
-                                    <option value="deleted" {{ request('filter.event') === 'deleted' ? 'selected' : '' }}>حذف</option>
+                                    <option value="">{{ __('ticket.all_events') }}</option>
+                                    <option value="created" {{ request('filter.event') === 'created' ? 'selected' : '' }}>{{ __('general.create') }}</option>
+                                    <option value="updated" {{ request('filter.event') === 'updated' ? 'selected' : '' }}>{{ __('general.edit') }}</option>
+                                    <option value="deleted" {{ request('filter.event') === 'deleted' ? 'selected' : '' }}>{{ __('general.delete') }}</option>
                                 </select>
                             </div>
 
                             <!-- توضیحات -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">توضیحات</label>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('general.description') }}</label>
                                 <input type="text"
                                        name="filter[description]"
                                        value="{{ request('filter.description') }}"
-                                       placeholder="جستجو در توضیحات..."
+                                       placeholder="{{ __('activity.search_in_description') }}..."
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
 
@@ -54,11 +54,11 @@
 
                             <!-- کاربر -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">کاربر</label>
+                                <label class="block text-sm font-medium text-gray-700">{{ __('general.user') }}</label>
                                 <input type="text"
                                        name="filter[causer_name]"
                                        value="{{ request('filter.causer_name') }}"
-                                       placeholder="نام کاربر..."
+                                       placeholder="{{ __('general.username') }}..."
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
                         </div>
@@ -66,10 +66,10 @@
                         <div class="flex justify-between items-center">
                             <div class="flex space-x-2 space-x-reverse">
                                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-                                    اعمال فیلتر
+                                    {{ __('general.submit_filter') }}
                                 </button>
                                 <a href="{{ route('admin.activity-logs.index') }}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
-                                    پاک کردن
+                                    {{ __('general.clear') }}
                                 </a>
                             </div>
                         </div>
@@ -112,10 +112,10 @@
                                     @endif
                                 </a>
                             </th>
-                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">توضیحات</th>
-                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">کاربر</th>
-                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">موضوع</th>
-                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">جزئیات</th>
+                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('general.description') }}</th>
+                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('general.user') }}</th>
+                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('general.subject') }}</th>
+                            <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('general.details') }}</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">

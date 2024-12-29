@@ -21,7 +21,7 @@
 
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
-                                نام دسترسی
+                                {{ __('permission.permission_name') }}
                             </label>
                             <input type="text"
                                    name="name"
@@ -36,7 +36,7 @@
 
                         <div class="mb-4">
                             <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
-                                توضیحات
+                                {{ __('general.description') }}
                             </label>
                             <textarea name="description"
                                       id="description"
@@ -50,12 +50,12 @@
                         <div class="flex items-center justify-between">
                             <button type="submit"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                {{ isset($permission) ? 'ویرایش' : 'ایجاد' }}
+                                {{ isset($permission) ? __('general.edit') : __('general.create') }}
                             </button>
 
                             <a href="{{ route('admin.permissions.index') }}"
                                class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                                انصراف
+                                {{ __('general.cancel') }}
                             </a>
                         </div>
                     </form>

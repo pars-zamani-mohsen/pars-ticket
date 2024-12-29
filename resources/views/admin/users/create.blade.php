@@ -158,7 +158,7 @@
                 $('.select2').select2({
                     dir: "rtl",
                     language: "fa",
-                    placeholder: "انتخاب کنید",
+                    placeholder: "{{ __('general.select') }}",
                     allowClear: true,
                     closeOnSelect: false,
                 });

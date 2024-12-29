@@ -27,7 +27,7 @@ class TicketNotificationService
             $this->sendSMSNotification($user->mobile, $message);
 
         } elseif (! empty($user->email)) {
-            $subject = "تیکت شما با موفقیت ثبت شد";
+            $subject = __('ticket.ticket_for_your_is_created');
             $content = (new PerpareNotificationMessageService($ticket))->ticketCreatedPrepareEmailContent();
 
             $this->sendEmailNotification($user->email, $subject, $content);
@@ -45,7 +45,7 @@ class TicketNotificationService
             $this->sendSMSNotification($user->mobile, $message);
 
         } elseif (! empty($user->email)) {
-            $subject = "تیکت شما ویرایش شد";
+            $subject = __('ticket.your_ticket_is_updated');
             $content = (new PerpareNotificationMessageService($ticket))->ticketUpdatedPrepareEmailContent($changes);
 
             $this->sendEmailNotification($user->email, $subject, $content);
@@ -63,7 +63,7 @@ class TicketNotificationService
             $this->sendSMSNotification($user->mobile, $message);
 
         } elseif (! empty($user->email)) {
-            $subject = "تیکت شما پاسخ داده شد";
+            $subject = __('ticket.answared_to_your_ticket');
             $content = (new PerpareNotificationMessageService($ticket))->ticketRepliedPrepareEmailContent();
 
             $this->sendEmailNotification($user->email, $subject, $content);

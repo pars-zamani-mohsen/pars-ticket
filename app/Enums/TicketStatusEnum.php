@@ -18,9 +18,9 @@ enum TicketStatusEnum: string
     public function getLabel(): string
     {
         return match ($this) {
-            self::OPEN => 'باز',
-            self::CLOSE => 'بسته',
-            self::ARCHIVED => 'آرشیو شده',
+            self::OPEN => __('ticket.open'),
+            self::CLOSE => __('ticket.close'),
+            self::ARCHIVED => __('ticket.archived'),
         };
     }
 

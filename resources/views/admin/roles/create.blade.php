@@ -36,7 +36,7 @@
 
                         <div class="mb-4">
                             <div class="flex justify-between items-center mb-4">
-                                <span class="text-gray-700 text-sm font-bold">دسترسی‌ها</span>
+                                <span class="text-gray-700 text-sm font-bold">{{ __('permission.permissions') }}</span>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -49,7 +49,7 @@
                                             <button type="button"
                                                     class="text-sm text-blue-600 hover:text-blue-800"
                                                     onclick="toggleModulePermissions('{{ $module }}')">
-                                                انتخاب همه
+                                                {{ __('general.select_all') }}
                                             </button>
                                         </div>
                                         <div class="space-y-2" id="{{ $module }}-permissions">
@@ -85,7 +85,7 @@
                         <div class="flex items-center justify-end mt-4">
                             <div class="flex items-center justify-end mt-4">
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                    {{ isset($role) ? 'ویرایش' : 'ایجاد' }}
+                                    {{ isset($role) ? __('general.edit') : __('general.create') }}
                                 </button>
                             </div>
                         </div>
