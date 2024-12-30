@@ -11,4 +11,6 @@ return [
     'search_in_permission_name' => 'جستجو در نام دسترسی',
     'relative_roles' => 'نقش‌های مرتبط',
     'permissions' => 'دسترسی‌ها',
+    'your_permissions' => 'دسترسی‌های شما',
+    'create_and_manage_permissions' => 'تعریف و مدیریت سطوح دسترسی',
 ];

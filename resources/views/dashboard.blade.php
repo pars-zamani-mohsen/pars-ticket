@@ -12,7 +12,7 @@
                 @can('show permissions')
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6">
-                            <div class="text-gray-500 text-sm">کل کاربران</div>
+                            <div class="text-gray-500 text-sm">{{ __('user.all_users') }}</div>
                             <div class="text-3xl font-bold text-gray-800">{{ $usersCount }}</div>
                         </div>
                     </div>
@@ -20,14 +20,14 @@
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <div class="text-gray-500 text-sm">کل تیکت ها</div>
+                        <div class="text-gray-500 text-sm">{{ __('ticket.all_tickets') }}</div>
                         <div class="text-3xl font-bold text-gray-800">{{ $ticketsCount }}</div>
                     </div>
                 </div>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <div class="text-gray-500 text-sm"> تیکت های باز</div>
+                        <div class="text-gray-500 text-sm"> {{ __('ticket.opened_tickets') }}</div>
                         <div class="text-3xl font-bold text-gray-800">{{ $openTicketsCount }}</div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 <!-- اطلاعات کاربر -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">اطلاعات کاربری</h3>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __('general.user_information') }}</h3>
                         <div class="space-y-4">
                             <div class="flex items-center">
                                 <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
@@ -53,7 +53,7 @@
 
                             @if(auth()->user()->roles->isNotEmpty())
                                 <div class="border-t pt-4">
-                                    <div class="text-sm text-gray-600 mb-2">نقش‌های شما:</div>
+                                    <div class="text-sm text-gray-600 mb-2">{{ __('user.your_roles') }}:</div>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach(auth()->user()->roles as $role)
                                             <span class="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">
@@ -66,7 +66,7 @@
 
                             @if(auth()->user()->getAllPermissions()->isNotEmpty())
                                 <div class="border-t pt-4">
-                                    <div class="text-sm text-gray-600 mb-2">دسترسی‌های شما:</div>
+                                    <div class="text-sm text-gray-600 mb-2">{{ __('permission.your_permissions') }}:</div>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach(auth()->user()->getAllPermissions() as $permission)
                                             <span class="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">
@@ -84,36 +84,36 @@
                 <!-- دسترسی سریع -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">دسترسی سریع</h3>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __('general.fast_access') }}</h3>
                         <div class="grid grid-cols-2 gap-4">
                             @can('show users')
                                 <a href="{{ route('admin.users.index') }}"
                                    class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                                    <div class="text-lg font-semibold text-gray-800">مدیریت کاربران</div>
-                                    <div class="text-sm text-gray-500">مشاهده و مدیریت کاربران سیستم</div>
+                                    <div class="text-lg font-semibold text-gray-800">{{ __('user.user_management') }}</div>
+                                    <div class="text-sm text-gray-500">{{ __('user.view_and_management_system_users') }}</div>
                                 </a>
                             @endcan
 
                             @can('show roles')
                                 <a href="{{ route('admin.roles.index') }}"
                                    class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                                    <div class="text-lg font-semibold text-gray-800">مدیریت نقش‌ها</div>
-                                    <div class="text-sm text-gray-500">تعریف و مدیریت نقش‌های کاربری</div>
+                                    <div class="text-lg font-semibold text-gray-800">{{ __('role.role_management') }}</div>
+                                    <div class="text-sm text-gray-500">{{ __('role.create_and_mangage_roles') }}</div>
                                 </a>
                             @endcan
 
                             @can('show permissions')
                                 <a href="{{ route('admin.permissions.index') }}"
                                    class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                                    <div class="text-lg font-semibold text-gray-800">مدیریت دسترسی‌ها</div>
-                                    <div class="text-sm text-gray-500">تعریف و مدیریت سطوح دسترسی</div>
+                                    <div class="text-lg font-semibold text-gray-800">{{ __('permission.permission_management') }}</div>
+                                    <div class="text-sm text-gray-500">{{ __('permission.create_and_manage_permissions') }}</div>
                                 </a>
                             @endcan
 
                                 <a href="{{ route('tickets.index') }}"
                                    class="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                                    <div class="text-lg font-semibold text-gray-800">تیکت ها</div>
-                                    <div class="text-sm text-gray-500">مدیریت تیکت ها</div>
+                                    <div class="text-lg font-semibold text-gray-800">{{ __('ticket.tickets') }}</div>
+                                    <div class="text-sm text-gray-500">{{ __('ticket.ticket_manager') }}</div>
                                 </a>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
             <!-- آخرین فعالیت‌ها -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">آخرین فعالیت‌ها</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __('general.last_activities') }}</h3>
                     <div class="space-y-4">
                         @foreach($activities as $activity)
                             <div class="flex items-center justify-between border-b pb-4">

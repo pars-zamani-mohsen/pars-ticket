@@ -30,4 +30,7 @@ return [
     'subject' => 'موضوع',
     'details' => 'جزئیات',
     'select_all' => 'انتخاب همه',
+    'user_information' => 'اطلاعات کاربری',
+    'fast_access' => 'دسترسی سریع',
+    'last_activities' => 'آخرین فعالیت‌ها',
 ];

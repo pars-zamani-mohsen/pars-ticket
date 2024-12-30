@@ -48,4 +48,7 @@ return [
     'your_ticket_is_updated' => 'تیکت شما ویرایش شد',
     'answared_to_your_ticket' => 'تیکت شما پاسخ داده شد',
     'all_events' => 'همه رویدادها',
+    'all_tickets' => 'کل تیکت ها',
+    'opened_tickets' => 'تیکت های باز',
+    'ticket_manager' => 'مدیریت تیکت ها',
 ];

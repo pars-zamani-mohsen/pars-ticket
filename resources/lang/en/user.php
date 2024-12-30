@@ -21,4 +21,7 @@ return [
     'user_deleted_success_message' => 'کاربر با موفقیت حذف شد.',
     'categories' => 'دسته بندی ها',
     'user_management' => 'مدیریت کاربران',
+    'all_users' => 'کل کاربران',
+    'your_roles' => 'نقش‌های شما',
+    'view_and_management_system_users' => 'مشاهده و مدیریت کاربران سیستم',
 ];

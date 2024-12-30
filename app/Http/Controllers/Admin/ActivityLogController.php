@@ -12,6 +12,8 @@ class ActivityLogController extends Controller
 {
     public function index()
     {
+        $this->authorizeRoleOrPermission('show logs');
+
         $activities = QueryBuilder::for(Activity::class)
             ->allowedFilters([
                 AllowedFilter::exact('causer_type'),
