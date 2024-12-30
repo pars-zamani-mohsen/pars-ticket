@@ -128,7 +128,15 @@
                         @foreach($activities as $activity)
                             <div class="flex items-center justify-between border-b pb-4">
                                 <div>
-                                    <div class="text-sm font-semibold text-gray-800">{{ $activity->description }}</div>
+                                    <div class="text-sm font-semibold text-gray-800">
+                                        <span>{{ $activity->description }}</span>
+                                        @if(! empty($activity->properties))
+                                            <span class="px-4 py-3 mb-4 text-sm text-blue-700 border border-blue-200 rounded-lg">
+                                                {{ implode(', ', $activity->properties) }}
+                                            </span>
+                                        @endif
+
+                                    </div>
                                     <div class="text-xs text-gray-500">{{ $activity->created_at->diffForHumans() }}</div>
                                 </div>
                             </div>

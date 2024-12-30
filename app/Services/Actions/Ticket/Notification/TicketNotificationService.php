@@ -24,14 +24,14 @@ class TicketNotificationService
 
         if (! empty($user->mobile)) {
             $message = (new PerpareNotificationMessageService($ticket))->ticketCreatedPrepareSMSMessage();
-            $this->sendSMSNotification($user->mobile, $message, $user);
+            $this->sendSMSNotification($user, $message);
 
 
         } elseif (! empty($user->email)) {
             $subject = __('ticket.ticket_for_your_is_created');
             $content = (new PerpareNotificationMessageService($ticket))->ticketCreatedPrepareEmailContent();
 
-            $this->sendEmailNotification($user->email, $subject, $content, $user);
+            $this->sendEmailNotification($user, $subject, $content);
         }
     }
 
@@ -43,13 +43,13 @@ class TicketNotificationService
 
         if (! empty($user->mobile)) {
             $message = (new PerpareNotificationMessageService($ticket))->ticketUpdatedPrepareSMSMessage($changes);
-            $this->sendSMSNotification($user->mobile, $message, $user);
+            $this->sendSMSNotification($user, $message);
 
         } elseif (! empty($user->email)) {
             $subject = __('ticket.your_ticket_is_updated');
             $content = (new PerpareNotificationMessageService($ticket))->ticketUpdatedPrepareEmailContent($changes);
 
-            $this->sendEmailNotification($user->email, $subject, $content, $user);
+            $this->sendEmailNotification($user, $subject, $content);
         }
     }
 
@@ -61,25 +61,25 @@ class TicketNotificationService
 
         if (! empty($user->mobile)) {
             $message = (new PerpareNotificationMessageService($ticket))->ticketRepliedPrepareSMSMessage();
-            $this->sendSMSNotification($user->mobile, $message, $user);
+            $this->sendSMSNotification($user, $message);
 
         } elseif (! empty($user->email)) {
             $subject = __('ticket.answared_to_your_ticket');
             $content = (new PerpareNotificationMessageService($ticket))->ticketRepliedPrepareEmailContent();
 
-            $this->sendEmailNotification($user->email, $subject, $content, $user);
+            $this->sendEmailNotification($user, $subject, $content);
         }
     }
 
-    private function sendSMSNotification(string $mobile, string $message, User $user): void
+    private function sendSMSNotification(User $user, string $message): void
     {
-        $this->smsService->send($mobile, $message);
+        $this->smsService->send($user->mobile, $message);
         $user->logActivity('sms', 'ارسال پیامک', ['type' => 'sms', 'message' => $message]);
     }
 
-    private function sendEmailNotification(string $email, string $subject,  string $content, User $user): void
+    private function sendEmailNotification(User $user, string $subject,  string $content): void
     {
-        $this->emailService->send($email, $subject, $content);
-        $user->logActivity('sms', 'ارسال ایمیل', ['type' => 'email', 'message' => $subject]);
+        $this->emailService->send($user->email, $subject, $content);
+        $user->logActivity('email', 'ارسال ایمیل', ['type' => 'email', 'message' => $subject]);
     }
 }
