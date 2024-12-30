@@ -7,7 +7,7 @@ namespace App\Services\Actions\Ticket\Notification;
 use App\Contracts\EmailServiceInterface;
 use App\Contracts\SMSServiceInterface;
 use App\Models\Ticket;
-use Morilog\Jalali\Jalalian;
+use App\Models\User;
 
 class TicketNotificationService
 {
@@ -24,13 +24,14 @@ class TicketNotificationService
 
         if (! empty($user->mobile)) {
             $message = (new PerpareNotificationMessageService($ticket))->ticketCreatedPrepareSMSMessage();
-            $this->sendSMSNotification($user->mobile, $message);
+            $this->sendSMSNotification($user->mobile, $message, $user);
+
 
         } elseif (! empty($user->email)) {
             $subject = __('ticket.ticket_for_your_is_created');
             $content = (new PerpareNotificationMessageService($ticket))->ticketCreatedPrepareEmailContent();
 
-            $this->sendEmailNotification($user->email, $subject, $content);
+            $this->sendEmailNotification($user->email, $subject, $content, $user);
         }
     }
 
@@ -42,13 +43,13 @@ class TicketNotificationService
 
         if (! empty($user->mobile)) {
             $message = (new PerpareNotificationMessageService($ticket))->ticketUpdatedPrepareSMSMessage($changes);
-            $this->sendSMSNotification($user->mobile, $message);
+            $this->sendSMSNotification($user->mobile, $message, $user);
 
         } elseif (! empty($user->email)) {
             $subject = __('ticket.your_ticket_is_updated');
             $content = (new PerpareNotificationMessageService($ticket))->ticketUpdatedPrepareEmailContent($changes);
 
-            $this->sendEmailNotification($user->email, $subject, $content);
+            $this->sendEmailNotification($user->email, $subject, $content, $user);
         }
     }
 
@@ -60,23 +61,25 @@ class TicketNotificationService
 
         if (! empty($user->mobile)) {
             $message = (new PerpareNotificationMessageService($ticket))->ticketRepliedPrepareSMSMessage();
-            $this->sendSMSNotification($user->mobile, $message);
+            $this->sendSMSNotification($user->mobile, $message, $user);
 
         } elseif (! empty($user->email)) {
             $subject = __('ticket.answared_to_your_ticket');
             $content = (new PerpareNotificationMessageService($ticket))->ticketRepliedPrepareEmailContent();
 
-            $this->sendEmailNotification($user->email, $subject, $content);
+            $this->sendEmailNotification($user->email, $subject, $content, $user);
         }
     }
 
-    private function sendSMSNotification(string $mobile, string $message): void
+    private function sendSMSNotification(string $mobile, string $message, User $user): void
     {
         $this->smsService->send($mobile, $message);
+        $user->logActivity('sms', 'ارسال پیامک', ['type' => 'sms', 'message' => $message]);
     }
 
-    private function sendEmailNotification(string $email, string $subject,  string $content): void
+    private function sendEmailNotification(string $email, string $subject,  string $content, User $user): void
     {
         $this->emailService->send($email, $subject, $content);
+        $user->logActivity('sms', 'ارسال ایمیل', ['type' => 'email', 'message' => $subject]);
     }
 }
