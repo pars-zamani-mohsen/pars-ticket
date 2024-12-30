@@ -250,7 +250,7 @@
         <!-- فرم ارسال پیام -->
         @if(!$ticket->is_resolved)
             <div class="mt-6 bg-white rounded-lg shadow-sm p-6">
-                <form action="{{ route('ticket.messages.store', $ticket) }}"
+                <form id="messageForm" action="{{ route('ticket.messages.store', $ticket) }}"
                       method="POST"
                       enctype="multipart/form-data">
                     @csrf
@@ -288,7 +288,7 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <button type="submit"
+                        <button type="submit" id="submitBtn"
                                 class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-md transition">
                             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -302,70 +302,13 @@
     </div>
 
     @push('scripts')
+        <script src="{{ asset('js/fileUploaderConfig.js') }}"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const dropZone = document.querySelector('.border-dashed');
-                if (!dropZone) return; // اگر المان پیدا نشد
-
-                const fileInput = dropZone.querySelector('input[type="file"]');
-                if (!fileInput) return; // اگر input پیدا نشد
-
-                // جلوگیری از رفتار پیش‌فرض
-                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                    document.body.addEventListener(eventName, preventDefaults, false);
-                    dropZone.addEventListener(eventName, preventDefaults, false);
-                });
-
-                function preventDefaults(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-
-                // افکت‌های بصری
-                ['dragenter', 'dragover'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, () => {
-                        dropZone.classList.add('border-indigo-500', 'bg-indigo-50');
-                    });
-                });
-
-                ['dragleave', 'drop'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, () => {
-                        dropZone.classList.remove('border-indigo-500', 'bg-indigo-50');
-                    });
-                });
-
-                // مدیریت رها کردن فایل
-                dropZone.addEventListener('drop', function(e) {
-                    const dt = e.dataTransfer;
-                    const files = dt.files;
-
-                    // تبدیل FileList به آرایه و اضافه کردن به input
-                    const fileArray = Array.from(files);
-                    const dataTransfer = new DataTransfer();
-
-                    fileArray.forEach(file => {
-                        dataTransfer.items.add(file);
-                    });
-
-                    fileInput.files = dataTransfer.files;
-                    updateFileList(fileInput);
-                });
+            document.getElementById('messageForm').addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.style.display = 'none';
             });
 
-            // تابع نمایش لیست فایل‌ها
-            function updateFileList(input) {
-                const fileList = document.getElementById('fileList');
-                if (!fileList) return;
-
-                fileList.innerHTML = '';
-
-                Array.from(input.files).forEach(file => {
-                    const fileSize = (file.size / 1024).toFixed(1);
-                    const div = document.createElement('div');
-                    div.textContent = `${file.name} (${fileSize} KB)`;
-                    fileList.appendChild(div);
-                });
-            }
         </script>
     @endpush
 </x-app-layout>

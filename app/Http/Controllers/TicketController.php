@@ -90,7 +90,6 @@ class TicketController extends Controller
 
         $ticket->update($validated);
 
-
         if ($request->has('is_resolved') && $request->is_resolved) {
             $changes[] = 'is_resolved';
             $ticket->update(['status' => 'closed']);
@@ -99,8 +98,20 @@ class TicketController extends Controller
         if ($this->canAuthorizeRoleOrPermission('update tickets category')) {
             if (!empty($validated['categories'])) {
                 $changes[] = 'categories';
+
+                $propertie = ['old' => $ticket->categories()->get()];
+
                 $ticket->categories()->sync($validated['categories']);
                 $ticket->touch();
+
+                $propertie['new'] = $ticket->categories()->get();
+
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($ticket)
+                    ->event('updated')
+                    ->withProperties($propertie)
+                    ->log('Ticket categories updated');
             }
         }
 

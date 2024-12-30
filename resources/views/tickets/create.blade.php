@@ -28,7 +28,7 @@
                 <div class="p-6">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ __('ticket.create_new_ticket') }}</h2>
 
-                    <form action="{{ route('tickets.store') }}" method="POST" class="space-y-6">
+                    <form id="ticketForm" action="{{ route('tickets.store') }}" method="POST" class="space-y-6">
                         @csrf
 
                         <!-- عنوان -->
@@ -125,7 +125,7 @@
                         </div>
 
                         <div class="pt-4">
-                            <button type="submit"
+                            <button type="submit" id="submitBtn"
                                     class="w-full sm:w-auto inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                 <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -138,4 +138,13 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            document.getElementById('ticketForm').addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.style.display = 'none';
+            });
+        </script>
+    @endpush
 </x-app-layout>

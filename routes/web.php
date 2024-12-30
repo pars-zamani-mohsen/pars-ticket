@@ -38,8 +38,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('tickets', TicketController::class);
-    Route::post('tickets/{ticket}/messages', [MessageController::class, 'store'])->name('ticket.messages.store');
+    Route::resource('tickets', TicketController::class)->middleware(['throttle:30,1']);
+    Route::post('tickets/{ticket}/messages', [MessageController::class, 'store'])->middleware(['throttle:30,1'])->name('ticket.messages.store');
     Route::delete('tickets/file/{media}', [MediaController::class, 'destroy'])->name('ticket.files.destroy');
 });
 

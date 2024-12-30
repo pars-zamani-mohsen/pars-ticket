@@ -51,4 +51,6 @@ return [
     'all_tickets' => 'کل تیکت ها',
     'opened_tickets' => 'تیکت های باز',
     'ticket_manager' => 'مدیریت تیکت ها',
+    'too_many_attemps_message' => 'لطفاً :seconds ثانیه صبر کنید و دوباره تلاش کنید.',
+    'message_can_not_empty' => 'پیام نمی‌تواند خالی باشد.',
 ];
