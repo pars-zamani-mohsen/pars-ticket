@@ -43,7 +43,7 @@ class MessageRequest extends FormRequest
                     }
                 }
             ],
-            'attachments.*' => ['nullable', 'file', 'mimes:'.config('pars-ticket.file.memes', 'max:10240')],
+            'attachments.*' => ['nullable', 'file', 'mimes:'.config('pars-ticket.file.memes', 'max:102400')],
         ];
 
         return array_merge($common, ($rule ?? []));

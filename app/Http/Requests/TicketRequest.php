@@ -42,7 +42,14 @@ class TicketRequest extends FormRequest
         if ($this->method() === 'POST') {
             $rule = [
                 'title' => ['required', 'string', 'max:255'],
-                'message' => ['required', 'string'],
+                'message' => ['required', 'string',
+                    function($attribute, $value, $fail) {
+                        $stripped = strip_tags($value);
+                        if (trim($stripped) === '') {
+                            $fail(__('ticket.message_can_not_empty'));
+                        }
+                    }
+                ],
                 'user_id' => ['nullable', 'int', 'exists:users,id'],
                 'priority' => ['required', Rule::in(TicketPriorityEnum::getArray())],
                 'categories' => ['nullable', 'array'],

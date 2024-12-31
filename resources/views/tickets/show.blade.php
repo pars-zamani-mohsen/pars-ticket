@@ -10,42 +10,46 @@
 
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" dir="rtl">
         <!-- هدر تیکت -->
-        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-xl font-bold text-gray-900">{{ $ticket->title }}</h1>
+        <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-6">
+                <div class="space-y-3">
+                    <h1 class="text-lg sm:text-xl font-bold text-gray-900">{{ $ticket->title }}</h1>
 
-                    <div class="mt-4 flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-2">
                         @foreach($ticket->categories as $category)
-                            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-                                {{ $category->name }}
-                            </span>
+                            <span class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                        {{ $category->name }}
+                    </span>
                         @endforeach
 
                         @foreach($ticket->labels as $label)
-                            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                                {{ $label->name }}
-                            </span>
+                            <span class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                        {{ $label->name }}
+                    </span>
                         @endforeach
                     </div>
 
-                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                    <div class="flex items-center text-sm text-gray-500">
                         <span class="ml-2">{{ __('ticket.ticket_created_by') }}:</span>
                         <span class="font-medium text-gray-900">{{ $ticket->user->name }}</span>
                         <span class="mx-2">•</span>
-                        <span title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->format('Y/m/d H:i') }}">{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->ago() }}</span>
+                        <span title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->format('Y/m/d H:i') }}">
+                    {{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->ago() }}
+                </span>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
-                    <span class="px-3 py-1 rounded-full text-sm {{ $ticket->priority === 'high' ? 'bg-red-100 text-red-800' : ($ticket->priority === 'normal' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800') }}">
-                        {{ $ticket->priority === 'high' ? __('ticket.high') : ($ticket->priority === 'normal' ? __('ticket.normal') : __('ticket.low')) }}
-                    </span>
+
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+            <span class="inline-flex px-3 py-1 rounded-full text-sm {{ $ticket->priority === 'high' ? 'bg-red-100 text-red-800' : ($ticket->priority === 'normal' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800') }}">
+                {{ $ticket->priority === 'high' ? __('ticket.high') : ($ticket->priority === 'normal' ? __('ticket.normal') : __('ticket.low')) }}
+            </span>
+
                     @if(!$ticket->is_resolved)
                         <form action="{{ route('tickets.update', $ticket) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="is_resolved" value="1">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md transition">
+                            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md transition">
                                 <svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                                 </svg>
@@ -53,8 +57,9 @@
                             </button>
                         </form>
                     @endif
+
                     @can('update tickets category')
-                        <div class="max-w-lg mx-auto p-3 bg-white rounded-lg shadow-sm border-r-4">
+                        <div class="w-full sm:w-auto bg-white rounded-lg shadow-sm border-r-4 p-3">
                             <form action="{{ route('tickets.update', $ticket) }}" method="POST" class="space-y-2">
                                 @csrf
                                 @method('PUT')
@@ -68,8 +73,7 @@
                                         <select
                                             name="categories[]"
                                             id="categories"
-                                            class="block w-full rounded-lg border-gray-300 shadow-sm transition duration-150 ease-in-out
-                                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-30">
+                                            class="block w-full rounded-lg border-gray-300 shadow-sm transition duration-150 ease-in-out focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-30">
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                         @if(in_array($category->id, $ticket->categories->pluck('id')->toArray())) selected @endif>
@@ -80,8 +84,8 @@
                                     </div>
                                 </div>
 
-                                <div class="flex justify-end pt-4">
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded-md transition">
+                                <div class="flex justify-end pt-3">
+                                    <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded-md transition">
                                         <svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                             <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
                                         </svg>
@@ -94,6 +98,7 @@
                 </div>
             </div>
         </div>
+
         <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
             <div class="prose max-w-none text-gray-700">
                 {!! $ticket->message !!}
@@ -130,27 +135,30 @@
             }
         }" class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" dir="rtl">
 
-            <div class="space-y-6">
+            <div class="space-y-4 sm:space-y-6">
                 @foreach($ticket->messages as $message)
-                    <div class="relative {{ $message->user_id === $ticket->user_id ? 'ml-12' : 'mr-12' }}">
-                        <div class="bg-white rounded-lg shadow-sm p-6 {{ $message->user_id === $ticket->user_id ? 'border-r-4 border-blue-500' : 'border-r-4 border-green-500' }}">
-                            <div class="flex justify-between items-start {{ $message->user_id === $ticket->user_id ? 'flex-row' : 'flex-row' }}">
-                                <div class="flex items-start">
+                    <div class="relative {{ $message->user_id === $ticket->user_id ? 'ml-3 sm:ml-12' : 'mr-3 sm:mr-12' }}">
+                        <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 {{ $message->user_id === $ticket->user_id ? 'border-r-4 border-blue-500' : 'border-r-4 border-green-500' }}">
+                            <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
+                                <div class="flex items-start w-full">
                                     <div class="flex-shrink-0">
-                                        <div class="h-10 w-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-blue-100' : 'bg-green-100' }} flex items-center justify-center">
+                                        <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-blue-100' : 'bg-green-100' }} flex items-center justify-center">
                                             <img src="{{ asset('images/user.png') }}" alt="{{ $message->user->name }}" class="rounded-full">
                                         </div>
                                     </div>
-                                    <div class="mr-4 flex-grow">
-                                        <div class="flex items-center">
-                                        <span class="text-sm font-medium {{ $message->user_id === $ticket->user_id ? 'text-blue-600' : 'text-green-600' }}">
-                                            {{ $message->user->name }}
-                                        </span>
+                                    <div class="mr-3 sm:mr-4 flex-grow">
+                                        <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-sm font-medium {{ $message->user_id === $ticket->user_id ? 'text-blue-600' : 'text-green-600' }}">
+                                    {{ $message->user->name }}
+                                </span>
                                             @if($message->user->hasRole('operator'))
-                                                <span class="mr-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                {{ __('general.operator') }}
-                                            </span>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        {{ __('general.operator') }}
+                                    </span>
                                             @endif
+                                            <span class="text-xs text-gray-500" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($message->created_at)->format('Y/m/d H:i') }}">
+                                    {{ \Morilog\Jalali\Jalalian::fromCarbon($message->created_at)->ago() }}
+                                </span>
                                         </div>
                                         <div class="mt-1 text-sm text-gray-700">
                                             {!! $message->message !!}
@@ -160,17 +168,17 @@
                                         @if($message->getMedia('message-attachments')->count() > 0)
                                             <div class="mt-4">
                                                 <div class="text-sm font-medium text-gray-900 mb-2">{{ __('general.attachment') }}:</div>
-                                                <div class="grid grid-cols-2 gap-4">
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                     @foreach($message->getMedia('message-attachments') as $media)
-                                                        <div class="relative flex items-center p-3 {{ $message->user_id === $ticket->user_id ? 'bg-blue-50 hover:bg-blue-100' : 'bg-green-50 hover:bg-green-100' }} rounded-md transition">
+                                                        <div class="relative flex items-center p-2 sm:p-3 {{ $message->user_id === $ticket->user_id ? 'bg-blue-50 hover:bg-blue-100' : 'bg-green-50 hover:bg-green-100' }} rounded-md transition">
                                                             <a href="{{ url($media->getUrl()) }}"
                                                                target="_blank"
-                                                               class="flex items-center flex-grow">
-                                                                <svg class="h-5 w-5 {{ $message->user_id === $ticket->user_id ? 'text-blue-400' : 'text-green-400' }} ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                               class="flex items-center flex-grow min-w-0">
+                                                                <svg class="flex-shrink-0 h-5 w-5 {{ $message->user_id === $ticket->user_id ? 'text-blue-400' : 'text-green-400' }} ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                                                                 </svg>
-                                                                <div>
-                                                                    <div class="text-sm font-medium text-gray-900">{{ $media->name }}</div>
+                                                                <div class="min-w-0 flex-1">
+                                                                    <div class="text-sm font-medium text-gray-900 truncate">{{ $media->name }}</div>
                                                                     <div class="text-xs text-gray-500">{{ round($media->size / 1024) }} KB</div>
                                                                 </div>
                                                             </a>
@@ -178,7 +186,7 @@
                                                             @can('delete tickets files')
                                                                 <button type="button"
                                                                         @click="showDeleteModal = true; fileToDelete = {{ $media->id }}"
-                                                                        class="p-1 hover:bg-red-100 rounded-full transition-colors duration-200">
+                                                                        class="flex-shrink-0 p-1 hover:bg-red-100 rounded-full transition-colors duration-200 ml-2">
                                                                     <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                                     </svg>
@@ -190,9 +198,6 @@
                                             </div>
                                         @endif
                                     </div>
-                                </div>
-                                <div class="text-xs text-gray-500 whitespace-nowrap mr-4" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($message->created_at)->format('Y/m/d H:i') }}">
-                                    {{ \Morilog\Jalali\Jalalian::fromCarbon($message->created_at)->ago() }}
                                 </div>
                             </div>
                         </div>
@@ -280,7 +285,7 @@
                                     <p class="pr-2">{{ __('general.release_file_here') }}</p>
                                 </div>
                                 <p class="text-xs text-gray-500">
-                                    {{ __('general.maximum_file_size_10_MB') }}
+                                    {{ __('general.maximum_file_size_100_MB') }}
                                 </p>
                                 <div id="fileList" class="mt-2 text-sm text-gray-500"></div>
                             </div>

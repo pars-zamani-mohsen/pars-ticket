@@ -15,6 +15,7 @@ return [
     'select_file' => 'انتخاب فایل',
     'release_file_here' => 'یا فایل را اینجا رها کنید',
     'maximum_file_size_10_MB' => 'حداکثر سایز هر فایل: ۱۰ مگابایت',
+    'maximum_file_size_100_MB' => 'حداکثر سایز هر فایل: ۱۰۰ مگابایت',
     'user' => 'کاربر',
     'select' => 'انتخاب کنید',
     'confirm' => 'تایید',
