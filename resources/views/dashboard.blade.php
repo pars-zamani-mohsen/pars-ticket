@@ -121,7 +121,7 @@
             </div>
 
             <!-- آخرین فعالیت‌ها -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+{{--            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __('general.last_activities') }}</h3>
                     <div class="space-y-4">
@@ -143,7 +143,7 @@
                         @endforeach
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>
     </div>
 </x-app-layout>

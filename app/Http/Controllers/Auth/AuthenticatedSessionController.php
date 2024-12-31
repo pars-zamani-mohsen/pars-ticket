@@ -36,7 +36,12 @@ class AuthenticatedSessionController extends Controller
         ];
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            auth()->user()->logActivity('login', 'ورود به سیستم');
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn(auth()->user())
+                ->event('login')
+                ->withProperties([__('general.login_message')])
+                ->log('User logged in');
             $request->session()->regenerate();
 
             return redirect()->intended(RouteServiceProvider::HOME);
@@ -52,7 +57,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        auth()->user()->logActivity('logout', 'خروج از سیستم');
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn(auth()->user())
+            ->event('logout')
+            ->withProperties([__('general.logout_message')])
+            ->log('User logged out');
 
         Auth::guard('web')->logout();
 

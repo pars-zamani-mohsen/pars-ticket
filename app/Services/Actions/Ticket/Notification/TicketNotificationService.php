@@ -74,12 +74,24 @@ class TicketNotificationService
     private function sendSMSNotification(User $user, string $message): void
     {
         $this->smsService->send($user->mobile, $message);
-        $user->logActivity('sms', 'ارسال پیامک', ['type' => 'sms', 'message' => $message]);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($user)
+            ->event('notification')
+            ->withProperties(['type' => 'sms', 'message' => $message])
+            ->log('Sms');
     }
 
     private function sendEmailNotification(User $user, string $subject,  string $content): void
     {
         $this->emailService->send($user->email, $subject, $content);
-        $user->logActivity('email', 'ارسال ایمیل', ['type' => 'email', 'message' => $subject]);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($user)
+            ->event('notification')
+            ->withProperties(['type' => 'email', 'message' => $subject])
+            ->log('Email');
     }
 }

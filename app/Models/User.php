@@ -18,7 +18,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements CanUseTickets
 {
-    use HasApiTokens, HasFactory, Notifiable, HasTickets, HasRoles, CustomLogsActivity, LogsActivity, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasTickets, HasRoles, LogsActivity, SoftDeletes;
 
     protected $fillable = [
         'name',
