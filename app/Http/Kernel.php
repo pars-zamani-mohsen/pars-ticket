@@ -22,6 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\CORS::class,
+        \App\Http\Middleware\CheckUserIsNotDisabled::class,
     ];
 
     /**
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         'cors' => \App\Http\Middleware\CORS::class,
+        'disabled_user' => \App\Http\Middleware\CheckUserIsNotDisabled::class,
     ];
 }

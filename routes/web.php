@@ -27,9 +27,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified', 'disabled_user'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'disabled_user'])->group(function () {
     Route::get('/test', [TestController::class, 'index'])->name('test.index');
     Route::get('/cc', [TestController::class, 'clearConfig'])->name('test.clear_config');
     Route::get('/oc', [TestController::class, 'optimizeConfig'])->name('test.optimize_config');
@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('tickets/file/{media}', [MediaController::class, 'destroy'])->name('ticket.files.destroy');
 });
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'disabled_user'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('permissions', PermissionController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

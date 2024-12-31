@@ -47,6 +47,8 @@ class RolesAndPermissionsSeeder extends Seeder
             Permission::updateOrCreate(['name' => $data['name']], $data);
         }
 
+        Role::updateOrCreate(['name' => 'disable']);
+
         // ایجاد نقش‌های پایه
         $role = Role::updateOrCreate(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
