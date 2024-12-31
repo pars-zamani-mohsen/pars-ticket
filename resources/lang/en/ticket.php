@@ -43,7 +43,7 @@ return [
     'archived' => 'آرشیو شده',
     'visible' => 'فعال',
     'hidden' => 'غیرفعال',
-    'delete_file_message' => ':message \n <p class=\'text-red-600\'>فایل :media توسط :user در تاریخ :now حذف شد</p>',
+    'delete_file_message' => ':message <p class=\'text-red-600\'>فایل :media توسط :user در تاریخ :now حذف شد</p>',
     'ticket_for_your_is_created' => 'تیکت برای شما با موفقیت ثبت شد',
     'your_ticket_is_updated' => 'تیکت شما ویرایش شد',
     'answared_to_your_ticket' => 'تیکت شما پاسخ داده شد',
