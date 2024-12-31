@@ -173,10 +173,10 @@
                                         </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->format('Y/m/d H:i') }}">
-                                    {{ $ticket->created_at->diffForHumans() }}
+                                    {{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->ago() }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->updated_at)->format('Y/m/d H:i') }}">
-                                    {{ $ticket->updated_at->diffForHumans() }}
+                                    {{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->updated_at)->ago() }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex items-center space-x-3 space-x-reverse">

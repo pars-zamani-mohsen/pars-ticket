@@ -33,7 +33,7 @@
                         <span class="ml-2">{{ __('ticket.ticket_created_by') }}:</span>
                         <span class="font-medium text-gray-900">{{ $ticket->user->name }}</span>
                         <span class="mx-2">•</span>
-                        <span title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->format('Y/m/d H:i') }}">{{ $ticket->created_at->diffForHumans() }}</span>
+                        <span title="{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->format('Y/m/d H:i') }}">{{ \Morilog\Jalali\Jalalian::fromCarbon($ticket->created_at)->ago() }}</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -192,7 +192,7 @@
                                     </div>
                                 </div>
                                 <div class="text-xs text-gray-500 whitespace-nowrap mr-4" title="{{ \Morilog\Jalali\Jalalian::fromCarbon($message->created_at)->format('Y/m/d H:i') }}">
-                                    {{ $message->created_at->diffForHumans() }}
+                                    {{ \Morilog\Jalali\Jalalian::fromCarbon($message->created_at)->ago() }}
                                 </div>
                             </div>
                         </div>

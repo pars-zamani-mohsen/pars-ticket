@@ -33,4 +33,8 @@ return [
     'user_information' => 'اطلاعات کاربری',
     'fast_access' => 'دسترسی سریع',
     'last_activities' => 'آخرین فعالیت‌ها',
+    'pars_support_system' => 'سامانه پشتیبانی مشتریان',
+    'login' => 'ورود',
+    'logout_message' => 'خروج از سیستم',
+    'login_message' => 'ورود به سیستم',
 ];
