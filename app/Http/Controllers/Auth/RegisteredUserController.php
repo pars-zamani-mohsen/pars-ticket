@@ -31,6 +31,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        abort(403);
         $loginType = LoginType::handle($request->login);
 
         $request->validate([
