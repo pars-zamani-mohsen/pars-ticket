@@ -11,19 +11,15 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $activities = Activity::with('user')
-            ->where('user_id', auth()->id())
-            ->latest()
-            ->take(5)
-            ->get();
+        $activities = [];
 
         $usersCount = User::count();
 
-        $ticketsCount = (auth()->user()->hasAnyRole(['super-admin', 'admin'])) ?
+        $ticketsCount = (auth()->user()->can(['show dashboard admin'])) ?
             Ticket::count() :
             Ticket::where('user_id', auth()->id())->count();
 
-        $openTicketsCount = (auth()->user()->hasAnyRole(['super-admin', 'admin'])) ?
+        $openTicketsCount = (auth()->user()->can(['show dashboard admin'])) ?
             Ticket::where('status', TicketStatusEnum::OPEN->value)->count() :
             Ticket::where('status', TicketStatusEnum::OPEN->value)->where('user_id', auth()->id())->count();
 

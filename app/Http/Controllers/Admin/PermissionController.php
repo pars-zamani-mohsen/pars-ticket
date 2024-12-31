@@ -13,7 +13,7 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        $this->authorizeRoleOrPermission('view permissions');
+        $this->authorizeRoleOrPermission('show permissions');
 
         $permissions = GetList::handle();
 
@@ -36,24 +36,24 @@ class PermissionController extends Controller
         Permission::create($validated);
 
         return redirect()->route('admin.permissions.index')
-            ->with('success', 'دسترسی با موفقیت ایجاد شد.');
+            ->with('success', __('permission.permission_created_success'));
     }
 
     public function edit(Permission $permission)
     {
-        $this->authorizeRoleOrPermission('edit permissions');
+        $this->authorizeRoleOrPermission('update permissions');
         return view('admin.permissions.create', compact('permission'));
     }
 
     public function update(PermissionRequest $request, Permission $permission)
     {
-        $this->authorizeRoleOrPermission('edit permissions');
+        $this->authorizeRoleOrPermission('update permissions');
 
         $validated = $request->validationData();
         $permission->update($validated);
 
         return redirect()->route('admin.permissions.index')
-            ->with('success', 'دسترسی با موفقیت ویرایش شد.');
+            ->with('success', __('permission.permission_updated_success'));
     }
 
     public function destroy(Permission $permission)
@@ -62,6 +62,6 @@ class PermissionController extends Controller
         $permission->delete();
 
         return redirect()->route('admin.permissions.index')
-            ->with('success', 'دسترسی با موفقیت حذف شد.');
+            ->with('success', __('permission.permission_is_deleted_success'));
     }
 }

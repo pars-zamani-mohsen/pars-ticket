@@ -6,52 +6,50 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800<x-text-input " />
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-
-                <div class="py-3 space-x-8 sm:ms-10">
-                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <div class="hidden sm:flex sm:items-center sm:space-x-8 sm:space-x-reverse sm:ms-10">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('داشبورد') }}
-                    </x-responsive-nav-link>
-                </div>
+                    </x-nav-link>
 
-                <div class="py-3">
-                    <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.*')">
+                    <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.*')">
                         {{ __('تیکت ‌ها') }}
-                    </x-responsive-nav-link>
-                </div>
+                    </x-nav-link>
 
-                @role('super-admin')
-                <div class="py-3">
-                    <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
-                        {{ __('مدیریت کاربر ها') }}
-                    </x-responsive-nav-link>
-                </div>
+                    @can('show users')
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                            {{ __('مدیریت کاربر ها') }}
+                        </x-nav-link>
+                    @endcan
 
-                <div class="py-3">
-                    <x-responsive-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
-                        {{ __('مدیریت نقش ها') }}
-                    </x-responsive-nav-link>
-                </div>
+                    @can('show roles')
+                        <x-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
+                            {{ __('مدیریت نقش ها') }}
+                        </x-nav-link>
+                    @endcan
 
-                <div class="py-3">
-                    <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
-                        {{ __('مدیریت دسترسی‌ها') }}
-                    </x-responsive-nav-link>
+                    @can('show permissions')
+                        <x-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
+                            {{ __('مدیریت دسترسی‌ها') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('show logs')
+                        <x-nav-link :href="route('admin.activity-logs.index')" :active="request()->routeIs('admin.activity-logs.*')">
+                            {{ __('لاگ ها') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
-                @endrole
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class="relative" x-data="{ open: false }">
-                    <!-- Trigger Button -->
-                    <button @click="open = !open"
-                            type="button"
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                    <button @click="open = !open" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                         <div>{{ Auth::user()->name }}</div>
                         <div class="ms-1">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -60,7 +58,6 @@
                         </div>
                     </button>
 
-                    <!-- Dropdown Menu -->
                     <div x-show="open"
                          @click.outside="open = false"
                          x-transition:enter="transition ease-out duration-200"
@@ -71,18 +68,15 @@
                          x-transition:leave-end="transform opacity-0 scale-95"
                          class="absolute right-0 z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right bg-white ring-1 ring-black ring-opacity-5 py-1"
                          style="display: none;">
-
-                        <a href="{{ route('profile.edit') }}"
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                             پروفایل
                         </a>
 
-                        <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="{{ route('logout') }}"
-                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                               onclick="event.preventDefault(); this.closest('form').submit();">
+                               onclick="event.preventDefault(); this.closest('form').submit();"
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 خروج
                             </a>
                         </form>
@@ -106,30 +100,57 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('داشبورد') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.*')">
+                {{ __('تیکت ‌ها') }}
+            </x-responsive-nav-link>
+
+            @can('show users')
+                <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                    {{ __('مدیریت کاربر ها') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('show roles')
+                <x-responsive-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
+                    {{ __('مدیریت نقش ها') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('show permissions')
+                <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
+                    {{ __('مدیریت دسترسی‌ها') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('show logs')
+                <x-responsive-nav-link :href="route('admin.activity-logs.index')" :active="request()->routeIs('admin.activity-logs.*')">
+                    {{ __('لاگ ها') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800<x-text-input ">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('پروفایل') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                                           onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('خروج') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

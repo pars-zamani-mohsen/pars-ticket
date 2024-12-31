@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $this->authorizeRoleOrPermission('view roles');
+        $this->authorizeRoleOrPermission('show roles');
         $roles = GetList::handle();
         return view('admin.roles.index', compact('roles'));
     }
@@ -21,7 +21,11 @@ class RoleController extends Controller
     public function create()
     {
         $this->authorizeRoleOrPermission('create roles');
-        $permissions = Permission::all();
+
+        $permissions = Permission::all()->groupBy(function ($permission) {
+            return explode(' ', $permission->name)[0];
+        });
+
         return view('admin.roles.create', compact('permissions'));
     }
 
@@ -33,25 +37,29 @@ class RoleController extends Controller
         $role->syncPermissions($request->permissions);
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'نقش با موفقیت ایجاد شد.');
+            ->with('success', __('role.role_created_success'));
     }
 
     public function edit(Role $role)
     {
-        $this->authorizeRoleOrPermission('edit roles');
-        $permissions = Permission::all();
+        $this->authorizeRoleOrPermission('update roles');
+
+        $permissions = Permission::all()->groupBy(function ($permission) {
+            return explode(' ', $permission->name)[0];
+        });
+
         return view('admin.roles.create', compact('role', 'permissions'));
     }
 
     public function update(RoleRequest $request, Role $role)
     {
-        $this->authorizeRoleOrPermission('edit roles');
+        $this->authorizeRoleOrPermission('update roles');
 
         $role->update(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'نقش با موفقیت ویرایش شد.');
+            ->with('success', __('role.role_updated_success'));
     }
 
     public function destroy(Role $role)
@@ -61,6 +69,6 @@ class RoleController extends Controller
         $role->delete();
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'نقش با موفقیت حذف شد.');
+            ->with('success', __('role.role_deleted_success'));
     }
 }

@@ -18,27 +18,27 @@ class RolesAndPermissionsSeeder extends Seeder
         // ایجاد دسترسی‌ها
         $permissions = [
             // مدیریت کاربران
-            'view users',
+            'show users',
             'create users',
-            'edit users',
+            'update users',
             'delete users',
 
             // مدیریت نقش‌ها
-            'view roles',
+            'show roles',
             'create roles',
-            'edit roles',
+            'update roles',
             'delete roles',
 
             // مدیریت دسترسی‌ها
-            'view permissions',
+            'show permissions',
             'create permissions',
-            'edit permissions',
+            'update permissions',
             'delete permissions',
 
             // مدیریت تیکت ها
-            'view tickets',
+            'show tickets',
             'create tickets',
-            'edit tickets',
+            'update tickets',
             'delete tickets',
         ];
 
@@ -47,18 +47,20 @@ class RolesAndPermissionsSeeder extends Seeder
             Permission::updateOrCreate(['name' => $data['name']], $data);
         }
 
+        Role::updateOrCreate(['name' => 'disable']);
+
         // ایجاد نقش‌های پایه
         $role = Role::updateOrCreate(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
 
         $role = Role::updateOrCreate(['name' => 'admin']);
         $role->givePermissionTo([
-            'view users',
+            'show users',
             'create users',
-            'edit users',
-            'view roles',
-            'view permissions',
-            'view tickets',
+            'update tickets',
+            'show roles',
+            'show permissions',
+            'show tickets',
             'create tickets',
         ]);
 
@@ -66,9 +68,9 @@ class RolesAndPermissionsSeeder extends Seeder
             ['email' => 'superadmin@pars.com'],
             [
                 'name' => 'مدیر سیستم',
-                'email' => 'superadmin@pars.com',
+                'email' => config('pars-ticket.super_admin_user.username'),
                 'mobile' => '09011292890',
-                'password' => bcrypt('85gZ#X5&CE<W/j%UX)$C*p£')
+                'password' => bcrypt(config('pars-ticket.super_admin_user.password')),
             ]
         );
 

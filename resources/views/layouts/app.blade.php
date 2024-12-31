@@ -5,15 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ \App\Helpers\PageTitleHelper::title($title ?? null) }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/css.css?family=figtree:400,500,600&display=swap') }}" rel="stylesheet" />
+        <link href="{{ asset('css/Vazirmatn-font-face.css') }}" rel="stylesheet" type="text/css" />
         @stack('styles')
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="{{ asset('es/tailwindcss.3.4.16.es') }}"></script>
+        <script defer src="{{ asset('js/cdn.min.js.js') }}"></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -30,6 +30,33 @@
                     </div>
                 </header>
             @endif
+
+            <div class="container mx-auto px-4 mt-4">
+                @if(session()->has('success'))
+                    <x-alert type="success" :message="session('success')" />
+                @endif
+
+                @if(session()->has('error'))
+                    <x-alert type="error" :message="session('error')" />
+                @endif
+
+                @if(session()->has('warning'))
+                    <x-alert type="warning" :message="session('warning')" />
+                @endif
+
+                @if(session()->has('info'))
+                    <x-alert type="info" :message="session('info')" />
+                @endif
+
+                <!-- نمایش خطاهای validation -->
+                @if($errors->any())
+                    <div class="space-y-2">
+                        @foreach($errors->all() as $error)
+                            <x-alert type="error" :message="$error" />
+                        @endforeach
+                    </div>
+                @endif
+            </div>
 
             <!-- Page Content -->
             <main>

@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageNotificationEvent;
 use App\Http\Requests\MessageRequest;
+use App\Models\Message;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Stevebauman\Purify\Facades\Purify;
 
 class MessageController extends Controller
 {
     public function store(MessageRequest $request, Ticket $ticket)
     {
+        $this->authorize('create', [Message::class, $ticket]);
+
         $message = $ticket->messages()->create([
-            'message' => $request->message,
+            'message' => Purify::clean($request->message),
             'user_id' => auth()->id(),
         ]);
 
@@ -27,17 +30,10 @@ class MessageController extends Controller
             }
         }
 
-        return back()->with('success', 'پیام با موفقیت ارسال شد.');
-    }
+        if (auth()->id() != $ticket->user_id) {
+            event(new MessageNotificationEvent($ticket));
+        }
 
-    public function destroy(Request $request, Media $media)
-    {
-        $this->authorizeRoleOrPermission('delete ticket file');
-
-        $media->delete();
-
-        return response()->json([
-            'message' => 'فایل با موفقیت حذف شد'
-        ]);
+        return back()->with('success', __('ticket.message_reply_success'));
     }
 }

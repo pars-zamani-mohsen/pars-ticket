@@ -8,15 +8,17 @@
         "php": "^8.1",
         "coderflex/laravel-ticket": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
-        "hekmatinasser/verta": "^8.4",
+        "kavenegar/php": "^1.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "morilog/jalali": "3.*",
         "predis/predis": "^2.0",
         "spatie/laravel-activitylog": "^4.9",
         "spatie/laravel-medialibrary": "^11.11",
         "spatie/laravel-permission": "^6.10",
-        "spatie/laravel-query-builder": "^6.2"
+        "spatie/laravel-query-builder": "^6.2",
+        "stevebauman/purify": "^6.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
@@ -35,7 +37,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/PageTitleHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TicketTablesSeeder::class,
             RolesAndPermissionsSeeder::class,
+            CustomPermissionsSeeder::class,
             OperatorRoleSeeder::class,
-            DeleteFilePermissionSeeder::class,
         ]);
     }
 }

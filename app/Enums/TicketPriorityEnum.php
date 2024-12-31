@@ -16,9 +16,9 @@ enum TicketPriorityEnum: string
     public function getLabel(): string
     {
         return match ($this) {
-            self::LOW => 'کم',
-            self::NORMAL => 'متوسط',
-            self::HIGH => 'زیاد',
+            self::LOW => __('ticket.low_value'),
+            self::NORMAL => __('ticket.normal'),
+            self::HIGH => __('ticket.high_value'),
         };
     }
 
